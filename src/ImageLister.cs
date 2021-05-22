@@ -17,11 +17,11 @@ namespace gInk
     {
         Root Root;
         public Point[] ImgSizes = new Point[100]; // I wanted to use the tag, but for an unknown reason it affects image display in dialogbox....
-        public int ImageStampFilling=-1;
+        public int ImageStampFilling = -1;
         public string ImageStamp;
         public int ImgSizeX = -1;
         public int ImgSizeY = -1;
-        public Dictionary<string,Image> Originals = new Dictionary<string, Image>();
+        public Dictionary<string, Image> Originals = new Dictionary<string, Image>();
 
         public ImageLister(Root rt)
         {
@@ -34,12 +34,12 @@ namespace gInk
             CancelBtn.Text = Root.Local.ButtonCancelText;
             FromClpBtn.Text = Root.Local.ButtonFromClipBText;
             LoadImageBtn.Text = Root.Local.ButtonLoadImageText;
-            DelBtn.Text = Root.Local.ButtonDeleteText;        
+            DelBtn.Text = Root.Local.ButtonDeleteText;
             FillingCombo.Items.Clear();
             FillingCombo.Items.AddRange(Root.Local.ListFillingsText.Split(';'));
             FillingCombo.Text = (string)FillingCombo.Items[Root.ImageStampFilling + 1];
             AutoCloseCb.Text = Root.Local.CheckBoxAutoCloseText;
-            for (int i=0;i<Root.StampFileNames.Count;i++)
+            for (int i = 0; i < Root.StampFileNames.Count; i++)
             {
                 try
                 {
@@ -55,10 +55,10 @@ namespace gInk
                 }
                 catch
                 {
-                    MessageBox.Show("Error Loading ClipArt image:\n" + Root.StampFileNames[i],"ppInk", MessageBoxButtons.OK,MessageBoxIcon.Error );
+                    MessageBox.Show("Error Loading ClipArt image:\n" + Root.StampFileNames[i], "ppInk", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            ImageListViewer.LargeImageList.ImageSize = new Size(Root.StampSize , Root.StampSize);
+            ImageListViewer.LargeImageList.ImageSize = new Size(Root.StampSize, Root.StampSize);
             ImageListViewer.Select();
         }
 
@@ -77,7 +77,7 @@ namespace gInk
 
         private void FromClipB_Click(object sender, EventArgs e)
         {
-            Bitmap img=null;
+            Bitmap img = null;
             if (Clipboard.GetDataObject().GetDataPresent(DataFormats.Dib))
             {
                 var dib = ((System.IO.MemoryStream)Clipboard.GetData(DataFormats.Dib)).ToArray();
@@ -115,19 +115,19 @@ namespace gInk
                 img.MakeTransparent(img.GetPixel(0, 0));
                 Console.WriteLine("transp " + img.PixelFormat.ToString());
             }
-            string st = "ClipBoard"+ImageListViewer.Items.Count.ToString();
-            ImageListViewer.Items.Add(new ListViewItem("Clipboard",st));
-            ImageListViewer.LargeImageList.Images.Add(st,img);
+            string st = "ClipBoard" + ImageListViewer.Items.Count.ToString();
+            ImageListViewer.Items.Add(new ListViewItem("Clipboard", st));
+            ImageListViewer.LargeImageList.Images.Add(st, img);
             int j = ImageListViewer.LargeImageList.Images.IndexOfKey(st);
-            Originals.Add(st, (Image)(img.Clone())); 
+            Originals.Add(st, (Image)(img.Clone()));
             ImgSizes[j].X = img.Width;
             ImgSizes[j].Y = img.Height;
-            ImageListViewer.Items[ImageListViewer.Items.Count-1].EnsureVisible();
+            ImageListViewer.Items[ImageListViewer.Items.Count - 1].EnsureVisible();
             ImageListViewer.SelectedIndices.Clear();
             ImageListViewer.SelectedIndices.Add(ImageListViewer.Items.Count - 1);
             ImageListViewer.Select();
         }
-        
+
         private void LoadImageBtn_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -139,7 +139,7 @@ namespace gInk
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //Get the path of specified file
-                    String fn = openFileDialog.FileName;
+                    string fn = openFileDialog.FileName;
 
                     ImageListViewer.Items.Add(new ListViewItem(Path.GetFileNameWithoutExtension(fn), fn));
                     Image img = Image.FromFile(fn);
@@ -178,8 +178,8 @@ namespace gInk
                 ImgSizeX = ImgSizes[ImageListViewer.LargeImageList.Images.IndexOfKey(ImageStamp)].X;
                 ImgSizeY = ImgSizes[ImageListViewer.LargeImageList.Images.IndexOfKey(ImageStamp)].Y;
                 DialogResult = DialogResult.OK;
-                
-                if(AutoCloseCb.Checked)
+
+                if (AutoCloseCb.Checked)
                     Close();
             }
             catch
@@ -195,9 +195,9 @@ namespace gInk
 
         private void ImageLister_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == (Keys.Control|Keys.V))
+            if (e.KeyData == (Keys.Control | Keys.V))
             {
-                e.SuppressKeyPress  = true;
+                e.SuppressKeyPress = true;
                 FromClipB_Click(null, null);
             }
         }

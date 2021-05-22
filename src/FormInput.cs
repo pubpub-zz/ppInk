@@ -22,10 +22,10 @@ namespace gInk
         bool Saved_Black;
 
 
-        public FormInput(string caption,string label, string txt, bool ML, gInk.Root rt = null, Microsoft.Ink.Stroke stk = null)
+        public FormInput(string caption, string label, string txt, bool ML, gInk.Root rt = null, Microsoft.Ink.Stroke stk = null)
         {
             InitializeComponent();
-            
+
             // local
             this.btOK.Text = rt.Local.ButtonOkText;
             this.btCancel.Text = rt.Local.ButtonCancelText;
@@ -83,9 +83,9 @@ namespace gInk
         public void TextIn(string txt)
         {
             if (InputML.Visible)
-                InputML.Text=txt;
+                InputML.Text = txt;
             else
-                InputSL.Text=txt;
+                InputSL.Text = txt;
         }
 
         public string TextOut()
@@ -103,9 +103,9 @@ namespace gInk
                 stroke.ExtendedProperties.Add(Root.TEXTFONT_GUID, FontDlg.Font.Name);
                 stroke.ExtendedProperties.Add(Root.TEXTFONTSIZE_GUID, (float)FontDlg.Font.Size);
                 stroke.ExtendedProperties.Add(Root.TEXTFONTSTYLE_GUID, FontDlg.Font.Style);
-                string st=InputML.Text;
+                string st = InputML.Text;
                 // to run event for refresh
-                InputML.Text = "";InputML.Text = st;
+                InputML.Text = ""; InputML.Text = st;
             }
         }
 
@@ -129,7 +129,7 @@ namespace gInk
             if (t.Length == 0) t = " ";
             stroke.ExtendedProperties.Remove(Root.TEXT_GUID);
             stroke.ExtendedProperties.Add(Root.TEXT_GUID, t);
-            if(!stroke.ExtendedProperties.Contains(Root.ISTAG_GUID))
+            if (!stroke.ExtendedProperties.Contains(Root.ISTAG_GUID))
                 Root.FormCollection.ComputeTextBoxSize(ref stroke);
             Root.FormDisplay.ClearCanvus();
             Root.FormDisplay.DrawStrokes();
@@ -148,7 +148,7 @@ namespace gInk
 
         private void btCancel_Click(object sender, EventArgs e)
         {
-            if(stroke != null )
+            if (stroke != null)
             {
                 InputML.Text = Saved_Txt;
                 stroke.ExtendedProperties.Add(Root.TEXTFONT_GUID, Saved_Font.Name);
@@ -169,7 +169,7 @@ namespace gInk
                 else if (Saved_White)
                 {
                     try { stroke.ExtendedProperties.Remove(Root.ISFILLEDBLACK_GUID); } catch { }
-                stroke.ExtendedProperties.Add(Root.ISFILLEDWHITE_GUID, true);
+                    stroke.ExtendedProperties.Add(Root.ISFILLEDWHITE_GUID, true);
                 }
                 else
                 {
@@ -182,7 +182,7 @@ namespace gInk
         private void boxingCb_TextChanged(object sender, EventArgs e)
         {
             int i = boxingCb.Items.IndexOf(boxingCb.Text);
-            if ((i&1)!=0)
+            if ((i & 1) != 0)
                 stroke.ExtendedProperties.Add(Root.ISSTROKE_GUID, true);
             else
                 try { stroke.ExtendedProperties.Remove(Root.ISSTROKE_GUID); } catch { }
@@ -209,10 +209,10 @@ namespace gInk
 
         private void FormInput_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.Control && (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return ))
+            if (e.Control && (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return))
             {
                 this.DialogResult = DialogResult.OK;
-                this.Close();                
+                this.Close();
             }
         }
     }

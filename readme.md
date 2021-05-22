@@ -1,3 +1,12 @@
+# Changes of this fork (https://github.com/jorgecc/ppInk-1)
+
+* 2021-05-22
+* It adds a feature to clean the canvas every time we hide our pencil. By default, this
+feature is off.
+* In the options windows, it adds a new tab to configure this value.
+* Root.cs lots of cleanups (Microsoft suggesting of style of code)
+
+
  #### Introduction
 
 ppInk is an on-screen annotation software under Windows, forked from gInk.
@@ -236,5 +245,9 @@ Weizhi Nai \@ 2019
 ppInk
 https://github.com/pubpub-zz/ppInk
 Pubpub-ZZ \@ 2020
+
+
+
+
 
 

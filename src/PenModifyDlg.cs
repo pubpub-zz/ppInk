@@ -20,14 +20,14 @@ namespace gInk
             CancelBtn.Text = Root.Local.ButtonCancelText;
         }
 
-        public void setColor(int alpha,Color c)
+        public void setColor(int alpha, Color c)
         {
-            colorEditorManager.Color = Color.FromArgb(255-alpha, c);
+            colorEditorManager.Color = Color.FromArgb(255 - alpha, c);
         }
 
         public int getAlpha()
         {
-            return 255-colorEditorManager.Color.A;
+            return 255 - colorEditorManager.Color.A;
         }
 
         public Color getColor()
@@ -37,12 +37,12 @@ namespace gInk
 
         public void setWidth(float w)
         {
-            pboxPenWidthIndicator.Left = (int)(Math.Sqrt(w / 1250)* 200);
+            pboxPenWidthIndicator.Left = (int)(Math.Sqrt(w / 1250) * 200);
         }
 
         public float getWidth()
         {
-            double f = (pboxPenWidthIndicator.Left/ 200.0);
+            double f = (pboxPenWidthIndicator.Left / 200.0);
             return (float)(f * f * 1250);
         }
 
@@ -86,10 +86,10 @@ namespace gInk
         {
             if (!gpPenWidth_MouseOn)
                 return;
-            if (e.X < pboxPenWidthIndicator.Width/2)
+            if (e.X < pboxPenWidthIndicator.Width / 2)
                 pboxPenWidthIndicator.Left = 0;
-            else if (e.X > (gpPenWidth.Width - pboxPenWidthIndicator.Width/2))
-                pboxPenWidthIndicator.Left = (gpPenWidth.Width - pboxPenWidthIndicator.Width/2);
+            else if (e.X > (gpPenWidth.Width - pboxPenWidthIndicator.Width / 2))
+                pboxPenWidthIndicator.Left = (gpPenWidth.Width - pboxPenWidthIndicator.Width / 2);
             else
                 pboxPenWidthIndicator.Left = e.X - pboxPenWidthIndicator.Width / 2;
         }
@@ -118,7 +118,7 @@ namespace gInk
 
         private void colorEditorManager_ColorChanged(object sender, EventArgs e)
         {
-           gpPenWidth.BackColor = colorEditorManager.Color;
+            gpPenWidth.BackColor = colorEditorManager.Color;
         }
     }
 }

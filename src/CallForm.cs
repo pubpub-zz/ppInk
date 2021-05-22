@@ -33,12 +33,12 @@ namespace gInk
                     AltTabPressed = 10;
             }
             else
-                AltTabPressed = AltTabPressed>0? AltTabPressed-1:0;
+                AltTabPressed = AltTabPressed > 0 ? AltTabPressed - 1 : 0;
         }
 
         private void CallForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar=='\n' || e.KeyChar==' ')
+            if (e.KeyChar == '\n' || e.KeyChar == ' ')
                 Root.callshortcut();
         }
 
@@ -50,7 +50,7 @@ namespace gInk
                 return;
             }
             Console.WriteLine(AltTabPressed);
-            if (AltTabPressed>0)
+            if (AltTabPressed > 0)
                 Root.callshortcut();
         }
 

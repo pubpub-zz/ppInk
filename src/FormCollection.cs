@@ -4105,6 +4105,7 @@ namespace gInk
             }
             else
             {
+                tempArrowCursor = null;
                 SelectPen(LastPenSelected);
                 if (SavedTool == Tools.Invalid)
                     SavedTool = Tools.Hand;

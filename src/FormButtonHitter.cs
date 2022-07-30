@@ -58,9 +58,9 @@ namespace gInk
                 }
                 // Console.WriteLine(DateTime.Now.ToString() + " !msgH " + msg.Msg.ToString()+" - "+ msg.WParam.ToString());
                 Form f = Control.FromHandle(msg.LParam) as Form;
-                if (DateTime.Now < Root.PointerChangeDate || (msg.WParam == IntPtr.Zero && msg.LParam != IntPtr.Zero && f!=null && f?.CompanyName != CompanyName))
+                if (DateTime.Now < Root.PointerChangeDate || (msg.WParam == IntPtr.Zero && msg.LParam == IntPtr.Zero) || (msg.WParam == IntPtr.Zero && msg.LParam != IntPtr.Zero && f!=null && f?.CompanyName != CompanyName))
                     return;
-                if(Root.PointerMode)
+                if (Root.PointerMode)
                 {
                     //Console.WriteLine("activating from hitter " + (Root.PointerMode ? "pointer" : "not") + (Root.Docked ? "docked" : "not"));
                     Root.FormCollection.AltTabActivate();

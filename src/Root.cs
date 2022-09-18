@@ -2229,7 +2229,7 @@ namespace gInk
                             sPara = SpotLightColor.A.ToString() + "," + SpotLightColor.R.ToString() + "," + SpotLightColor.G.ToString() + "," + SpotLightColor.B.ToString();
                             break;
                         case "SPOT_RADIUS":
-                            sPara = (SpotLightRadius / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString(CultureInfo.InvariantCulture);
+                            sPara = ((1.0*SpotLightRadius) / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString(CultureInfo.InvariantCulture);
                             break;
                         case "SPOT_ON_ALT":
                             sPara = SpotOnAlt ? "True" : "False";
@@ -2296,15 +2296,15 @@ namespace gInk
                             break;
                         case "IMAGESTAMP1":
                             sPara = MakeRelativePath(Global.ProgramFolder, ImageStamp1.ImageStamp).Replace('\\', '/') + ";" + ImageStamp1.Wstored.ToString() + ";" + ImageStamp1.Hstored.ToString() + ";" 
-                                                        + Fill2Str(ImageStamp1.Filling) + ";" + (ImageStamp1.PatternLine ? "Line;"+ImageStamp1.Distance.ToString() : "Point");
+                                                        + Fill2Str(ImageStamp1.Filling) + ";" + (ImageStamp1.PatternLine ? "Line;"+ImageStamp1.Distance.ToString(CultureInfo.InvariantCulture) : "Point");
                             break;
                         case "IMAGESTAMP2":
                             sPara = MakeRelativePath(Global.ProgramFolder, ImageStamp2.ImageStamp).Replace('\\', '/') + ";" + ImageStamp2.Wstored.ToString() + ";" + ImageStamp2.Hstored.ToString() + ";" 
-                                                        + Fill2Str(ImageStamp2.Filling) + ";" + (ImageStamp2.PatternLine ? "Line;" + ImageStamp2.Distance.ToString() : "Point");
+                                                        + Fill2Str(ImageStamp2.Filling) + ";" + (ImageStamp2.PatternLine ? "Line;" + ImageStamp2.Distance.ToString(CultureInfo.InvariantCulture) : "Point");
                             break;
                         case "IMAGESTAMP3":
                             sPara = MakeRelativePath(Global.ProgramFolder, ImageStamp3.ImageStamp).Replace('\\', '/') + ";" + ImageStamp3.Wstored.ToString() + ";" + ImageStamp3.Hstored.ToString() + ";" 
-                                                        + Fill2Str(ImageStamp3.Filling) + ";" + (ImageStamp3.PatternLine ? "Line;" + ImageStamp3.Distance.ToString() : "Point");
+                                                        + Fill2Str(ImageStamp3.Filling) + ";" + (ImageStamp3.PatternLine ? "Line;" + ImageStamp3.Distance.ToString(CultureInfo.InvariantCulture) : "Point");
                             break;
                         case "ARROW_HEAD":
                             if (!ArrowHeadAlreadyFilled)

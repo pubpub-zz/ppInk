@@ -133,6 +133,7 @@ namespace gInk
         public string OptionsGeneralLanguage;
         public string OptionsGeneralToolBarColorText;
         public string OptionsGeneralAltTabActivateText;
+        public string OptionsGeneralUnDockedInPointerText;
         public string OptionsGeneralToolbarHeight;
 
         public string OptionsGeneralCanvascursor;

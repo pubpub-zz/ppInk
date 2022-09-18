@@ -229,6 +229,8 @@ namespace gInk
             this.cbWhiteIcon = new System.Windows.Forms.CheckBox();
             this.tbSnapPath = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.KeepUnfoldedPointerCb = new System.Windows.Forms.CheckBox();
+            this.StartFoldedCb = new System.Windows.Forms.CheckBox();
             this.tbSnapFileTemplate = new System.Windows.Forms.TextBox();
             this.MagnetAngleEd = new System.Windows.Forms.TextBox();
             this.SpotLightBox = new System.Windows.Forms.GroupBox();
@@ -297,7 +299,6 @@ namespace gInk
             this.FadingTimeEd = new System.Windows.Forms.TextBox();
             this.WidthAtPenSelCb = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.StartFoldedCb = new System.Windows.Forms.CheckBox();
             this.tabPage3.SuspendLayout();
             this.SnapInPointerGrp.SuspendLayout();
             this.DashStyleGrp.SuspendLayout();
@@ -1859,7 +1860,7 @@ namespace gInk
             this.ZoomBox.Controls.Add(this.ZoomHeightEd);
             this.ZoomBox.Controls.Add(this.label1);
             this.ZoomBox.Controls.Add(this.ZoomWidthEd);
-            this.ZoomBox.Location = new System.Drawing.Point(458, 388);
+            this.ZoomBox.Location = new System.Drawing.Point(458, 391);
             this.ZoomBox.Name = "ZoomBox";
             this.ZoomBox.Size = new System.Drawing.Size(174, 62);
             this.ZoomBox.TabIndex = 46;
@@ -1963,7 +1964,7 @@ namespace gInk
             // AltTabActivateCb
             // 
             this.AltTabActivateCb.AutoSize = true;
-            this.AltTabActivateCb.Location = new System.Drawing.Point(458, 365);
+            this.AltTabActivateCb.Location = new System.Drawing.Point(458, 373);
             this.AltTabActivateCb.Name = "AltTabActivateCb";
             this.AltTabActivateCb.Size = new System.Drawing.Size(230, 17);
             this.AltTabActivateCb.TabIndex = 37;
@@ -2181,6 +2182,7 @@ namespace gInk
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tabPage1.Controls.Add(this.KeepUnfoldedPointerCb);
             this.tabPage1.Controls.Add(this.StartFoldedCb);
             this.tabPage1.Controls.Add(this.tbSnapFileTemplate);
             this.tabPage1.Controls.Add(this.MagnetAngleEd);
@@ -2249,6 +2251,28 @@ namespace gInk
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             // 
+            // KeepUnfoldedPointerCb
+            // 
+            this.KeepUnfoldedPointerCb.AutoSize = true;
+            this.KeepUnfoldedPointerCb.Location = new System.Drawing.Point(458, 355);
+            this.KeepUnfoldedPointerCb.Name = "KeepUnfoldedPointerCb";
+            this.KeepUnfoldedPointerCb.Size = new System.Drawing.Size(209, 17);
+            this.KeepUnfoldedPointerCb.TabIndex = 65;
+            this.KeepUnfoldedPointerCb.Text = "Keep Toolbar unfolded in pointer mode";
+            this.KeepUnfoldedPointerCb.UseVisualStyleBackColor = true;
+            this.KeepUnfoldedPointerCb.CheckedChanged += new System.EventHandler(this.KeepUnfoldedPointerCb_CheckedChanged);
+            // 
+            // StartFoldedCb
+            // 
+            this.StartFoldedCb.AutoSize = true;
+            this.StartFoldedCb.Location = new System.Drawing.Point(458, 202);
+            this.StartFoldedCb.Name = "StartFoldedCb";
+            this.StartFoldedCb.Size = new System.Drawing.Size(137, 17);
+            this.StartFoldedCb.TabIndex = 64;
+            this.StartFoldedCb.Text = "Start with toolbar folded";
+            this.StartFoldedCb.UseVisualStyleBackColor = true;
+            this.StartFoldedCb.CheckedChanged += new System.EventHandler(this.StartFoldedCb_CheckedChanged);
+            // 
             // tbSnapFileTemplate
             // 
             this.tbSnapFileTemplate.Location = new System.Drawing.Point(341, 178);
@@ -2275,7 +2299,7 @@ namespace gInk
             this.SpotLightBox.Controls.Add(this.SpotRadTb);
             this.SpotLightBox.Controls.Add(this.SpotRadLbl);
             this.SpotLightBox.Controls.Add(this.SpotColorPnl);
-            this.SpotLightBox.Location = new System.Drawing.Point(644, 388);
+            this.SpotLightBox.Location = new System.Drawing.Point(644, 391);
             this.SpotLightBox.Name = "SpotLightBox";
             this.SpotLightBox.Size = new System.Drawing.Size(120, 62);
             this.SpotLightBox.TabIndex = 59;
@@ -2946,17 +2970,6 @@ namespace gInk
             this.WidthAtPenSelCb.UseVisualStyleBackColor = true;
             this.WidthAtPenSelCb.CheckedChanged += new System.EventHandler(this.WidthAtPenSelCb_CheckedChanged);
             // 
-            // StartFoldedCb
-            // 
-            this.StartFoldedCb.AutoSize = true;
-            this.StartFoldedCb.Location = new System.Drawing.Point(458, 202);
-            this.StartFoldedCb.Name = "StartFoldedCb";
-            this.StartFoldedCb.Size = new System.Drawing.Size(137, 17);
-            this.StartFoldedCb.TabIndex = 64;
-            this.StartFoldedCb.Text = "Start with toolbar folded";
-            this.StartFoldedCb.UseVisualStyleBackColor = true;
-            this.StartFoldedCb.CheckedChanged += new System.EventHandler(this.StartFoldedCb_CheckedChanged);
-            // 
             // FormOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3236,5 +3249,6 @@ namespace gInk
         private System.Windows.Forms.TextBox tbSnapFileTemplate;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.CheckBox StartFoldedCb;
+        private System.Windows.Forms.CheckBox KeepUnfoldedPointerCb;
     }
 }

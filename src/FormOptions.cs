@@ -159,6 +159,7 @@ namespace gInk
             SwapSnapsBehviorsCb.Checked = !Root.SwapSnapsBehaviors;
 
             AltTabActivateCb.Checked = Root.AltTabPointer;
+            KeepUnfoldedPointerCb.Checked = Root.KeepUnDockedAtPointer;
 
             MeasureEnabledCb.Checked = Root.MeasureEnabled;
             Measure2ScaleEd.Text = Root.Measure2Scale.ToString();
@@ -381,6 +382,7 @@ namespace gInk
             this.ToolBarColorLbl.Text = Root.Local.OptionsGeneralToolBarColorText;
             this.ClipartsSelBtn.Text = shortTxt(Root.Local.ButtonNameClipArt);
             this.AltTabActivateCb.Text = Root.Local.OptionsGeneralAltTabActivateText;
+            this.KeepUnfoldedPointerCb.Text = Root.Local.OptionsGeneralUnDockedInPointerText;
             this.lblToolbarHeight.Text = Root.Local.OptionsGeneralToolbarHeight;
 			this.lbLanguage.Text = Root.Local.OptionsGeneralLanguage;
 			this.lbCanvascursor.Text = Root.Local.OptionsGeneralCanvascursor;
@@ -1442,6 +1444,11 @@ namespace gInk
         private void StartFoldedCb_CheckedChanged(object sender, EventArgs e)
         {
             Root.KeepDockedAtOpen = StartFoldedCb.Checked;
+        }
+
+        private void KeepUnfoldedPointerCb_CheckedChanged(object sender, EventArgs e)
+        {
+            Root.KeepUnDockedAtPointer = KeepUnfoldedPointerCb.Checked;
         }
     }
 }

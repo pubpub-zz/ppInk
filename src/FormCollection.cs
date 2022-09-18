@@ -4098,7 +4098,7 @@ namespace gInk
                 SavedFilled = Root.FilledSelected;
                 SelectPen(-2);
                 PointerModeSnaps.Clear();
-                if (Root.AltTabPointer)
+                if (Root.AltTabPointer && !Root.KeepUnDockedAtPointer)
                 {
                     Root.Dock();
                 }

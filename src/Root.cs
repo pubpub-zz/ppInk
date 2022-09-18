@@ -218,6 +218,7 @@ namespace gInk
         public string CloseOnSnap = "blankonly";
         public bool AlwaysHideToolbar = false;
         public bool KeepDockedAtOpen = false;
+        public bool KeepUnDockedAtPointer = false;
         public float ToolbarHeight = 0.06f;
         public int AltAsOneCommand = 2;
 
@@ -1398,7 +1399,10 @@ namespace gInk
                             if (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON")
                                 KeepDockedAtOpen = true;                           
 							break;
-						case "UNDO_ICON":
+                        case "TOOLBAR_UNDOCKED_AT_POINTER":
+                            KeepUnDockedAtPointer = (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON");
+                            break;
+                        case "UNDO_ICON":
 							if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
 								UndoEnabled = false;
 							break;
@@ -2147,7 +2151,10 @@ namespace gInk
                         case "TOOLBAR_DOCKED_AT_OPEN":
                             sPara = KeepDockedAtOpen ? "True" : "False";
 							break;
-						case "UNDO_ICON":
+                        case "TOOLBAR_UNDOCKED_AT_POINTER":
+                            sPara = KeepUnDockedAtPointer ? "True" : "False";
+                            break;
+                        case "UNDO_ICON":
 							if (UndoEnabled)
 								sPara = "True";
 							else

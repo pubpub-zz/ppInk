@@ -498,7 +498,11 @@ namespace gInk
                     }
                     if (st.ExtendedProperties.Contains(Root.ARROWEND_GUID))
                     {
-                        Point pt = new Point((int)st.ExtendedProperties[Root.ARROWEND_X_GUID].Data, (int)st.ExtendedProperties[Root.ARROWEND_Y_GUID].Data);
+                        Point pt;
+                        if ((int)st.ExtendedProperties[Root.ARROWEND_X_GUID].Data != Int32.MinValue)
+                            pt = new Point((int)st.ExtendedProperties[Root.ARROWEND_X_GUID].Data, (int)st.ExtendedProperties[Root.ARROWEND_Y_GUID].Data);
+                        else
+                            pt = new Point((int)st.ExtendedProperties[Root.ARROWSTART_X_GUID].Data, (int)st.ExtendedProperties[Root.ARROWSTART_Y_GUID].Data);                                           
                         Bitmap b = Root.FormCollection.StoredArrowImages[(int)st.ExtendedProperties[Root.ARROWEND_GUID].Data];
                         pt.Offset(-b.Width / 2, -b.Height / 2);
                         g.DrawImage(b, new Rectangle(pt.X, pt.Y, b.Width, b.Height));

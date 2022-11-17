@@ -198,7 +198,7 @@ namespace gInk
 
             SpotColorPnl.BackColor = Root.SpotLightColor;
             SpotOnAltCb.Checked = Root.SpotOnAlt;
-            SpotRadTb.Text = (Root.SpotLightRadius / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString("#0.00", CultureInfo.InvariantCulture);
+            SpotRadTb.Text = (Root.SpotLightRadius / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString("#0.0", CultureInfo.InvariantCulture);
 
             CaptStrokesOnlyCb.Checked = Root.StrokesOnlySnapshot;
 
@@ -1343,7 +1343,7 @@ namespace gInk
 
         private void SpotRadTb_Validated(object sender, EventArgs e)
         {
-            Root.SpotLightRadius = (int)(float.Parse(SpotRadTb.Text)/100.0F*System.Windows.SystemParameters.PrimaryScreenWidth);
+            Root.SpotLightRadius = (int)(float.Parse(SpotRadTb.Text, CultureInfo.InvariantCulture) /100.0F*System.Windows.SystemParameters.PrimaryScreenWidth);
         }
 
         private void NewArrowEditBtn_Click(object sender, EventArgs e)

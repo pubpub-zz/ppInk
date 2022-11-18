@@ -246,7 +246,17 @@ namespace gInk
             if (!fn.Contains("/"))
                 try
                 {
-                    fn = ImageListViewer.FindItemWithText(fn).ImageKey;
+                    //no more working in W11??? fn = ImageListViewer.FindItemWithText(fn).ImageKey;
+                    //replace with manual scan that should be ok for W11 and W10
+                    string rst = "";
+                    foreach(ListViewItem it in ImageListViewer.Items)
+                    {
+                        if(it.ImageKey == fn || it.Text == fn || it.Name == fn)
+                        {
+                            rst = it.ImageKey;
+                        }
+                    }
+                    fn = rst;
                 }
                 catch
                 {

@@ -114,6 +114,7 @@ namespace gInk
         private int PolyLineLastX = Int32.MinValue;
         private int PolyLineLastY = Int32.MinValue;
         private Stroke PolyLineInProgress = null;
+        private bool FromHandToLineOnShift = false;
 
         public bool SnapWithoutClosing = false;
 
@@ -5277,7 +5278,19 @@ namespace gInk
                 }
                 LastHandStatus = pressed;
 
+                // if shift is pressed in handtool we go to line tool temporaly
                 pressed = (GetKeyState(Root.Hotkey_Line.Key) & 0x8000) == 0x8000;
+                if (Root.ToolSelected == Tools.Hand && (GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0)
+                {
+                    btTool_Click(btLine, null);
+                    FromHandToLineOnShift = true;
+                }
+                if (FromHandToLineOnShift && (GetAsyncKeyState(VK_SHIFT) & 0x8000) == 0)
+                {
+                    btTool_Click(btHand, null);
+                    FromHandToLineOnShift = false;
+                }
+
                 if (pressed && !LastLineStatus && Root.Hotkey_Line.ModifierMatch(control, alt, shift, win))
                 {
                     btTool_Click(btLine, null);

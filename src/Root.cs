@@ -2237,7 +2237,6 @@ namespace gInk
                             break;
                         case "SPOT_RADIUS":
                             sPara = ((1.0*SpotLightRadius) / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString(CultureInfo.InvariantCulture);
-                            MessageBox.Show(string.Format("{0} / {1} = {2}", SpotLightRadius, System.Windows.SystemParameters.PrimaryScreenWidth, sPara));
                             break;
                         case "SPOT_ON_ALT":
                             sPara = SpotOnAlt ? "True" : "False";

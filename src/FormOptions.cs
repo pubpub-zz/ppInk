@@ -649,15 +649,11 @@ namespace gInk
                 Root.SetHotkey();
             }
             catch { }
-            try
+            if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (e.CloseReason == CloseReason.UserClosing)
-                {
-                    e.Cancel = true;
-                    Hide();
-                }
+                e.Cancel = true;
+                Hide();
             }
-            catch { }
             GC.Collect();
         }
 
@@ -1098,6 +1094,10 @@ namespace gInk
             Root.SetHotkey();
         }
 
+        private void FormOptions_Leave(object sender, EventArgs e)
+        {
+        }
+
         private void cbAllowHotkeyInPointer_CheckedChanged(object sender, EventArgs e)
 		{
 			Root.AllowHotkeyInPointerMode = cbAllowHotkeyInPointer.Checked;
@@ -1451,7 +1451,6 @@ namespace gInk
         {
             Root.KeepUnDockedAtPointer = KeepUnfoldedPointerCb.Checked;
         }
-
-   }
+    }
 }
  

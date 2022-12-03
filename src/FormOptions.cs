@@ -1355,6 +1355,7 @@ namespace gInk
         private void MagnetAngleEd_Validated(object sender, EventArgs e)
         {
             Root.MagneticAngle = float.Parse(MagnetAngleEd.Text);
+            Root.MagneticAngleTolerance = Root.MagneticAngle * (Root.MagneticAngleTolRatio);
         }
 
 

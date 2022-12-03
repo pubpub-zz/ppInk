@@ -325,6 +325,8 @@ namespace gInk
         public int MagneticRadius= MIN_MAGNETIC;        // Magnet Radius; <=0 means off;
         public int MinMagneticRadius() { return Math.Max(Math.Abs(MagneticRadius), MIN_MAGNETIC); }
         public float MagneticAngle = 15.0F;
+        public float MagneticAngleTolRatio  = 0.2F;
+        public float MagneticAngleTolerance = 15.0F *.2F;
 
         public Stroke StrokeHovered;            // contains the "selection" for edit/move/copy/erase else is null
         public Pen SelectionFramePen = new Pen(Color.Red, 1);
@@ -1335,8 +1337,14 @@ namespace gInk
                             else if (float.TryParse(sPara, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempf))
                                 MagneticRadius = (int)(tempf / 100.0 * System.Windows.SystemParameters.PrimaryScreenWidth);
                             break;
+                        case "MAGNETIC_ANGLE_TOLERANCE": 
+                            float.TryParse(sPara, out MagneticAngleTolRatio);
+                            MagneticAngleTolRatio = MagneticAngleTolRatio / 100.0F;
+                            MagneticAngleTolerance = MagneticAngle * MagneticAngleTolRatio;
+                            break;                            
                         case "MAGNETIC_ANGLE":
                             float.TryParse(sPara, out MagneticAngle);
+                            MagneticAngleTolerance = MagneticAngle * MagneticAngleTolRatio ;
                             break;
                         case "ERASER_ICON":
 							if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
@@ -2094,6 +2102,9 @@ namespace gInk
                             break;
                         case "MAGNET":
                             sPara = (MagneticRadius / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString(CultureInfo.InvariantCulture);
+                            break;
+                        case "MAGNETIC_ANGLE_TOLERANCE":
+                            sPara = MagneticAngleTolerance.ToString();
                             break;
                         case "MAGNETIC_ANGLE":
                             sPara = MagneticAngle.ToString();

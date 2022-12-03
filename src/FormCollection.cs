@@ -1917,6 +1917,8 @@ namespace gInk
             float pos;
             Point pt = new Point(int.MaxValue, int.MaxValue);
             int x2 = int.MaxValue, y2 = int.MaxValue;//, x_a = int.MaxValue, y_a = int.MaxValue;
+            if ((Control.ModifierKeys & Keys.Control) != Keys.None && (Control.ModifierKeys & Keys.Shift) != Keys.None)  // if both ctrl and shift are pressed, no magnetic effect
+                return;
             if ((Control.ModifierKeys & Keys.Control) != Keys.None || (Control.ModifierKeys & Keys.Shift) != Keys.None)  // force temporarily Magnetic off if ctrl or shift is depressed
                 Magnetic = false;
             if ((Magnetic || (Control.ModifierKeys & Keys.Control) != Keys.None) &&
@@ -5280,12 +5282,12 @@ namespace gInk
 
                 // if shift is pressed in handtool we go to line tool temporaly
                 pressed = (GetKeyState(Root.Hotkey_Line.Key) & 0x8000) == 0x8000;
-                if (Root.ToolSelected == Tools.Hand && (GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0)
+                if (Root.ToolSelected == Tools.Hand && ((GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0 || (GetAsyncKeyState(VK_CONTROL) & 0x8000) != 0))
                 {
                     btTool_Click(btLine, null);
                     FromHandToLineOnShift = true;
                 }
-                if (FromHandToLineOnShift && (GetAsyncKeyState(VK_SHIFT) & 0x8000) == 0)
+                if (FromHandToLineOnShift && !((GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0 || (GetAsyncKeyState(VK_CONTROL) & 0x8000) != 0))
                 {
                     btTool_Click(btHand, null);
                     FromHandToLineOnShift = false;

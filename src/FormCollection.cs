@@ -502,7 +502,12 @@ namespace gInk
         public void Initialize()
         {
             Console.WriteLine("A=" + (DateTime.Now.Ticks / 1e7).ToString());
-
+            if (Root.FormOptions != null && Root.FormOptions.Visible) 
+            {
+                // this is to validate the active field if the options are open. Not the best solution but nothing else found
+                Root.FormOptions.Close();
+                Root.FormOptions.Show();
+            }
             MeasureNumberFormat = (NumberFormatInfo) NumberFormatInfo.CurrentInfo.Clone();
             MeasureNumberFormat.NumberDecimalDigits = Root.Measure2Digits;
 

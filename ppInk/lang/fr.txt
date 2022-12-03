@@ -66,6 +66,7 @@ OptionMeasureLenLabel = "1 pixel ="
 OptionMeasureAngle = "sens trigonométrique"
 FormatLength = "Longueur : {0:N1} {1}"
 FormatAngle = "Angle : {0:N1}°"
+FormaTotalLength = "Total Length({2}) : {0:N1} {1}"
 
 OptionsGeneralAPIRest = "URL Serveur REST"
 

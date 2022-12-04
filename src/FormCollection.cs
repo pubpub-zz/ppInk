@@ -2055,7 +2055,7 @@ namespace gInk
             if (theta2 < 0) theta2 += 360.0;
             Console.WriteLine("theta {0} - {1}", theta,theta2);
             if ((Magnetic || (ModifierKeys & Keys.Shift) != Keys.None) &&
-                (Math.Abs(theta2) < Root.MagneticAngleTolerance))
+                (Math.Abs(theta2) < Root.MagneticAngleTolerance || Math.Abs(theta2) > (360.0 - Root.MagneticAngleTolerance)))
             {
                 theta -= theta2;
                 if ((Math.Abs(theta) < 45.0) || (Math.Abs(theta - 180.0) < 45.0) || (Math.Abs(theta + 180.0) < 45.0))

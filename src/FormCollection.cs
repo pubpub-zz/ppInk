@@ -501,6 +501,14 @@ namespace gInk
 
         public void Initialize()
         {
+
+            if ( Root.FormOptions?.Visible ?? false)
+            {
+                // this is to validate the active field if the options are open. Not the best solution but nothing else found 
+                Root.FormOptions.Close();
+                Root.FormOptions.Show();
+            }
+
             Console.WriteLine("A=" + (DateTime.Now.Ticks / 1e7).ToString());
 
             MeasureNumberFormat = (NumberFormatInfo) NumberFormatInfo.CurrentInfo.Clone();

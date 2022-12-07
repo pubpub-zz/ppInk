@@ -796,7 +796,7 @@ namespace gInk
         private void Float_Validating(object sender, CancelEventArgs e)
         {
             float tempf;
-            if (float.TryParse(((TextBox)sender).Text.Replace(",","."), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempf))
+            if (float.TryParse(((TextBox)sender).Text.Replace(",","."), NumberStyles.AllowDecimalPoint| NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out tempf))
                 ((TextBox)sender).BackColor = Color.White;
             else
             {

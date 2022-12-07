@@ -1336,7 +1336,7 @@ namespace gInk
                                 MagneticRadius = -MIN_MAGNETIC;
                             else if (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON")
                                 MagneticRadius = MIN_MAGNETIC;
-                            else if (float.TryParse(sPara, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempf))
+                            else if (float.TryParse(sPara, NumberStyles.AllowDecimalPoint| NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out tempf))
                                 MagneticRadius = (int)(tempf / 100.0 * System.Windows.SystemParameters.PrimaryScreenWidth);
                             break;
                         case "MAGNETIC_ANGLE_TOLERANCE": 

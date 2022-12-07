@@ -779,6 +779,15 @@ namespace gInk
 
         private void SaveConfigBtn_Click(object sender, EventArgs e)
         {
+            String config_ini,st;
+            using (var f = new StreamReader("config.ini"))
+                config_ini = f.ReadToEnd();
+            using (var f = new StreamReader("defaults.ini"))
+                st=Root.CompleteConfig(f.ReadToEnd(), config_ini);
+            if (st != "")
+                using(var f = new StreamWriter("config.ini"))
+                    f.Write(config_ini + "\n" + st);
+        
             Root.SaveOptions("pens.ini");
             Root.SaveOptions("config.ini");
             Root.SaveOptions("hotkeys.ini");
@@ -1136,7 +1145,15 @@ namespace gInk
 				Root.ChangeLanguage(Root.Local.GetFilenameByLanguagename(comboLanguage.Text));
 				FormOptions_LocalReload();
 			}
-		}
+            String local, st;
+            using (var f = new StreamReader("lang/" + Root.Local.CurrentLanguageFile + ".txt"))
+                local = f.ReadToEnd();
+            using (var f = new StreamReader("lang/en-us.txt"))
+                st = Root.CompleteConfig(f.ReadToEnd(), "\n" + local);
+            if (st != "" && MessageBox.Show("The translation file seems to not include all the required translation. Do you want to add the missing entries ?", Root.Local.CurrentLanguageFile, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                using(var f = new StreamWriter("lang/" + Root.Local.CurrentLanguageFile + ".txt"))
+                    f.Write(local + "\n" + st);
+        }
 
         private void InverseWheelCb_CheckedChanged(object sender, EventArgs e)
         {

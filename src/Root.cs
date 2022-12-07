@@ -11,6 +11,7 @@ using Microsoft.Ink;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Net.WebSockets;
+using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using System.Drawing.Drawing2D;
 using gInk.Apng;
@@ -500,7 +501,8 @@ namespace gInk
 
             SetDefaultPens();
 			SetDefaultConfig();
-			ReadOptions("config.ini");
+            ReadOptions("defaults.ini");
+            ReadOptions("config.ini");
 			ReadOptions("pens.ini");
 			ReadOptions("hotkeys.ini");
             Hotkey_SnapClose.Parse("Escape");
@@ -2423,6 +2425,24 @@ namespace gInk
 				swini.WriteLine(line);
 			frini.Close();
 		}
+
+        public String CompleteConfig(string NewConfig, string OldConfig)
+        {
+            string appending = "";
+            foreach(String st in NewConfig.Split('\n')) {
+                String st1=st.TrimStart(' ', '\r', '\t');
+                if (st1 == "" || st1.StartsWith("#"))
+                    continue;
+                string key = st.Split('=')[0].Trim(' ', '\r', '\t');
+                if (!Regex.Match(OldConfig,@"\n\s*"+key+@"\s*=").Success)
+                {
+                    appending += st.Trim(' ', '\r', '\t') + "\n";
+                }
+            }
+            return appending;
+        }
+
+        
 
 		private void OnAbout(object sender, EventArgs e)
 		{

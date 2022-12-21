@@ -1534,6 +1534,17 @@ namespace gInk
                             if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
                                 SpotOnAlt  = false;
                             break;
+
+                        case "SELECTION_COLOR":
+                            tab = sPara.Split(',');
+                            if (tab.Length == 4)
+                            {
+                                int[] sco = new int[4];
+                                for (int i = 0; i < 4; i++)
+                                    sco[i] = Int32.Parse(tab[i]);
+                                SelectionFramePen.Color =  Color.FromArgb(sco[0], sco[1], sco[2], sco[3]);
+                            };
+                            break;
                         case "BOARDATOPENING":
                             if (Int32.TryParse(sPara, out tempi))
                                 BoardAtOpening  = tempi;

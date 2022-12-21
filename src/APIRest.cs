@@ -184,7 +184,7 @@ namespace gInk
                     else if (req.Url.AbsolutePath == "/PenDef")
                     {
                         string s;
-                        int i=-1, r, g, b, w;
+                        int i=-1, r, g, b;
                         byte t;
                         float f;
                         string ff = "";

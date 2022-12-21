@@ -79,6 +79,7 @@ namespace gInk
             this.lbHkEdit = new System.Windows.Forms.Label();
             this.lbPens3 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.ExtraPensCb = new System.Windows.Forms.CheckBox();
             this.lbHkLasso = new System.Windows.Forms.Label();
             this.hiLasso = new gInk.HotkeyInputBox();
             this.lbHkSaveStrokes = new System.Windows.Forms.Label();
@@ -286,6 +287,7 @@ namespace gInk
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.VideoTabCtrl = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.PenPanel = new System.Windows.Forms.Panel();
             this.Click4StrokeCb = new System.Windows.Forms.CheckBox();
             this.lbLineStyle = new System.Windows.Forms.Label();
             this.FitToCurveEd = new System.Windows.Forms.CheckBox();
@@ -324,11 +326,12 @@ namespace gInk
             this.lbPens4.Size = new System.Drawing.Size(35, 13);
             this.lbPens4.TabIndex = 11;
             this.lbPens4.Text = "Pen 4";
+            this.lbPens4.Visible = false;
             // 
             // lbHkZoom
             // 
             this.lbHkZoom.AutoSize = true;
-            this.lbHkZoom.Location = new System.Drawing.Point(258, 259);
+            this.lbHkZoom.Location = new System.Drawing.Point(258, 282);
             this.lbHkZoom.Name = "lbHkZoom";
             this.lbHkZoom.Size = new System.Drawing.Size(34, 13);
             this.lbHkZoom.TabIndex = 52;
@@ -337,7 +340,7 @@ namespace gInk
             // lbHkClipart3
             // 
             this.lbHkClipart3.AutoSize = true;
-            this.lbHkClipart3.Location = new System.Drawing.Point(517, 441);
+            this.lbHkClipart3.Location = new System.Drawing.Point(517, 464);
             this.lbHkClipart3.Name = "lbHkClipart3";
             this.lbHkClipart3.Size = new System.Drawing.Size(73, 13);
             this.lbHkClipart3.TabIndex = 50;
@@ -346,7 +349,7 @@ namespace gInk
             // lbHkClipart2
             // 
             this.lbHkClipart2.AutoSize = true;
-            this.lbHkClipart2.Location = new System.Drawing.Point(517, 415);
+            this.lbHkClipart2.Location = new System.Drawing.Point(517, 438);
             this.lbHkClipart2.Name = "lbHkClipart2";
             this.lbHkClipart2.Size = new System.Drawing.Size(73, 13);
             this.lbHkClipart2.TabIndex = 48;
@@ -355,7 +358,7 @@ namespace gInk
             // lbHkClipart1
             // 
             this.lbHkClipart1.AutoSize = true;
-            this.lbHkClipart1.Location = new System.Drawing.Point(517, 389);
+            this.lbHkClipart1.Location = new System.Drawing.Point(517, 412);
             this.lbHkClipart1.Name = "lbHkClipart1";
             this.lbHkClipart1.Size = new System.Drawing.Size(73, 13);
             this.lbHkClipart1.TabIndex = 46;
@@ -364,7 +367,7 @@ namespace gInk
             // lbHkClipart
             // 
             this.lbHkClipart.AutoSize = true;
-            this.lbHkClipart.Location = new System.Drawing.Point(517, 363);
+            this.lbHkClipart.Location = new System.Drawing.Point(517, 386);
             this.lbHkClipart.Name = "lbHkClipart";
             this.lbHkClipart.Size = new System.Drawing.Size(64, 13);
             this.lbHkClipart.TabIndex = 44;
@@ -373,7 +376,7 @@ namespace gInk
             // lbHkDockUndock
             // 
             this.lbHkDockUndock.AutoSize = true;
-            this.lbHkDockUndock.Location = new System.Drawing.Point(258, 412);
+            this.lbHkDockUndock.Location = new System.Drawing.Point(258, 435);
             this.lbHkDockUndock.Name = "lbHkDockUndock";
             this.lbHkDockUndock.Size = new System.Drawing.Size(33, 13);
             this.lbHkDockUndock.TabIndex = 40;
@@ -382,7 +385,7 @@ namespace gInk
             // lbHkVideo
             // 
             this.lbHkVideo.AutoSize = true;
-            this.lbHkVideo.Location = new System.Drawing.Point(258, 389);
+            this.lbHkVideo.Location = new System.Drawing.Point(258, 412);
             this.lbHkVideo.Name = "lbHkVideo";
             this.lbHkVideo.Size = new System.Drawing.Size(72, 13);
             this.lbHkVideo.TabIndex = 38;
@@ -403,7 +406,7 @@ namespace gInk
             // lbHkMagn
             // 
             this.lbHkMagn.AutoSize = true;
-            this.lbHkMagn.Location = new System.Drawing.Point(517, 337);
+            this.lbHkMagn.Location = new System.Drawing.Point(517, 360);
             this.lbHkMagn.Name = "lbHkMagn";
             this.lbHkMagn.Size = new System.Drawing.Size(78, 13);
             this.lbHkMagn.TabIndex = 35;
@@ -412,7 +415,7 @@ namespace gInk
             // lbHkEdit
             // 
             this.lbHkEdit.AutoSize = true;
-            this.lbHkEdit.Location = new System.Drawing.Point(517, 311);
+            this.lbHkEdit.Location = new System.Drawing.Point(517, 334);
             this.lbHkEdit.Name = "lbHkEdit";
             this.lbHkEdit.Size = new System.Drawing.Size(52, 13);
             this.lbHkEdit.TabIndex = 33;
@@ -426,10 +429,12 @@ namespace gInk
             this.lbPens3.Size = new System.Drawing.Size(35, 13);
             this.lbPens3.TabIndex = 10;
             this.lbPens3.Text = "Pen 3";
+            this.lbPens3.Visible = false;
             // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tabPage3.Controls.Add(this.ExtraPensCb);
             this.tabPage3.Controls.Add(this.lbHkLasso);
             this.tabPage3.Controls.Add(this.hiLasso);
             this.tabPage3.Controls.Add(this.lbHkSaveStrokes);
@@ -510,10 +515,21 @@ namespace gInk
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Hotkeys";
             // 
+            // ExtraPensCb
+            // 
+            this.ExtraPensCb.AutoSize = true;
+            this.ExtraPensCb.Location = new System.Drawing.Point(19, 112);
+            this.ExtraPensCb.Name = "ExtraPensCb";
+            this.ExtraPensCb.Size = new System.Drawing.Size(358, 17);
+            this.ExtraPensCb.TabIndex = 73;
+            this.ExtraPensCb.Text = "Add Extra Pen; if0 activated, no pen  hotkeys shall contains ctrl or shift";
+            this.ExtraPensCb.UseVisualStyleBackColor = true;
+            this.ExtraPensCb.CheckedChanged += new System.EventHandler(this.ExtraPensCb_CheckedChanged);
+            // 
             // lbHkLasso
             // 
             this.lbHkLasso.AutoSize = true;
-            this.lbHkLasso.Location = new System.Drawing.Point(258, 122);
+            this.lbHkLasso.Location = new System.Drawing.Point(258, 145);
             this.lbHkLasso.Name = "lbHkLasso";
             this.lbHkLasso.Size = new System.Drawing.Size(35, 13);
             this.lbHkLasso.TabIndex = 70;
@@ -525,7 +541,7 @@ namespace gInk
             this.hiLasso.ExternalConflictFlag = false;
             this.hiLasso.Hotkey = hotkey1;
             this.hiLasso.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiLasso.Location = new System.Drawing.Point(372, 119);
+            this.hiLasso.Location = new System.Drawing.Point(372, 142);
             this.hiLasso.Name = "hiLasso";
             this.hiLasso.RequireModifier = false;
             this.hiLasso.Size = new System.Drawing.Size(120, 20);
@@ -536,7 +552,7 @@ namespace gInk
             // lbHkSaveStrokes
             // 
             this.lbHkSaveStrokes.AutoSize = true;
-            this.lbHkSaveStrokes.Location = new System.Drawing.Point(517, 493);
+            this.lbHkSaveStrokes.Location = new System.Drawing.Point(517, 516);
             this.lbHkSaveStrokes.Name = "lbHkSaveStrokes";
             this.lbHkSaveStrokes.Size = new System.Drawing.Size(98, 13);
             this.lbHkSaveStrokes.TabIndex = 68;
@@ -548,7 +564,7 @@ namespace gInk
             this.hiSaveStrokes.ExternalConflictFlag = false;
             this.hiSaveStrokes.Hotkey = hotkey2;
             this.hiSaveStrokes.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiSaveStrokes.Location = new System.Drawing.Point(621, 490);
+            this.hiSaveStrokes.Location = new System.Drawing.Point(621, 513);
             this.hiSaveStrokes.Name = "hiSaveStrokes";
             this.hiSaveStrokes.RequireModifier = false;
             this.hiSaveStrokes.Size = new System.Drawing.Size(120, 20);
@@ -559,7 +575,7 @@ namespace gInk
             // lbHkLoadStrokes
             // 
             this.lbHkLoadStrokes.AutoSize = true;
-            this.lbHkLoadStrokes.Location = new System.Drawing.Point(517, 467);
+            this.lbHkLoadStrokes.Location = new System.Drawing.Point(517, 490);
             this.lbHkLoadStrokes.Name = "lbHkLoadStrokes";
             this.lbHkLoadStrokes.Size = new System.Drawing.Size(97, 13);
             this.lbHkLoadStrokes.TabIndex = 66;
@@ -571,7 +587,7 @@ namespace gInk
             this.hiLoadStrokes.ExternalConflictFlag = false;
             this.hiLoadStrokes.Hotkey = hotkey3;
             this.hiLoadStrokes.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiLoadStrokes.Location = new System.Drawing.Point(621, 464);
+            this.hiLoadStrokes.Location = new System.Drawing.Point(621, 487);
             this.hiLoadStrokes.Name = "hiLoadStrokes";
             this.hiLoadStrokes.RequireModifier = false;
             this.hiLoadStrokes.Size = new System.Drawing.Size(120, 20);
@@ -582,7 +598,7 @@ namespace gInk
             // lbHkLineStyle
             // 
             this.lbHkLineStyle.AutoSize = true;
-            this.lbHkLineStyle.Location = new System.Drawing.Point(16, 467);
+            this.lbHkLineStyle.Location = new System.Drawing.Point(20, 490);
             this.lbHkLineStyle.Name = "lbHkLineStyle";
             this.lbHkLineStyle.Size = new System.Drawing.Size(50, 13);
             this.lbHkLineStyle.TabIndex = 64;
@@ -594,7 +610,7 @@ namespace gInk
             this.hiLineStyle.ExternalConflictFlag = false;
             this.hiLineStyle.Hotkey = hotkey4;
             this.hiLineStyle.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiLineStyle.Location = new System.Drawing.Point(120, 464);
+            this.hiLineStyle.Location = new System.Drawing.Point(124, 487);
             this.hiLineStyle.Name = "hiLineStyle";
             this.hiLineStyle.RequireModifier = false;
             this.hiLineStyle.Size = new System.Drawing.Size(120, 20);
@@ -605,7 +621,7 @@ namespace gInk
             // lbHkColorEdit
             // 
             this.lbHkColorEdit.AutoSize = true;
-            this.lbHkColorEdit.Location = new System.Drawing.Point(17, 442);
+            this.lbHkColorEdit.Location = new System.Drawing.Point(21, 465);
             this.lbHkColorEdit.Name = "lbHkColorEdit";
             this.lbHkColorEdit.Size = new System.Drawing.Size(52, 13);
             this.lbHkColorEdit.TabIndex = 62;
@@ -617,7 +633,7 @@ namespace gInk
             this.hiColorEdit.ExternalConflictFlag = false;
             this.hiColorEdit.Hotkey = hotkey5;
             this.hiColorEdit.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiColorEdit.Location = new System.Drawing.Point(120, 438);
+            this.hiColorEdit.Location = new System.Drawing.Point(124, 461);
             this.hiColorEdit.Name = "hiColorEdit";
             this.hiColorEdit.RequireModifier = false;
             this.hiColorEdit.Size = new System.Drawing.Size(120, 20);
@@ -628,7 +644,7 @@ namespace gInk
             // lbHkColorPickup
             // 
             this.lbHkColorPickup.AutoSize = true;
-            this.lbHkColorPickup.Location = new System.Drawing.Point(258, 493);
+            this.lbHkColorPickup.Location = new System.Drawing.Point(258, 516);
             this.lbHkColorPickup.Name = "lbHkColorPickup";
             this.lbHkColorPickup.Size = new System.Drawing.Size(67, 13);
             this.lbHkColorPickup.TabIndex = 60;
@@ -640,7 +656,7 @@ namespace gInk
             this.hiColorPickup.ExternalConflictFlag = false;
             this.hiColorPickup.Hotkey = hotkey6;
             this.hiColorPickup.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiColorPickup.Location = new System.Drawing.Point(372, 490);
+            this.hiColorPickup.Location = new System.Drawing.Point(372, 513);
             this.hiColorPickup.Name = "hiColorPickup";
             this.hiColorPickup.RequireModifier = false;
             this.hiColorPickup.Size = new System.Drawing.Size(120, 20);
@@ -651,7 +667,7 @@ namespace gInk
             // lbHkPenWidthMinus
             // 
             this.lbHkPenWidthMinus.AutoSize = true;
-            this.lbHkPenWidthMinus.Location = new System.Drawing.Point(16, 414);
+            this.lbHkPenWidthMinus.Location = new System.Drawing.Point(20, 437);
             this.lbHkPenWidthMinus.Name = "lbHkPenWidthMinus";
             this.lbHkPenWidthMinus.Size = new System.Drawing.Size(63, 13);
             this.lbHkPenWidthMinus.TabIndex = 58;
@@ -663,7 +679,7 @@ namespace gInk
             this.hiPenWidthMinus.ExternalConflictFlag = false;
             this.hiPenWidthMinus.Hotkey = hotkey7;
             this.hiPenWidthMinus.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiPenWidthMinus.Location = new System.Drawing.Point(120, 411);
+            this.hiPenWidthMinus.Location = new System.Drawing.Point(124, 434);
             this.hiPenWidthMinus.Name = "hiPenWidthMinus";
             this.hiPenWidthMinus.RequireModifier = false;
             this.hiPenWidthMinus.Size = new System.Drawing.Size(120, 20);
@@ -674,7 +690,7 @@ namespace gInk
             // lbHkPenWidthPlus
             // 
             this.lbHkPenWidthPlus.AutoSize = true;
-            this.lbHkPenWidthPlus.Location = new System.Drawing.Point(16, 389);
+            this.lbHkPenWidthPlus.Location = new System.Drawing.Point(20, 412);
             this.lbHkPenWidthPlus.Name = "lbHkPenWidthPlus";
             this.lbHkPenWidthPlus.Size = new System.Drawing.Size(66, 13);
             this.lbHkPenWidthPlus.TabIndex = 56;
@@ -686,7 +702,7 @@ namespace gInk
             this.hiPenWidthPlus.ExternalConflictFlag = false;
             this.hiPenWidthPlus.Hotkey = hotkey8;
             this.hiPenWidthPlus.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiPenWidthPlus.Location = new System.Drawing.Point(120, 386);
+            this.hiPenWidthPlus.Location = new System.Drawing.Point(124, 409);
             this.hiPenWidthPlus.Name = "hiPenWidthPlus";
             this.hiPenWidthPlus.RequireModifier = false;
             this.hiPenWidthPlus.Size = new System.Drawing.Size(120, 20);
@@ -697,7 +713,7 @@ namespace gInk
             // lbHkFadingToggle
             // 
             this.lbHkFadingToggle.AutoSize = true;
-            this.lbHkFadingToggle.Location = new System.Drawing.Point(258, 468);
+            this.lbHkFadingToggle.Location = new System.Drawing.Point(258, 491);
             this.lbHkFadingToggle.Name = "lbHkFadingToggle";
             this.lbHkFadingToggle.Size = new System.Drawing.Size(75, 13);
             this.lbHkFadingToggle.TabIndex = 54;
@@ -709,7 +725,7 @@ namespace gInk
             this.hiFadingToggle.ExternalConflictFlag = false;
             this.hiFadingToggle.Hotkey = hotkey9;
             this.hiFadingToggle.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiFadingToggle.Location = new System.Drawing.Point(372, 464);
+            this.hiFadingToggle.Location = new System.Drawing.Point(372, 487);
             this.hiFadingToggle.Name = "hiFadingToggle";
             this.hiFadingToggle.RequireModifier = false;
             this.hiFadingToggle.Size = new System.Drawing.Size(120, 20);
@@ -771,7 +787,7 @@ namespace gInk
             // lbHkText
             // 
             this.lbHkText.AutoSize = true;
-            this.lbHkText.Location = new System.Drawing.Point(517, 284);
+            this.lbHkText.Location = new System.Drawing.Point(517, 307);
             this.lbHkText.Name = "lbHkText";
             this.lbHkText.Size = new System.Drawing.Size(55, 13);
             this.lbHkText.TabIndex = 31;
@@ -780,7 +796,7 @@ namespace gInk
             // lbHkNumb
             // 
             this.lbHkNumb.AutoSize = true;
-            this.lbHkNumb.Location = new System.Drawing.Point(517, 254);
+            this.lbHkNumb.Location = new System.Drawing.Point(517, 277);
             this.lbHkNumb.Name = "lbHkNumb";
             this.lbHkNumb.Size = new System.Drawing.Size(88, 13);
             this.lbHkNumb.TabIndex = 29;
@@ -789,7 +805,7 @@ namespace gInk
             // lbHkArrow
             // 
             this.lbHkArrow.AutoSize = true;
-            this.lbHkArrow.Location = new System.Drawing.Point(517, 230);
+            this.lbHkArrow.Location = new System.Drawing.Point(517, 253);
             this.lbHkArrow.Name = "lbHkArrow";
             this.lbHkArrow.Size = new System.Drawing.Size(61, 13);
             this.lbHkArrow.TabIndex = 27;
@@ -798,7 +814,7 @@ namespace gInk
             // lbHkOval
             // 
             this.lbHkOval.AutoSize = true;
-            this.lbHkOval.Location = new System.Drawing.Point(517, 203);
+            this.lbHkOval.Location = new System.Drawing.Point(517, 226);
             this.lbHkOval.Name = "lbHkOval";
             this.lbHkOval.Size = new System.Drawing.Size(65, 13);
             this.lbHkOval.TabIndex = 25;
@@ -807,7 +823,7 @@ namespace gInk
             // lbHkRect
             // 
             this.lbHkRect.AutoSize = true;
-            this.lbHkRect.Location = new System.Drawing.Point(517, 176);
+            this.lbHkRect.Location = new System.Drawing.Point(517, 199);
             this.lbHkRect.Name = "lbHkRect";
             this.lbHkRect.Size = new System.Drawing.Size(83, 13);
             this.lbHkRect.TabIndex = 23;
@@ -816,7 +832,7 @@ namespace gInk
             // lbHkLine
             // 
             this.lbHkLine.AutoSize = true;
-            this.lbHkLine.Location = new System.Drawing.Point(517, 148);
+            this.lbHkLine.Location = new System.Drawing.Point(517, 171);
             this.lbHkLine.Name = "lbHkLine";
             this.lbHkLine.Size = new System.Drawing.Size(54, 13);
             this.lbHkLine.TabIndex = 21;
@@ -825,7 +841,7 @@ namespace gInk
             // lbHkHand
             // 
             this.lbHkHand.AutoSize = true;
-            this.lbHkHand.Location = new System.Drawing.Point(517, 121);
+            this.lbHkHand.Location = new System.Drawing.Point(517, 144);
             this.lbHkHand.Name = "lbHkHand";
             this.lbHkHand.Size = new System.Drawing.Size(81, 13);
             this.lbHkHand.TabIndex = 19;
@@ -844,7 +860,7 @@ namespace gInk
             // lbHkInkVisible
             // 
             this.lbHkInkVisible.AutoSize = true;
-            this.lbHkInkVisible.Location = new System.Drawing.Point(258, 232);
+            this.lbHkInkVisible.Location = new System.Drawing.Point(258, 255);
             this.lbHkInkVisible.Name = "lbHkInkVisible";
             this.lbHkInkVisible.Size = new System.Drawing.Size(57, 13);
             this.lbHkInkVisible.TabIndex = 16;
@@ -853,7 +869,7 @@ namespace gInk
             // lbHkSnapshot
             // 
             this.lbHkSnapshot.AutoSize = true;
-            this.lbHkSnapshot.Location = new System.Drawing.Point(258, 282);
+            this.lbHkSnapshot.Location = new System.Drawing.Point(258, 305);
             this.lbHkSnapshot.Name = "lbHkSnapshot";
             this.lbHkSnapshot.Size = new System.Drawing.Size(52, 13);
             this.lbHkSnapshot.TabIndex = 12;
@@ -862,7 +878,7 @@ namespace gInk
             // lbHkClear
             // 
             this.lbHkClear.AutoSize = true;
-            this.lbHkClear.Location = new System.Drawing.Point(258, 363);
+            this.lbHkClear.Location = new System.Drawing.Point(258, 386);
             this.lbHkClear.Name = "lbHkClear";
             this.lbHkClear.Size = new System.Drawing.Size(31, 13);
             this.lbHkClear.TabIndex = 13;
@@ -871,7 +887,7 @@ namespace gInk
             // lbHkPan
             // 
             this.lbHkPan.AutoSize = true;
-            this.lbHkPan.Location = new System.Drawing.Point(258, 174);
+            this.lbHkPan.Location = new System.Drawing.Point(258, 197);
             this.lbHkPan.Name = "lbHkPan";
             this.lbHkPan.Size = new System.Drawing.Size(46, 13);
             this.lbHkPan.TabIndex = 10;
@@ -880,7 +896,7 @@ namespace gInk
             // lbHkScaleRotate
             // 
             this.lbHkScaleRotate.AutoSize = true;
-            this.lbHkScaleRotate.Location = new System.Drawing.Point(256, 203);
+            this.lbHkScaleRotate.Location = new System.Drawing.Point(256, 226);
             this.lbHkScaleRotate.Name = "lbHkScaleRotate";
             this.lbHkScaleRotate.Size = new System.Drawing.Size(77, 13);
             this.lbHkScaleRotate.TabIndex = 6;
@@ -889,7 +905,7 @@ namespace gInk
             // lbHkRedo
             // 
             this.lbHkRedo.AutoSize = true;
-            this.lbHkRedo.Location = new System.Drawing.Point(258, 336);
+            this.lbHkRedo.Location = new System.Drawing.Point(258, 359);
             this.lbHkRedo.Name = "lbHkRedo";
             this.lbHkRedo.Size = new System.Drawing.Size(33, 13);
             this.lbHkRedo.TabIndex = 7;
@@ -898,7 +914,7 @@ namespace gInk
             // lbHkUndo
             // 
             this.lbHkUndo.AutoSize = true;
-            this.lbHkUndo.Location = new System.Drawing.Point(258, 309);
+            this.lbHkUndo.Location = new System.Drawing.Point(258, 332);
             this.lbHkUndo.Name = "lbHkUndo";
             this.lbHkUndo.Size = new System.Drawing.Size(33, 13);
             this.lbHkUndo.TabIndex = 4;
@@ -907,7 +923,7 @@ namespace gInk
             // lbHkEraser
             // 
             this.lbHkEraser.AutoSize = true;
-            this.lbHkEraser.Location = new System.Drawing.Point(258, 149);
+            this.lbHkEraser.Location = new System.Drawing.Point(258, 172);
             this.lbHkEraser.Name = "lbHkEraser";
             this.lbHkEraser.Size = new System.Drawing.Size(37, 13);
             this.lbHkEraser.TabIndex = 4;
@@ -925,7 +941,7 @@ namespace gInk
             // lbHkClose
             // 
             this.lbHkClose.AutoSize = true;
-            this.lbHkClose.Location = new System.Drawing.Point(258, 432);
+            this.lbHkClose.Location = new System.Drawing.Point(258, 455);
             this.lbHkClose.Name = "lbHkClose";
             this.lbHkClose.Size = new System.Drawing.Size(106, 26);
             this.lbHkClose.TabIndex = 42;
@@ -937,7 +953,7 @@ namespace gInk
             this.hiZoom.ExternalConflictFlag = false;
             this.hiZoom.Hotkey = hotkey10;
             this.hiZoom.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiZoom.Location = new System.Drawing.Point(372, 254);
+            this.hiZoom.Location = new System.Drawing.Point(372, 277);
             this.hiZoom.Name = "hiZoom";
             this.hiZoom.RequireModifier = false;
             this.hiZoom.Size = new System.Drawing.Size(120, 20);
@@ -951,7 +967,7 @@ namespace gInk
             this.hiToolClipArt3.ExternalConflictFlag = false;
             this.hiToolClipArt3.Hotkey = hotkey11;
             this.hiToolClipArt3.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolClipArt3.Location = new System.Drawing.Point(621, 438);
+            this.hiToolClipArt3.Location = new System.Drawing.Point(621, 461);
             this.hiToolClipArt3.Name = "hiToolClipArt3";
             this.hiToolClipArt3.RequireModifier = false;
             this.hiToolClipArt3.Size = new System.Drawing.Size(120, 20);
@@ -965,7 +981,7 @@ namespace gInk
             this.hiToolClipArt2.ExternalConflictFlag = false;
             this.hiToolClipArt2.Hotkey = hotkey12;
             this.hiToolClipArt2.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolClipArt2.Location = new System.Drawing.Point(621, 412);
+            this.hiToolClipArt2.Location = new System.Drawing.Point(621, 435);
             this.hiToolClipArt2.Name = "hiToolClipArt2";
             this.hiToolClipArt2.RequireModifier = false;
             this.hiToolClipArt2.Size = new System.Drawing.Size(120, 20);
@@ -979,7 +995,7 @@ namespace gInk
             this.hiToolClipArt1.ExternalConflictFlag = false;
             this.hiToolClipArt1.Hotkey = hotkey13;
             this.hiToolClipArt1.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolClipArt1.Location = new System.Drawing.Point(621, 386);
+            this.hiToolClipArt1.Location = new System.Drawing.Point(621, 409);
             this.hiToolClipArt1.Name = "hiToolClipArt1";
             this.hiToolClipArt1.RequireModifier = false;
             this.hiToolClipArt1.Size = new System.Drawing.Size(120, 20);
@@ -993,7 +1009,7 @@ namespace gInk
             this.hiToolClipArt.ExternalConflictFlag = false;
             this.hiToolClipArt.Hotkey = hotkey14;
             this.hiToolClipArt.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolClipArt.Location = new System.Drawing.Point(621, 360);
+            this.hiToolClipArt.Location = new System.Drawing.Point(621, 383);
             this.hiToolClipArt.Name = "hiToolClipArt";
             this.hiToolClipArt.RequireModifier = false;
             this.hiToolClipArt.Size = new System.Drawing.Size(120, 20);
@@ -1007,7 +1023,7 @@ namespace gInk
             this.hiClose.ExternalConflictFlag = false;
             this.hiClose.Hotkey = hotkey15;
             this.hiClose.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiClose.Location = new System.Drawing.Point(372, 438);
+            this.hiClose.Location = new System.Drawing.Point(372, 461);
             this.hiClose.Name = "hiClose";
             this.hiClose.RequireModifier = false;
             this.hiClose.Size = new System.Drawing.Size(120, 20);
@@ -1021,7 +1037,7 @@ namespace gInk
             this.hiDockUndock.ExternalConflictFlag = false;
             this.hiDockUndock.Hotkey = hotkey16;
             this.hiDockUndock.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiDockUndock.Location = new System.Drawing.Point(372, 412);
+            this.hiDockUndock.Location = new System.Drawing.Point(372, 435);
             this.hiDockUndock.Name = "hiDockUndock";
             this.hiDockUndock.RequireModifier = false;
             this.hiDockUndock.Size = new System.Drawing.Size(120, 20);
@@ -1035,7 +1051,7 @@ namespace gInk
             this.hiVideo.ExternalConflictFlag = false;
             this.hiVideo.Hotkey = hotkey17;
             this.hiVideo.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiVideo.Location = new System.Drawing.Point(372, 386);
+            this.hiVideo.Location = new System.Drawing.Point(372, 409);
             this.hiVideo.Name = "hiVideo";
             this.hiVideo.RequireModifier = false;
             this.hiVideo.Size = new System.Drawing.Size(120, 20);
@@ -1049,7 +1065,7 @@ namespace gInk
             this.hiToolMagnet.ExternalConflictFlag = false;
             this.hiToolMagnet.Hotkey = hotkey18;
             this.hiToolMagnet.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolMagnet.Location = new System.Drawing.Point(621, 334);
+            this.hiToolMagnet.Location = new System.Drawing.Point(621, 357);
             this.hiToolMagnet.Name = "hiToolMagnet";
             this.hiToolMagnet.RequireModifier = false;
             this.hiToolMagnet.Size = new System.Drawing.Size(120, 20);
@@ -1063,7 +1079,7 @@ namespace gInk
             this.hiToolEdit.ExternalConflictFlag = false;
             this.hiToolEdit.Hotkey = hotkey19;
             this.hiToolEdit.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolEdit.Location = new System.Drawing.Point(621, 308);
+            this.hiToolEdit.Location = new System.Drawing.Point(621, 331);
             this.hiToolEdit.Name = "hiToolEdit";
             this.hiToolEdit.RequireModifier = false;
             this.hiToolEdit.Size = new System.Drawing.Size(120, 20);
@@ -1077,7 +1093,7 @@ namespace gInk
             this.HiToolText.ExternalConflictFlag = false;
             this.HiToolText.Hotkey = hotkey20;
             this.HiToolText.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.HiToolText.Location = new System.Drawing.Point(621, 281);
+            this.HiToolText.Location = new System.Drawing.Point(621, 304);
             this.HiToolText.Name = "HiToolText";
             this.HiToolText.RequireModifier = false;
             this.HiToolText.Size = new System.Drawing.Size(120, 20);
@@ -1091,7 +1107,7 @@ namespace gInk
             this.hiToolNumb.ExternalConflictFlag = false;
             this.hiToolNumb.Hotkey = hotkey21;
             this.hiToolNumb.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolNumb.Location = new System.Drawing.Point(621, 254);
+            this.hiToolNumb.Location = new System.Drawing.Point(621, 277);
             this.hiToolNumb.Name = "hiToolNumb";
             this.hiToolNumb.RequireModifier = false;
             this.hiToolNumb.Size = new System.Drawing.Size(120, 20);
@@ -1105,7 +1121,7 @@ namespace gInk
             this.hiToolArrow.ExternalConflictFlag = false;
             this.hiToolArrow.Hotkey = hotkey22;
             this.hiToolArrow.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolArrow.Location = new System.Drawing.Point(621, 227);
+            this.hiToolArrow.Location = new System.Drawing.Point(621, 250);
             this.hiToolArrow.Name = "hiToolArrow";
             this.hiToolArrow.RequireModifier = false;
             this.hiToolArrow.Size = new System.Drawing.Size(120, 20);
@@ -1119,7 +1135,7 @@ namespace gInk
             this.hiToolOval.ExternalConflictFlag = false;
             this.hiToolOval.Hotkey = hotkey23;
             this.hiToolOval.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolOval.Location = new System.Drawing.Point(621, 200);
+            this.hiToolOval.Location = new System.Drawing.Point(621, 223);
             this.hiToolOval.Name = "hiToolOval";
             this.hiToolOval.RequireModifier = false;
             this.hiToolOval.Size = new System.Drawing.Size(120, 20);
@@ -1133,7 +1149,7 @@ namespace gInk
             this.hiToolRect.ExternalConflictFlag = false;
             this.hiToolRect.Hotkey = hotkey24;
             this.hiToolRect.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolRect.Location = new System.Drawing.Point(621, 173);
+            this.hiToolRect.Location = new System.Drawing.Point(621, 196);
             this.hiToolRect.Name = "hiToolRect";
             this.hiToolRect.RequireModifier = false;
             this.hiToolRect.Size = new System.Drawing.Size(120, 20);
@@ -1147,7 +1163,7 @@ namespace gInk
             this.hiToolLine.ExternalConflictFlag = false;
             this.hiToolLine.Hotkey = hotkey25;
             this.hiToolLine.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolLine.Location = new System.Drawing.Point(621, 145);
+            this.hiToolLine.Location = new System.Drawing.Point(621, 168);
             this.hiToolLine.Name = "hiToolLine";
             this.hiToolLine.RequireModifier = false;
             this.hiToolLine.Size = new System.Drawing.Size(120, 20);
@@ -1161,7 +1177,7 @@ namespace gInk
             this.hiToolHand.ExternalConflictFlag = false;
             this.hiToolHand.Hotkey = hotkey26;
             this.hiToolHand.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiToolHand.Location = new System.Drawing.Point(621, 118);
+            this.hiToolHand.Location = new System.Drawing.Point(621, 141);
             this.hiToolHand.Name = "hiToolHand";
             this.hiToolHand.RequireModifier = false;
             this.hiToolHand.Size = new System.Drawing.Size(120, 20);
@@ -1175,7 +1191,7 @@ namespace gInk
             this.hiInkVisible.ExternalConflictFlag = false;
             this.hiInkVisible.Hotkey = hotkey27;
             this.hiInkVisible.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiInkVisible.Location = new System.Drawing.Point(372, 227);
+            this.hiInkVisible.Location = new System.Drawing.Point(372, 250);
             this.hiInkVisible.Name = "hiInkVisible";
             this.hiInkVisible.RequireModifier = false;
             this.hiInkVisible.Size = new System.Drawing.Size(120, 20);
@@ -1189,7 +1205,7 @@ namespace gInk
             this.hiSnapshot.ExternalConflictFlag = false;
             this.hiSnapshot.Hotkey = hotkey28;
             this.hiSnapshot.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiSnapshot.Location = new System.Drawing.Point(372, 281);
+            this.hiSnapshot.Location = new System.Drawing.Point(372, 304);
             this.hiSnapshot.Name = "hiSnapshot";
             this.hiSnapshot.RequireModifier = false;
             this.hiSnapshot.Size = new System.Drawing.Size(120, 20);
@@ -1203,7 +1219,7 @@ namespace gInk
             this.hiClear.ExternalConflictFlag = false;
             this.hiClear.Hotkey = hotkey29;
             this.hiClear.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiClear.Location = new System.Drawing.Point(372, 360);
+            this.hiClear.Location = new System.Drawing.Point(372, 383);
             this.hiClear.Name = "hiClear";
             this.hiClear.RequireModifier = false;
             this.hiClear.Size = new System.Drawing.Size(120, 20);
@@ -1217,7 +1233,7 @@ namespace gInk
             this.hiPan.ExternalConflictFlag = false;
             this.hiPan.Hotkey = hotkey30;
             this.hiPan.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiPan.Location = new System.Drawing.Point(372, 174);
+            this.hiPan.Location = new System.Drawing.Point(372, 197);
             this.hiPan.Name = "hiPan";
             this.hiPan.RequireModifier = false;
             this.hiPan.Size = new System.Drawing.Size(120, 20);
@@ -1231,7 +1247,7 @@ namespace gInk
             this.hiScaleRotate.ExternalConflictFlag = false;
             this.hiScaleRotate.Hotkey = hotkey31;
             this.hiScaleRotate.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiScaleRotate.Location = new System.Drawing.Point(372, 200);
+            this.hiScaleRotate.Location = new System.Drawing.Point(372, 223);
             this.hiScaleRotate.Name = "hiScaleRotate";
             this.hiScaleRotate.RequireModifier = false;
             this.hiScaleRotate.Size = new System.Drawing.Size(120, 20);
@@ -1245,7 +1261,7 @@ namespace gInk
             this.hiRedo.ExternalConflictFlag = false;
             this.hiRedo.Hotkey = hotkey32;
             this.hiRedo.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiRedo.Location = new System.Drawing.Point(372, 334);
+            this.hiRedo.Location = new System.Drawing.Point(372, 357);
             this.hiRedo.Name = "hiRedo";
             this.hiRedo.RequireModifier = false;
             this.hiRedo.Size = new System.Drawing.Size(120, 20);
@@ -1259,7 +1275,7 @@ namespace gInk
             this.hiUndo.ExternalConflictFlag = false;
             this.hiUndo.Hotkey = hotkey33;
             this.hiUndo.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiUndo.Location = new System.Drawing.Point(372, 308);
+            this.hiUndo.Location = new System.Drawing.Point(372, 331);
             this.hiUndo.Name = "hiUndo";
             this.hiUndo.RequireModifier = false;
             this.hiUndo.Size = new System.Drawing.Size(120, 20);
@@ -1273,7 +1289,7 @@ namespace gInk
             this.hiEraser.ExternalConflictFlag = false;
             this.hiEraser.Hotkey = hotkey34;
             this.hiEraser.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.hiEraser.Location = new System.Drawing.Point(372, 146);
+            this.hiEraser.Location = new System.Drawing.Point(372, 169);
             this.hiEraser.Name = "hiEraser";
             this.hiEraser.RequireModifier = false;
             this.hiEraser.Size = new System.Drawing.Size(120, 20);
@@ -1311,7 +1327,7 @@ namespace gInk
             this.DashStyleGrp.Controls.Add(this.CbHKRot_DashDot);
             this.DashStyleGrp.Controls.Add(this.CbHKRot_Dash);
             this.DashStyleGrp.Controls.Add(this.CbHKRot_Stroke);
-            this.DashStyleGrp.Location = new System.Drawing.Point(100, 480);
+            this.DashStyleGrp.Location = new System.Drawing.Point(104, 503);
             this.DashStyleGrp.Name = "DashStyleGrp";
             this.DashStyleGrp.Size = new System.Drawing.Size(141, 44);
             this.DashStyleGrp.TabIndex = 72;
@@ -1469,6 +1485,7 @@ namespace gInk
             this.lbPens8.Size = new System.Drawing.Size(35, 13);
             this.lbPens8.TabIndex = 15;
             this.lbPens8.Text = "Pen 8";
+            this.lbPens8.Visible = false;
             // 
             // lbPens7
             // 
@@ -1478,6 +1495,7 @@ namespace gInk
             this.lbPens7.Size = new System.Drawing.Size(35, 13);
             this.lbPens7.TabIndex = 14;
             this.lbPens7.Text = "Pen 7";
+            this.lbPens7.Visible = false;
             // 
             // lbPens6
             // 
@@ -1487,6 +1505,7 @@ namespace gInk
             this.lbPens6.Size = new System.Drawing.Size(35, 13);
             this.lbPens6.TabIndex = 13;
             this.lbPens6.Text = "Pen 6";
+            this.lbPens6.Visible = false;
             // 
             // lbPens9
             // 
@@ -1496,6 +1515,7 @@ namespace gInk
             this.lbPens9.Size = new System.Drawing.Size(35, 13);
             this.lbPens9.TabIndex = 16;
             this.lbPens9.Text = "Pen 9";
+            this.lbPens9.Visible = false;
             // 
             // lbPens5
             // 
@@ -1505,6 +1525,7 @@ namespace gInk
             this.lbPens5.Size = new System.Drawing.Size(35, 13);
             this.lbPens5.TabIndex = 12;
             this.lbPens5.Text = "Pen 5";
+            this.lbPens5.Visible = false;
             // 
             // FontDlg
             // 
@@ -1771,6 +1792,7 @@ namespace gInk
             this.lbPens2.Size = new System.Drawing.Size(35, 13);
             this.lbPens2.TabIndex = 9;
             this.lbPens2.Text = "Pen 2";
+            this.lbPens2.Visible = false;
             // 
             // ZoomEnabledCb
             // 
@@ -2828,7 +2850,8 @@ namespace gInk
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tabPage2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage2.Controls.Add(this.PenPanel);
             this.tabPage2.Controls.Add(this.Click4StrokeCb);
             this.tabPage2.Controls.Add(this.lbLineStyle);
             this.tabPage2.Controls.Add(this.FitToCurveEd);
@@ -2856,6 +2879,14 @@ namespace gInk
             this.tabPage2.Size = new System.Drawing.Size(767, 566);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pens";
+            // 
+            // PenPanel
+            // 
+            this.PenPanel.AutoScroll = true;
+            this.PenPanel.Location = new System.Drawing.Point(180, 33);
+            this.PenPanel.Name = "PenPanel";
+            this.PenPanel.Size = new System.Drawing.Size(578, 356);
+            this.PenPanel.TabIndex = 21;
             // 
             // Click4StrokeCb
             // 
@@ -2896,6 +2927,7 @@ namespace gInk
             this.lbPens1.Size = new System.Drawing.Size(35, 13);
             this.lbPens1.TabIndex = 8;
             this.lbPens1.Text = "Pen 1";
+            this.lbPens1.Visible = false;
             // 
             // lbPens0
             // 
@@ -2905,6 +2937,7 @@ namespace gInk
             this.lbPens0.Size = new System.Drawing.Size(35, 13);
             this.lbPens0.TabIndex = 7;
             this.lbPens0.Text = "Pen 0";
+            this.lbPens0.Visible = false;
             // 
             // lbcomboPensFading
             // 
@@ -3250,5 +3283,7 @@ namespace gInk
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.CheckBox StartFoldedCb;
         private System.Windows.Forms.CheckBox KeepUnfoldedPointerCb;
+        private System.Windows.Forms.Panel PenPanel;
+        private System.Windows.Forms.CheckBox ExtraPensCb;
     }
 }

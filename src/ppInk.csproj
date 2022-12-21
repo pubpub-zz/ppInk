@@ -356,6 +356,7 @@
     <None Include="ArrowHeads\!Arw_Diamond1.png" />
     <None Include="ArrowHeads\!Arw_Square1.png" />
     <None Include="FloatingCall.png" />
+    <None Include="ExtraPens.png" />
     <Content Include="Magnetic.png" />
     <Content Include="Magnetic_act.png" />
     <None Include="pan1_act.png" />

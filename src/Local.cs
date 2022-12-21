@@ -18,7 +18,7 @@ namespace gInk
 
 		public string CurrentLanguageFile;
 
-		public string[] ButtonNamePen = new string[10];
+		public string[] ButtonNamePen = new string[Root.MaxPenCount];
 
         public string ButtonNameToogle;
         public string ButtonNamePenwidth;
@@ -174,6 +174,8 @@ namespace gInk
         public string OptionsPensNormal;
         public string OptionsPensThick;
 
+        public string OptionHotkeysExtraPens;
+        public string ExtraPensHint;
         public string OptionsHotKeySnapInPointerGrp;
         public string OptionsHotKeySnapInPointerLbl;
         public string OptionsHotKeySnapInPointerKeys = "None\nShift\nCtrl\nAlt";                            // Order to be respected!!!
@@ -236,6 +238,16 @@ namespace gInk
 			ButtonNamePen[7] = "Pen 7";
 			ButtonNamePen[8] = "Pen 8";
 			ButtonNamePen[9] = "Pen 9";
+            ButtonNamePen[10] = "Pen 10";
+            ButtonNamePen[11] = "Pen 11";
+            ButtonNamePen[12] = "Pen 12";
+            ButtonNamePen[13] = "Pen 13";
+            ButtonNamePen[14] = "Pen 14";
+            ButtonNamePen[15] = "Pen 15";
+            ButtonNamePen[16] = "Pen 16";
+            ButtonNamePen[17] = "Pen 17";
+            ButtonNamePen[18] = "Pen 18";
+            ButtonNamePen[19] = "Pen 19";
 
             LoadKeyNames();
 
@@ -371,7 +383,7 @@ namespace gInk
 					if (sName.StartsWith("ButtonNamePen"))
 					{
 						int penid = 0;
-						if (int.TryParse(sName.Substring(13, 1), out penid))
+						if (int.TryParse(sName.Substring(13), out penid))
 						{
 							ButtonNamePen[penid] = sPara;
 						}

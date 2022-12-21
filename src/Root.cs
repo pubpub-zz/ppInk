@@ -137,7 +137,8 @@ namespace gInk
     public class Root
     {
         public Local Local = new Local();
-        public const int MaxPenCount = 10;
+        public const int MaxPenCount = 20;
+        public const int MaxDisplayedPens = 10;
         public const int SavedPenDA = MaxPenCount;
         public const int LassoPercent = 80;
 
@@ -193,6 +194,7 @@ namespace gInk
         public int ToolbarOrientation = Orientation.toLeft;
         public bool[] PenEnabled = new bool[MaxPenCount];
         public bool PensOnTwoLines = true;
+        public bool PensExtraSet = true;
         public bool ToolsEnabled = true;
         public bool EraserEnabled = true;
         public bool PointerEnabled = true;
@@ -249,7 +251,7 @@ namespace gInk
 
         // hotkey options
         public Hotkey Hotkey_Global = new Hotkey();
-		public Hotkey[] Hotkey_Pens = new Hotkey[10];
+		public Hotkey[] Hotkey_Pens = new Hotkey[MaxDisplayedPens];
         public Hotkey Hotkey_FadingToggle = new Hotkey();
 
         public Hotkey Hotkey_PenWidthPlus = new Hotkey();
@@ -490,7 +492,7 @@ namespace gInk
             SelectionFramePen.DashPattern = new float[]{4,4};       // dashed red line for selection drawing
             if (Global.ProgramFolder[Global.ProgramFolder.Length - 1] != '/')
                 Global.ProgramFolder += '/';
-			for (int p = 0; p < MaxPenCount; p++)
+			for (int p = 0; p < MaxDisplayedPens; p++)
 				Hotkey_Pens[p] = new Hotkey();
 
 			trayMenu = new ContextMenu();
@@ -503,7 +505,8 @@ namespace gInk
 			SetDefaultConfig();
             ReadOptions("defaults.ini");
             ReadOptions("config.ini");
-			ReadOptions("pens.ini");
+            ReadOptions("pensdef.ini");
+            ReadOptions("pens.ini");
 			ReadOptions("hotkeys.ini");
             Hotkey_SnapClose.Parse("Escape");
 
@@ -926,25 +929,38 @@ namespace gInk
 			PenAttr[5].Width = 500;
 			PenAttr[5].Transparency = 175;
 
-			PenAttr[6] = new DrawingAttributes();
+            PenEnabled[6] = true;
+            PenAttr[6] = new DrawingAttributes();
 			PenAttr[6].Color = Color.FromArgb(230, 230, 230);
 			PenAttr[6].Width = 80;
 			PenAttr[6].Transparency = 0;
 
-			PenAttr[7] = new DrawingAttributes();
+            PenEnabled[7] = true;
+            PenAttr[7] = new DrawingAttributes();
 			PenAttr[7].Color = Color.FromArgb(250, 140, 200);
 			PenAttr[7].Width = 80;
 			PenAttr[7].Transparency = 0;
 
-			PenAttr[8] = new DrawingAttributes();
+            PenEnabled[8] = true;
+            PenAttr[8] = new DrawingAttributes();
 			PenAttr[8].Color = Color.FromArgb(25, 180, 175);
 			PenAttr[8].Width = 80;
 			PenAttr[8].Transparency = 0;
 
-			PenAttr[9] = new DrawingAttributes();
+            PenEnabled[9] = true;
+            PenAttr[9] = new DrawingAttributes();
 			PenAttr[9].Color = Color.FromArgb(145, 70, 160);
 			PenAttr[9].Width = 500;
 			PenAttr[9].Transparency = 175;
+
+            for(int i=10;i<=19;i++)
+            {
+                PenEnabled[i] = PenEnabled[i-10];
+                PenAttr[i] = new DrawingAttributes();
+                PenAttr[i].Color = PenAttr[i-10].Color;
+                PenAttr[i].Width = PenAttr[i-10].Width;
+                PenAttr[i].Transparency = PenAttr[i - 10].Transparency;
+            }
 
             PenAttr[SavedPenDA] = null;
 
@@ -1020,7 +1036,10 @@ namespace gInk
 					if (sName.StartsWith("PEN"))
 					{
 						int penid = 0;
-						if (int.TryParse(sName.Substring(3, 1), out penid))
+                        string st = sName.Substring(3, 2);
+                        if (st.EndsWith("_"))
+                            st = st.Substring(0, 1);
+                        if (int.TryParse(st, out penid))
 						{
 							if (sName.EndsWith("_ENABLED"))
 							{
@@ -1230,11 +1249,12 @@ namespace gInk
                             }
                             break;
 
+                        case "EXTRA_PENS_SET":
+                            PensExtraSet = (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON");
+                            break;
+
                         case "PENS_ON_TWO_LINES":
-                            if (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON")
-                                PensOnTwoLines = true;
-                            else
-                                PensOnTwoLines = false;
+                            PensOnTwoLines = (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON");
                             break;
 
                         case "PENWIDTH_DELTA":
@@ -2062,6 +2082,10 @@ namespace gInk
                                 s = (((LineStyleRotateEnabled & (1 << i)) != 0) ? "1" : "0") + s;
                             }
                             sPara =s;
+                            break;
+
+                        case "EXTRA_PENS_SET":
+                            sPara = PensExtraSet ? "True" : "False";
                             break;
 
                         case "PENS_ON_TWO_LINES":

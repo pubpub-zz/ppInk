@@ -373,13 +373,15 @@ namespace gInk.Properties {
         ///ButtonNamePen7 = &quot;Pen 7&quot;
         ///ButtonNamePen8 = &quot;Pen 8&quot;
         ///ButtonNamePen9 = &quot;Pen 9&quot;
-        ///
-        ///ButtonNamePenwidth = &quot;Pen Width&quot;
-        ///ButtonNameToogle = &quot;Toggle Fading&quot;
-        ///ButtonNameErasor = &quot;Eraser&quot;
-        ///ButtonNamePan = &quot;Move | Copy | Scale\nRotate | Pan&quot;
-        ///ButtonNameScaleRotate = &quot;Scale | Rotate (direct access)&quot;
-        ///ButtonNameMo [le reste de la chaîne a été tronqué]&quot;;.
+        ///ButtonNamePen10 = &quot;Pen 10&quot;
+        ///ButtonNamePen11 = &quot;Pen 11&quot;
+        ///ButtonNamePen12 = &quot;Pen 12&quot;
+        ///ButtonNamePen13 = &quot;Pen 13&quot;
+        ///ButtonNamePen14 = &quot;Pen 14&quot;
+        ///ButtonNamePen15 = &quot;Pen 15&quot;
+        ///ButtonNamePen16 = &quot;Pen 16&quot;
+        ///ButtonNamePen17 = &quot;Pen 17&quot;
+        /// [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         public static string en_us {
             get {
@@ -413,6 +415,16 @@ namespace gInk.Properties {
         public static System.Drawing.Bitmap exit {
             get {
                 object obj = ResourceManager.GetObject("exit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExtraPens {
+            get {
+                object obj = ResourceManager.GetObject("ExtraPens", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

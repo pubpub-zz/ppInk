@@ -2466,7 +2466,7 @@ namespace gInk
             string appending = "";
             foreach(String st in NewConfig.Split('\n')) {
                 String st1=st.TrimStart(' ', '\r', '\t');
-                if (st1 == "" || st1.StartsWith("#"))
+                if (st1 == "" || st1.StartsWith("#") || st1.StartsWith("-") || st1.StartsWith("["))
                     continue;
                 string key = st.Split('=')[0].Trim(' ', '\r', '\t');
                 if (!Regex.Match(OldConfig,@"\n\s*"+key+@"\s*=").Success)

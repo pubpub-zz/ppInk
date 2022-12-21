@@ -2571,24 +2571,34 @@ namespace gInk
             Point[] pts = stk.GetPoints(Start, stk.PacketCount - Start);        // hope that PacketCount==
             int i = 1;
             double x, y, p;
-            while(i<pts.Length)
+            while (i < pts.Length)
             {
                 x = pts[i].X - pts[i - 1].X;
                 y = pts[i].Y - pts[i - 1].Y;
-                p =Remain - Math.Sqrt(x * x + y * y);
-                if(p<0) // the new point is on latest segment
+                double d = Math.Sqrt(x * x + y * y);
+                p = Remain - d;
+                //Console.WriteLine("*** {0} = {1} % {2} == {3}", Remain, d, dist,"");
+                while (p < 0) // the new point(s) is on latest segment
                 {
-                    //TODO : Point pt = new Point() { X = (int)(pts[i].X + x * (0*p / Remain - p)), Y = (int)(pts[i].Y + y * (0*p / Remain - p)) };
-                    Point pt = new Point(pts[i].X, pts[i].Y);
-                    Console.Write(pts[i-1]); Console.Write(pts[i]); Console.Write(pt);
-                    Console.WriteLine(" - {0} - {1}", Remain, p);
-                    IC.Renderer.InkSpaceToPixel(Root.FormDisplay.gOneStrokeCanvus, ref pt);
+                    double k = Remain / d;
+                    Point pt = new Point() { X = (int)(pts[i].X + x * (k - 1)), Y = (int)(pts[i].Y + y * (k - 1)) };
+                    x = pts[i].X - pt.X;
+                    y = pts[i].Y - pt.Y;
+                    d = Math.Sqrt(x * x + y * y);
+                    Remain = dist;
+                    p = Remain - d;
+                    //Point pt = new Point(pts[i].X, pts[i].Y);
+                    //Console.Write(pts[i - 1]); Console.Write(pts[i]); Console.Write(pt);
+                    //Console.WriteLine(" - {0} - {1}", Remain, p);
+                    if(ConvertInkSpaceToPixel)
+                        IC.Renderer.InkSpaceToPixel(Root.FormDisplay.gOneStrokeCanvus, ref pt);
                     pt.X += Xoff;
                     pt.Y += Yoff;
                     o.Add(pt);
-                    p += dist;
+                    //p += dist;
                 }
                 Remain = p; // for next Loop
+                //Console.WriteLine("* {0}", Remain);
                 i++;
             }
             Start += pts.Length - 1;

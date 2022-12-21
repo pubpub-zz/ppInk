@@ -6463,7 +6463,7 @@ namespace gInk
 
         private void btScaleRot_Click(object sender, EventArgs e)
         {
-            CustomizeAndOpenSubTools(-1, "PanSubTools", new string[] { "scale_act", "rotate_act" }, Root.Local.PanSubToolsHints,
+            CustomizeAndOpenSubTools(-1, "PanSubTools", new string[] { "scale_act", "rotate_act" }, Root.Local.ScaleSubToolsHints,
                                      new Func<int, bool>[] { i => { SelectPen(LastPenSelected); SelectTool(Tools.Scale); return true; },
                                                              i => { SelectPen(LastPenSelected); SelectTool(Tools.Rotate); return true; }});
             if (ToolbarMoved)

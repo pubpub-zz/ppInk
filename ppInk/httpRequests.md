@@ -19,7 +19,9 @@ the server url root part (inhere http://localhost:7999/ may be changed in
 options dialogbox
 
 for simplicity, Parameters are passed with a single letter but are most of the
-time similar to the Json respon
+time similar to the Json respons
+
+__Caution : The parameters tags are case sensitive__(http://localhost:7999/Inking?S=True is correct but not http://localhost:7999/Inking?s=True)
 
 Booleans Input (True/False) are case Insensitive (and full lower in responses to
 be in accordance with JSON)

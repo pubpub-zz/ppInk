@@ -31,6 +31,7 @@ namespace gInk
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCollection));
             this.gpButtons = new System.Windows.Forms.Panel();
+            this.btExtraPens = new System.Windows.Forms.Button();
             this.btScaleRot = new System.Windows.Forms.Button();
             this.btLasso = new System.Windows.Forms.Button();
             this.btZoom = new System.Windows.Forms.Button();
@@ -86,6 +87,7 @@ namespace gInk
             // gpButtons
             // 
             this.gpButtons.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.gpButtons.Controls.Add(this.btExtraPens);
             this.gpButtons.Controls.Add(this.btScaleRot);
             this.gpButtons.Controls.Add(this.btLasso);
             this.gpButtons.Controls.Add(this.btZoom);
@@ -124,6 +126,24 @@ namespace gInk
             this.gpButtons.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gpButtons_MouseDown);
             this.gpButtons.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gpButtons_MouseMove);
             this.gpButtons.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gpButtons_MouseUp);
+            // 
+            // btExtraPens
+            // 
+            this.btExtraPens.BackColor = System.Drawing.Color.Transparent;
+            this.btExtraPens.BackgroundImage = global::gInk.Properties.Resources.ExtraPens;
+            this.btExtraPens.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btExtraPens.FlatAppearance.BorderSize = 0;
+            this.btExtraPens.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btExtraPens.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btExtraPens.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btExtraPens.Location = new System.Drawing.Point(1437, 0);
+            this.btExtraPens.Margin = new System.Windows.Forms.Padding(2);
+            this.btExtraPens.Name = "btExtraPens";
+            this.btExtraPens.Size = new System.Drawing.Size(12, 46);
+            this.btExtraPens.TabIndex = 15;
+            this.toolTip.SetToolTip(this.btExtraPens, "Snapshot");
+            this.btExtraPens.UseVisualStyleBackColor = true;
+            this.btExtraPens.Click += new System.EventHandler(this.ExtraPensBtn_Click);
             // 
             // btScaleRot
             // 
@@ -1141,6 +1161,7 @@ namespace gInk
         public System.Windows.Forms.Timer longClickTimer;
         public System.Windows.Forms.Button btLasso;
         public System.Windows.Forms.Button btScaleRot;
+        public System.Windows.Forms.Button btExtraPens;
     }
 }
 

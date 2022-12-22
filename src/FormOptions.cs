@@ -16,17 +16,18 @@ namespace gInk
 	{
 		public Root Root;
 
-		Label[] lbPens = new Label[10];
-		CheckBox[] cbPens = new CheckBox[10];
-		PictureBox[] pboxPens = new PictureBox[10];
-		ComboBox[] comboPensAlpha = new ComboBox[10];
-		ComboBox[] comboPensWidth = new ComboBox[10];
-        Panel [] comboPensLineStyle = new Panel[10];
-        CheckBox[] comboPensFading = new CheckBox[10];
+        
+		Label[] lbPens = new Label[Root.MaxPenCount];
+		CheckBox[] cbPens = new CheckBox[Root.MaxPenCount];
+		PictureBox[] pboxPens = new PictureBox[Root.MaxPenCount];
+		ComboBox[] comboPensAlpha = new ComboBox[Root.MaxPenCount];
+		ComboBox[] comboPensWidth = new ComboBox[Root.MaxPenCount];
+        Panel [] comboPensLineStyle = new Panel[Root.MaxPenCount];
+        CheckBox[] comboPensFading = new CheckBox[Root.MaxPenCount];
         //Label lbcbPens, lbpboxPens, lbcomboPensAlpha, lbcomboPensWidth, lbcomboPensFading;
 
-		Label[] lbHotkeyPens = new Label[10];
-		HotkeyInputBox[] hiPens = new HotkeyInputBox[10];
+		Label[] lbHotkeyPens = new Label[Root.MaxPenCount];
+		HotkeyInputBox[] hiPens = new HotkeyInputBox[Root.MaxPenCount];
 
         Bitmap[] ToolBarOrientationIcons = { gInk.Properties.Resources.toolbar2Left, gInk.Properties.Resources.toolbar2Right,
                                              gInk.Properties.Resources.toolbar2Up, gInk.Properties.Resources.toolbar2Down };
@@ -35,14 +36,19 @@ namespace gInk
 		{
 			Root = root;
 			InitializeComponent();
+            int i = PenPanel.Left;
+            PenPanel.Left = 0;
+            PenPanel.Width += i;
             for (int p = 0; p < Root.MaxPenCount; p++)
 			{
 				//int top = p * (int)(this.Height * 0.075) + (int)(this.Height * 0.09);
-                int top = lbPens0.Top + p * (lbPens1.Top-lbPens0.Top);
+                //int top = lbPens0.Top + p * (lbPens1.Top-lbPens0.Top);
                 /*lbPens[p] = new Label();
 				lbPens[p].Left = (int)(this.Width / 500.0 * 60);
 				lbPens[p].Width = 80;
 				lbPens[p].Top = top;*/
+
+                lbPens[p] = new Label();
 
 				cbPens[p] = new CheckBox();
 				cbPens[p].CheckedChanged += cbPens_CheckedChanged;
@@ -62,13 +68,16 @@ namespace gInk
                 comboPensFading[p] = new CheckBox();
                 comboPensFading[p].CheckedChanged += comboPensFading_Changed;
 
-                tabPage2.Controls.Add(lbPens[p]);
-				tabPage2.Controls.Add(cbPens[p]);
-				tabPage2.Controls.Add(pboxPens[p]);
-				tabPage2.Controls.Add(comboPensAlpha[p]);
-				tabPage2.Controls.Add(comboPensWidth[p]);
-                tabPage2.Controls.Add(comboPensLineStyle[p]);
-                tabPage2.Controls.Add(comboPensFading[p]);
+                PenPanel.Controls.Add(lbPens[p]);
+                PenPanel.Controls.Add(cbPens[p]);
+                PenPanel.Controls.Add(pboxPens[p]);
+                PenPanel.Controls.Add(comboPensAlpha[p]);
+                PenPanel.Controls.Add(comboPensWidth[p]);
+                PenPanel.Controls.Add(comboPensLineStyle[p]);
+                PenPanel.Controls.Add(comboPensFading[p]);
+
+                if (p >= Root.MaxDisplayedPens)
+                    continue;
 
                 lbHotkeyPens[p] = new Label();
                 hiPens[p] = new HotkeyInputBox();
@@ -204,17 +213,20 @@ namespace gInk
 
             lbNote.ForeColor = Color.Black;
 
-            lbPens[0] = lbPens0; lbPens[1] = lbPens1; lbPens[2] = lbPens2; lbPens[3] = lbPens3; lbPens[4] = lbPens4;
-            lbPens[5] = lbPens5; lbPens[6] = lbPens6; lbPens[7] = lbPens7; lbPens[8] = lbPens8; lbPens[9] = lbPens9;
+            //lbPens[0] = lbPens0; lbPens[1] = lbPens1; lbPens[2] = lbPens2; lbPens[3] = lbPens3; lbPens[4] = lbPens4;
+            //lbPens[5] = lbPens5; lbPens[6] = lbPens6; lbPens[7] = lbPens7; lbPens[8] = lbPens8; lbPens[9] = lbPens9;
 
             for (int p = 0; p < Root.MaxPenCount; p++)
 			{
 				//int top = p * (int)(this.Height * 0.075) + (int)(this.Height * 0.09);
-                int top = lbPens0.Top + p * (lbPens1.Top-lbPens0.Top);
+                int top = lbPens0.Top - PenPanel.Top + p * (lbPens1.Top-lbPens0.Top);
                 /*lbPens[p] = new Label();
 				lbPens[p].Left = (int)(this.Width / 500.0 * 60);
 				lbPens[p].Width = 80;
 				lbPens[p].Top = top;*/
+
+                lbPens[p].Left = lbPens0.Left;           
+                lbPens[p].Top = top;
 
                 cbPens[p].Left = lbcbPens.Left + 10;// (int)(this.Width / 500.0 * 30);
 				cbPens[p].Width = 25;
@@ -238,7 +250,7 @@ namespace gInk
 				comboPensWidth[p].Width = 60;
 				comboPensWidth[p].Text = ((int)Root.PenAttr[p].Width).ToString();
 
-                comboPensLineStyle[p].Left = lbLineStyle.Left+5;// (int)(this.Width / 500.0 * 270);
+                comboPensLineStyle[p].Left = lbLineStyle.Left + 5;// (int)(this.Width / 500.0 * 270);
                 comboPensLineStyle[p].Top = top - 2;
                 comboPensLineStyle[p].Height = comboPensWidth[p].Height;
                 comboPensLineStyle[p].Width = comboPensWidth[p].Height*2;
@@ -246,7 +258,7 @@ namespace gInk
                 comboPensLineStyle[p].BackgroundImage = FormCollection.getImgFromDiskOrRes("DashStyle"+ Root.LineStyleToString(Root.PenAttr[p].ExtendedProperties));
                 comboPensLineStyle[p].Tag = p;
 
-                comboPensFading[p].Left = lbcomboPensFading.Left+10;  // (int)(this.Width / 500.0 * 380);
+                comboPensFading[p].Left = lbcomboPensFading.Left + 10;  // (int)(this.Width / 500.0 * 380);
                 comboPensFading[p].Top = top - 2;
                 comboPensFading[p].Width = 20;
                 comboPensFading[p].Checked = Root.PenAttr[p].ExtendedProperties.Contains(Root.FADING_PEN);
@@ -258,8 +270,8 @@ namespace gInk
             Click4StrokeCb.Checked = Root.ButtonClick_For_LineStyle;
 
             //cbAllowHotkeyInPointer.Top = (int)(this.Height * 0.18);
-
-			for (int p = 0; p < Root.MaxPenCount; p++)
+            ExtraPensCb.Checked = Root.PensExtraSet;
+            for (int p = 0; p < Root.MaxDisplayedPens; p++)
 			{
 				//int top = p * (hiEraser.Top - hiLasso.Top) + hiLasso.Top;
 				lbHotkeyPens[p].Left = lbHkColorEdit.Left;
@@ -442,7 +454,7 @@ namespace gInk
                     this.SnapInPointerTwiceCb.Items[i++] = st;
                 }
             }
-
+            this.ExtraPensCb.Text = Root.Local.OptionHotkeysExtraPens;
             this.AltAsOneCommandCb.Text = Root.Local.OptionsHotKeyAltAsOneCommand;
             this.lbHkFadingToggle.Text = Root.Local.ButtonNameToogle;
 			this.lbHkClear.Text = shortTxt(Root.Local.ButtonNameClear);
@@ -529,8 +541,9 @@ namespace gInk
 				comboPensWidth[p].Items.Clear();
 				comboPensAlpha[p].Items.AddRange(new object[] { Root.Local.OptionsPensPencil, Root.Local.OptionsPensHighlighter });
 				comboPensWidth[p].Items.AddRange(new object[] { Root.Local.OptionsPensThin, Root.Local.OptionsPensNormal, Root.Local.OptionsPensThick });
-
-				lbPens[p].Text = Root.Local.ButtonNamePen[p];
+                lbPens[p].Text = Root.Local.ButtonNamePen[p];
+                if (p >= Root.MaxDisplayedPens)
+                    continue;
 				lbHotkeyPens[p].Text = Root.Local.ButtonNamePen[p];
 
 			}
@@ -787,7 +800,15 @@ namespace gInk
             if (st != "")
                 using(var f = new StreamWriter("config.ini"))
                     f.Write(config_ini + "\n" + st);
-        
+
+            using (var f = new StreamReader("pens.ini"))
+                config_ini = f.ReadToEnd();
+            using (var f = new StreamReader("pensdef.ini"))
+                st = Root.CompleteConfig(f.ReadToEnd(), config_ini);
+            if (st != "")
+                using (var f = new StreamWriter("pens.ini"))
+                    f.Write(config_ini + "\n" + st);
+
             Root.SaveOptions("pens.ini");
             Root.SaveOptions("config.ini");
             Root.SaveOptions("hotkeys.ini");
@@ -1467,6 +1488,11 @@ namespace gInk
         private void KeepUnfoldedPointerCb_CheckedChanged(object sender, EventArgs e)
         {
             Root.KeepUnDockedAtPointer = KeepUnfoldedPointerCb.Checked;
+        }
+
+        private void ExtraPensCb_CheckedChanged(object sender, EventArgs e)
+        {
+            Root.PensExtraSet = ExtraPensCb.Checked;
         }
     }
 }

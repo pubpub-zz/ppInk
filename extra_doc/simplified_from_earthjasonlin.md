@@ -10,13 +10,13 @@ It disables some "advanced" functions that may not be used so frequently, such a
 
 What it looks like:
 
-![Simplified](imgs/preview_modified.png)
+![Simplified](imgs/preview_modified_earthjasonlin.png)
 
 *Though this simplified version disables many features like magnet art, they can be enabled in the setting page.*
 
 ## How to use it
 
-1. Download the [config.ini](config.ini) and [pens.ini](pens.ini)
+1. Download the [config.ini](simplified_from_earthjasonlin.files/config.ini) and [pens.ini](simplified_from_earthjasonlin.files/pens.ini)
 
 2. Put the files in to your program directory, and replace the default ones.
 

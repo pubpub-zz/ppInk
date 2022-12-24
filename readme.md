@@ -350,8 +350,8 @@ Click the exit button or press ESC to exit drawing.
 #### Configurations
 
 -    ppInk can be largely configured. Some examples/proposals of simplified configuation are offered here:
-* [Simplified configuration from @earthjasonlin](extra_doc/simplified_from_earthjasonlin.md)
-![image](extra_doc/imgs/preview_modified_earthjasonlin.png)
+  * [Simplified configuration from @earthjasonlin](extra_doc/simplified_from_earthjasonlin.md)
+     ![](extra_doc/imgs/preview_modified_earthjasonlin.png)
 
 _note about ini files_: when upgrading to a newer version, you can copy your config.ini / pens.ini / hotkeys.ini. All the new entries will be copied from the defaults part of the delivery,
 you can then change the new parameters and when you will use the `save to files` in the options dialog box, they will be appended to your files
@@ -359,11 +359,9 @@ you can then change the new parameters and when you will use the `save to files`
 #### How to contribute translation
 
 gInk/ppInk supports multiple languages now (ppInk introduces a few new sentences where internationalization has not be implemented.). Here is how you can contribute translation. Simply create a duplication of the file "en-us.txt" in "bin/lang" folder, rename it and then translate the strings in the file. Check in ppInk to make sure your translation shows correctly, and then you can make a pull request or use https://github.com/pubpub-zz/ppInk/issues/17 to propose your translation.
-When upgrading to a new version, to ease translation, all the missing entries in your translation can be copied from the english version into your translation : For this, go the option, (re-)select your current langage (or another one) in the langage list, you will be prompted for completing the langage definition file. if you say yes, all missing inputs (will be added with the english translation). You then just have to translation the new inputs.
-If after translation you can also reorder the sentences as you wish. 
-for the next version of release for others to use.
 
-arabic available
+When upgrading to a new version, to ease translation, all the missing entries in your translation can be copied from the english version into your translation : For this, go the option, (re-)select your current langage (or another one) in the langage list, you will be prompted for completing the langage definition file. if you say yes, all missing inputs (will be added with the english translation). You then just have to translation the new inputs.
+after translation you can(not required) also reorder the sentences as you wish. 
 
 gInk  
 https://github.com/geovens/gInk  

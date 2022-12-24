@@ -10,7 +10,7 @@ It disables some "advanced" functions that may not be used so frequently, such a
 
 What it looks like:
 
-![Simplified](imgs/preview_modified_earthjasonlin.png)
+![](imgs/preview_modified_earthjasonlin.png)
 
 *Though this simplified version disables many features like magnet art, they can be enabled in the setting page.*
 

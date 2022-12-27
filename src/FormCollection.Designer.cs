@@ -130,7 +130,7 @@ namespace gInk
             // btExtraPens
             // 
             this.btExtraPens.BackColor = System.Drawing.Color.Transparent;
-            this.btExtraPens.BackgroundImage = global::gInk.Properties.Resources.ExtraPens;
+            this.btExtraPens.BackgroundImage = global::gInk.Properties.Resources.ExtraPensH;
             this.btExtraPens.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btExtraPens.FlatAppearance.BorderSize = 0;
             this.btExtraPens.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;

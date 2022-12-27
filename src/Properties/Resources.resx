@@ -532,7 +532,10 @@
   <data name="DashLSTag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\DashLSTag.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ExtraPens" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ExtraPens.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ExtraPensH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ExtraPensH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExtraPensV" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ExtraPensV.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

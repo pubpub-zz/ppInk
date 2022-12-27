@@ -422,9 +422,19 @@ namespace gInk.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap ExtraPens {
+        public static System.Drawing.Bitmap ExtraPensH {
             get {
-                object obj = ResourceManager.GetObject("ExtraPens", resourceCulture);
+                object obj = ResourceManager.GetObject("ExtraPensH", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExtraPensV {
+            get {
+                object obj = ResourceManager.GetObject("ExtraPensV", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

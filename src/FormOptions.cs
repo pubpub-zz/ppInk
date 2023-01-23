@@ -1062,7 +1062,7 @@ namespace gInk
         {
             float f = -1;
             TextBox tb = (TextBox)sender;
-            if (float.TryParse(tb.Text, out f) && f > 0)
+            if (float.TryParse(tb.Text, out f) && f >= 0)
             {
                 Root.TimeBeforeFading = f;
                 tb.BackColor = SystemColors.Window;

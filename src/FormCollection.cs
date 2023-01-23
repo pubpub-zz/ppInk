@@ -4768,10 +4768,10 @@ namespace gInk
                                 FadingList.Remove(st);
                                 IC.Ink.DeleteStroke(st);
                             }
-                            else if (st.DrawingAttributes.Transparency > 245)
+                            else if (st.DrawingAttributes.Transparency > (255-Root.DecreaseFading))
                                 st.DrawingAttributes.Transparency = 255;
                             else
-                                st.DrawingAttributes.Transparency += 10;
+                                st.DrawingAttributes.Transparency += Root.DecreaseFading;
                             Root.UponAllDrawingUpdate = true;
                         }
                     }

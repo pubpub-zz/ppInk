@@ -423,6 +423,7 @@ namespace gInk
         public ClipArtData  ImageStamp3 = new ClipArtData { ImageStamp = "", X = -1, Y = -1, Wstored = -1, Hstored = -1, Filling = (int)(Filling.NoFrame), PatternLine = false, Distance = -1, Store = false };
 
         public float TimeBeforeFading = 5.0F;     //5s default
+        public byte DecreaseFading = 10;     //10 (/255)  ; must be a positive value
 
         public int ZoomWidth = 100;
         public int ZoomHeight = 100;
@@ -1090,7 +1091,7 @@ namespace gInk
                                     k = -1;
                                 else if (!float.TryParse(sPara, out k))
                                     k = TimeBeforeFading;
-                                if (k > 0)
+                                if (k >= 0)
                                     PenAttr[penid].ExtendedProperties.Add(FADING_PEN, k);
                             }
 
@@ -1692,7 +1693,11 @@ namespace gInk
                             break;
                         case "FADING_TIME":
                             if (float.TryParse(sPara, out tempf))
-                                TimeBeforeFading = tempf;
+                                TimeBeforeFading = (tempf>=0.0?tempf:0.0f);
+                            break;
+                        case "FADING_DECREASE":
+                            if (Int32.TryParse(sPara, out tempi) && tempi>0 && tempi<255)
+                                DecreaseFading = (byte)tempi;                       
                             break;
                         case "ZOOM":     // Width;Height;scale(f);Continuous(Y/N)
                             if (sPara.Length == 0) break;

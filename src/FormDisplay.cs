@@ -358,7 +358,7 @@ namespace gInk
             if (DA.ExtendedProperties.Contains(Root.DASHED_LINE_GUID))
                 try
                 {
-                    Pen p = new Pen(DA.Color, Root.HiMetricToPixel(DA.Width));
+                    Pen p = new Pen(Color.FromArgb(255-DA.Transparency,DA.Color), Root.HiMetricToPixel(DA.Width));                   
                     //try
                     //{
                         p.DashStyle = (DashStyle)(int)(DA.ExtendedProperties[Root.DASHED_LINE_GUID].Data);

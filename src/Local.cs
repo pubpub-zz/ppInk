@@ -94,6 +94,8 @@ namespace gInk
         public string OptionMeasureLenLabel;
         public string OptionMeasureAngle;
         public string FormatLength;
+        public string FormatRectSize;
+        public string FormatEllipseSize;    
         public string FormatAngle;
         public string FormaTotalLength;
 

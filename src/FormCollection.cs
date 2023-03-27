@@ -1562,16 +1562,18 @@ namespace gInk
 
         }
 
+        int NB_ELLIPSE_PTS = 36 * 3;
         private Stroke AddEllipseStroke(int CursorX0, int CursorY0, int CursorX, int CursorY, int FilledSelected)
         {
-            int NB_PTS = 36 * 3;
-            Point[] pts = new Point[NB_PTS + 1];
+            Point[] pts = new Point[NB_ELLIPSE_PTS + 1];
             int dX = CursorX - CursorX0;
             int dY = CursorY - CursorY0;
 
-            for (int i = 0; i < NB_PTS + 1; i++)
+            for (int i = 0; i < NB_ELLIPSE_PTS + 1; i++)
             {
-                pts[i] = new Point(CursorX0 + (int)(dX * Math.Cos(Math.PI * (i + NB_PTS / 8) / (NB_PTS / 2))), CursorY0 + (int)(dY * Math.Sin(Math.PI * (i + NB_PTS / 8) / (NB_PTS / 2))));
+                pts[i] = new Point(CursorX0 + (int)(dX * Math.Cos(Math.PI * (i + NB_ELLIPSE_PTS / 8) / (NB_ELLIPSE_PTS / 2))), 
+                                   CursorY0 + (int)(dY * Math.Sin(Math.PI * (i + NB_ELLIPSE_PTS / 8) / (NB_ELLIPSE_PTS / 2))));
+                Console.WriteLine("{0} - {1} - {2}", i, pts[i].X, pts[i].Y);
             }
             IC.Renderer.PixelToInkSpace(Root.FormDisplay.gOneStrokeCanvus, ref pts);
             Stroke st = Root.FormCollection.IC.Ink.CreateStroke(pts);
@@ -3278,11 +3280,40 @@ namespace gInk
             int j;
             Point pt, pt1;
             Double ang = Double.NaN;
+            Double larg,lng;
             string str = "";
+            const int EIGHT_NB_ELLIPSE_PTS = 15;
 
             j = st.GetPoints().Length;
             str = string.Format(MeasureNumberFormat, Root.Local.FormatLength, Root.ConvertMeasureLength(StrokeLength(st)), Root.Measure2Unit);
-            if (j == 3)
+            if(j==9 && st.GetPoint(0) == st.GetPoint(j-1)) // shortcut to check it is a rectangle
+            {
+                pt = st.GetPoint(0);
+                pt1 = st.GetPoint(2);
+                Console.WriteLine("{0} - {1}", pt, pt1);
+                pt.X -= pt1.X; pt.Y -= pt1.Y;
+                lng = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
+                pt = st.GetPoint(4);
+                Console.WriteLine("{0} - {1}", pt, pt1);
+                pt.X -= pt1.X; pt.Y -= pt1.Y;
+                larg = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
+                str += string.Format(MeasureNumberFormat, " " + Root.Local.FormatRectSize, Root.ConvertMeasureLength(lng), Root.ConvertMeasureLength(larg), Root.Measure2Unit);
+            }
+            else if (j == NB_ELLIPSE_PTS + 1 && st.GetPoint(0) == st.GetPoint(j - 1)) // shortcut to check it is a rectangle
+            {
+                pt = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + ( NB_ELLIPSE_PTS) / 4);
+                pt1 = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + (3 * NB_ELLIPSE_PTS) / 4);
+                Console.WriteLine("{0} - {1}", pt, pt1);
+                pt.X -= pt1.X; pt.Y -= pt1.Y;
+                lng = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
+                pt = st.GetPoint(EIGHT_NB_ELLIPSE_PTS );
+                pt1 = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + NB_ELLIPSE_PTS / 2 );
+                Console.WriteLine("{0} - {1}", pt, pt1);
+                pt.X -= pt1.X; pt.Y -= pt1.Y;
+                larg = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
+                str += string.Format(MeasureNumberFormat, " " + Root.Local.FormatEllipseSize, Root.ConvertMeasureLength(lng), Root.ConvertMeasureLength(larg), Root.Measure2Unit);
+            }
+            else if (j == 3)
             {
                 pt = st.GetPoint(1);
                 pt1 = st.GetPoint(0);

@@ -2847,6 +2847,8 @@ namespace gInk
             this.VideoTabCtrl.SelectedIndex = 0;
             this.VideoTabCtrl.Size = new System.Drawing.Size(775, 592);
             this.VideoTabCtrl.TabIndex = 8;
+            this.VideoTabCtrl.SelectedIndexChanged += new System.EventHandler(this.VideoTabCtrl_SelectedIndexChanged);
+            this.VideoTabCtrl.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.VideoTabCtrl_Selecting);
             // 
             // tabPage2
             // 

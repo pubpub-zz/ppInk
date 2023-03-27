@@ -1494,6 +1494,16 @@ namespace gInk
         {
             Root.PensExtraSet = ExtraPensCb.Checked;
         }
+
+        private void VideoTabCtrl_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;     // to prevent comments from users about delay when displaying pens tab
+        }
+
+        private void VideoTabCtrl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.Default;
+        }
     }
 }
  

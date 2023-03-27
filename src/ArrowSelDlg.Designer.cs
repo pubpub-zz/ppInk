@@ -38,6 +38,10 @@
             this.ArrowTail_Pnl = new System.Windows.Forms.Panel();
             this.ArrowHead_Pnl = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.HeadScaleEd = new System.Windows.Forms.TextBox();
+            this.TailScaleEd = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +55,7 @@
             // 
             // NextBtn
             // 
-            this.NextBtn.Location = new System.Drawing.Point(172, 80);
+            this.NextBtn.Location = new System.Drawing.Point(172, 99);
             this.NextBtn.Name = "NextBtn";
             this.NextBtn.Size = new System.Drawing.Size(75, 23);
             this.NextBtn.TabIndex = 4;
@@ -61,7 +65,7 @@
             // 
             // PrevBtn
             // 
-            this.PrevBtn.Location = new System.Drawing.Point(88, 80);
+            this.PrevBtn.Location = new System.Drawing.Point(88, 99);
             this.PrevBtn.Name = "PrevBtn";
             this.PrevBtn.Size = new System.Drawing.Size(75, 23);
             this.PrevBtn.TabIndex = 5;
@@ -71,7 +75,7 @@
             // 
             // SaveBtn
             // 
-            this.SaveBtn.Location = new System.Drawing.Point(253, 102);
+            this.SaveBtn.Location = new System.Drawing.Point(253, 122);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveBtn.TabIndex = 6;
@@ -147,12 +151,58 @@
             this.panel4.Size = new System.Drawing.Size(246, 67);
             this.panel4.TabIndex = 12;
             // 
+            // HeadScaleEd
+            // 
+            this.HeadScaleEd.Location = new System.Drawing.Point(224, 73);
+            this.HeadScaleEd.Name = "HeadScaleEd";
+            this.HeadScaleEd.Size = new System.Drawing.Size(45, 20);
+            this.HeadScaleEd.TabIndex = 13;
+            this.HeadScaleEd.Text = "0.25";
+            this.HeadScaleEd.TextChanged += new System.EventHandler(this.ScaleEd_TextChanged);
+            this.HeadScaleEd.Leave += new System.EventHandler(this.HeadScaleEd_Leave);
+            this.HeadScaleEd.Validating += new System.ComponentModel.CancelEventHandler(this.ScaleEd_Validating);
+            this.HeadScaleEd.Validated += new System.EventHandler(this.HeadScaleEd_Validated);
+            // 
+            // TailScaleEd
+            // 
+            this.TailScaleEd.Location = new System.Drawing.Point(68, 73);
+            this.TailScaleEd.Name = "TailScaleEd";
+            this.TailScaleEd.Size = new System.Drawing.Size(45, 20);
+            this.TailScaleEd.TabIndex = 14;
+            this.TailScaleEd.Text = "0.25";
+            this.TailScaleEd.TextChanged += new System.EventHandler(this.ScaleEd_TextChanged);
+            this.TailScaleEd.Leave += new System.EventHandler(this.TailScaleEd_Leave);
+            this.TailScaleEd.Validating += new System.ComponentModel.CancelEventHandler(this.ScaleEd_Validating);
+            this.TailScaleEd.Validated += new System.EventHandler(this.TailScaleEd_Validated);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(212, 76);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(12, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "x";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(57, 76);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(12, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "x";
+            // 
             // ArrowSelDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.QuitBtn;
             this.ClientSize = new System.Drawing.Size(340, 185);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.TailScaleEd);
+            this.Controls.Add(this.HeadScaleEd);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.DelBtn);
             this.Controls.Add(this.AddBtn);
@@ -165,6 +215,7 @@
             this.TopMost = true;
             this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -179,5 +230,9 @@
         private System.Windows.Forms.Panel ArrowTail_Pnl;
         private System.Windows.Forms.Panel ArrowHead_Pnl;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.TextBox HeadScaleEd;
+        private System.Windows.Forms.TextBox TailScaleEd;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -51,9 +51,14 @@ namespace gInk
                 ArrowTail = Root.ArrowTail[Root.CurrentArrow];
                 this.Text = Root.Local.ArrowDlg + string.Format(" - {0}/{1}", Root.CurrentArrow + 1, Root.ArrowHead.Count);
             }
-            ArrowHead_Pnl.BackgroundImage = (Image)FormCollection.getImgFromDiskOrRes(ArrowHead).Clone();          
-            ArrowTail_Pnl.BackgroundImage = (Image)FormCollection.getImgFromDiskOrRes(ArrowTail).Clone();
+            string[] strs = ArrowHead.Split('%');        
+            ArrowHead_Pnl.BackgroundImage = (Image)FormCollection.getImgFromDiskOrRes(strs[0]).Clone();
+            HeadScaleEd.Text = strs.Length > 1 ?strs[1]:"1.0";
+
+            strs = ArrowTail.Split('%');
+            ArrowTail_Pnl.BackgroundImage = (Image)FormCollection.getImgFromDiskOrRes(strs[0]).Clone();
             ArrowTail_Pnl.BackgroundImage.RotateFlip(RotateFlipType.Rotate180FlipNone);
+            TailScaleEd.Text = strs.Length > 1 ? strs[1] : "1.0";
             SaveBtn.Enabled = false;
         }
 
@@ -61,7 +66,7 @@ namespace gInk
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                dlg.FileName = ArrowHead;
+                dlg.FileName = ArrowHead.Split('%')[0];
                 dlg.InitialDirectory = Global.ProgramFolder;
                 dlg.Filter = "Images(*.png;*.bmp;*.jpg;*.jpeg;*.gif;*.ico;*.apng)|*.png;*.bmp;*.jpg;*.jpeg;*.gif;*.ico;*.apng|All files (*.*)|*.*";
                 dlg.RestoreDirectory = true;
@@ -72,6 +77,10 @@ namespace gInk
                     ArrowHead_Pnl.BackgroundImage.Dispose();
                     ArrowHead = dlg.FileName;
                     ArrowHead_Pnl.BackgroundImage = new Bitmap(ArrowHead);
+                    if(float.Parse(HeadScaleEd.Text) != 1.0F)
+                    {
+                        ArrowHead = ArrowHead + "%" + HeadScaleEd.Text;
+                    }
                     SaveBtn.Enabled = true;
                 }
             }
@@ -81,7 +90,7 @@ namespace gInk
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                dlg.FileName = ArrowTail;
+                dlg.FileName = ArrowTail.Split('%')[0];
                 dlg.InitialDirectory = Global.ProgramFolder;
                 dlg.Filter = "Images(*.png;*.bmp;*.jpg;*.jpeg;*.gif;*.ico;*.apng)|*.png;*.bmp;*.jpg;*.jpeg;*.gif;*.ico;*.apng|All files (*.*)|*.*";
                 dlg.RestoreDirectory = true;
@@ -93,6 +102,10 @@ namespace gInk
                     ArrowTail = dlg.FileName;
                     ArrowTail_Pnl.BackgroundImage = new Bitmap(ArrowTail);
                     ArrowTail_Pnl.BackgroundImage.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    if (float.Parse(TailScaleEd.Text) != 1.0F)
+                    {
+                        ArrowTail = ArrowTail + "%" + TailScaleEd.Text;
+                    }
                     SaveBtn.Enabled = true;
                 }
             }
@@ -163,6 +176,55 @@ namespace gInk
 
         private void QuitBtn_Click(object sender, EventArgs e)
         {
+        }
+
+        private void HeadScaleEd_Validated(object sender, EventArgs e)
+        {
+            ArrowHead = ArrowHead.Split('%')[0] + "%" + HeadScaleEd.Text;
+            SaveBtn.Enabled = true;
+        }
+
+        private void TailScaleEd_Validated(object sender, EventArgs e)
+        {
+            ArrowTail = ArrowTail.Split('%')[0] + "%" + TailScaleEd.Text;
+            SaveBtn.Enabled = true;
+        }
+
+        private void ScaleEd_Validating(object sender, CancelEventArgs e)
+        {
+            float f;
+            TextBox tb = sender as TextBox;
+            if (float.TryParse(tb.Text, out f))
+            {
+                tb.BackColor = Color.White;
+                if(e != null)e.Cancel = false;
+                SaveBtn.Enabled = true;
+            }
+            else
+            {
+                tb.BackColor = Color.Orange;
+                if (e != null) e.Cancel = true;
+                SaveBtn.Enabled = false;
+            }
+        }
+
+        private void ScaleEd_TextChanged(object sender, EventArgs e)
+        {
+            ScaleEd_Validating(sender, null);
+        }
+
+        private void TailScaleEd_Leave(object sender, EventArgs e)
+        {
+            float f;
+            if(float.TryParse(TailScaleEd.Text,out f) && f != 1.0)
+                ArrowTail = ArrowTail.Split('%')[0] + "%" + TailScaleEd.Text;
+        }
+
+        private void HeadScaleEd_Leave(object sender, EventArgs e)
+        {
+            float f;
+            if (float.TryParse(HeadScaleEd.Text, out f) && f != 1.0)
+                ArrowHead = ArrowHead.Split('%')[0] + "%" + HeadScaleEd.Text;
         }
     }
 }

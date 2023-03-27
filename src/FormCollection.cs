@@ -198,28 +198,96 @@ namespace gInk
         public static System.Windows.Forms.Cursor getCursFromDiskOrRes(string name, System.Windows.Forms.Cursor nocurs)
         {
             string filename;
-            string[] exts = { ".cur", ".ani", ".ico" };
+            string[] namesize = name.Split('%');
+            float scale = 1.0F;
+            System.Windows.Forms.Cursor curs = null;
+            Bitmap bmp = null;
+            int[] cursorsize = new int[2];
+            int[] hotSpot = new int[2];
+            if (namesize.Length > 1)
+                scale = float.Parse(namesize[1]);
             try
             {
-                foreach (string ext in exts)
                 {
-                    filename = Global.ProgramFolder + name + ext;
-                    if (File.Exists(filename))
-                        try
-                        {
-                            return new System.Windows.Forms.Cursor(filename);
-                        }
-                        catch (Exception e)
-                        {
-                            Program.WriteErrorLog(string.Format("File {0} found but can not be loaded:\n{1}\n", filename, e));
-                        }
+                    string[] exts = { ".cur", ".ico" };
+                    foreach (string ext in exts)
+                    {
+                        filename = Global.ProgramFolder + namesize[0] + ext;
+                        if (File.Exists(filename))
+                            try
+                            {
+                                curs = new System.Windows.Forms.Cursor(filename);
+                                hotSpot[0] = curs.HotSpot.X; hotSpot[1] = curs.HotSpot.Y;
+                                // required to handle every cursor size such as 128x128
+                                bmp = new Bitmap(filename);
+                                cursorsize[0] = bmp.Width; cursorsize[1] = bmp.Height;
+                                break;
+                            }
+                            catch (Exception e)
+                            {
+                                Program.WriteErrorLog(string.Format("File {0} found but can not be loaded:\n{1}\n", filename, e));
+                            }
+                    }
                 }
-                return new System.Windows.Forms.Cursor(((System.Drawing.Icon)Properties.Resources.ResourceManager.GetObject(name)).Handle);
+                {
+                    string[] exts = { ".ani" };
+                    foreach (string ext in exts)
+                    {
+                        filename = Global.ProgramFolder + namesize[0] + ext;
+                        if (File.Exists(filename))
+                            try
+                            {
+                                curs = new System.Windows.Forms.Cursor(filename);
+                                return curs;
+                            }
+                            catch (Exception e)
+                            {
+                                Program.WriteErrorLog(string.Format("File {0} found but can not be loaded:\n{1}\n", filename, e));
+                            }
+                    }
+                }
+                {
+                    string[]  exts = { ".bmp",".png",".tif",".jpg", ".jpeg" };
+                    foreach (string ext in exts)
+                    {
+                        filename = Global.ProgramFolder + namesize[0] + ext;
+                        if (File.Exists(filename))
+                            try
+                            {
+                                bmp = new Bitmap(filename);
+                                cursorsize[0] = bmp.Width; cursorsize[1] = bmp.Height;
+                                hotSpot[0] = bmp.Width / 2; hotSpot[1] = bmp.Height / 2;
+                            }
+                            catch (Exception e)
+                            {
+                                Program.WriteErrorLog(string.Format("File {0} found but can not be loaded:\n{1}\n", filename, e));
+                            }
+                    }
+                }
             }
             catch
             {
                 return nocurs;
             }
+            if(bmp == null)
+            {
+                curs = new System.Windows.Forms.Cursor(((System.Drawing.Icon)Properties.Resources.ResourceManager.GetObject(namesize[0])).Handle);
+                cursorsize[0] = 128; cursorsize[1] = 128;
+                hotSpot[0] = curs.HotSpot.X; hotSpot[1] = curs.HotSpot.Y;
+                bmp = new Bitmap(cursorsize[0], cursorsize[1], PixelFormat.Format32bppArgb);
+                Graphics mg = Graphics.FromImage(bmp);
+                curs.DrawStretched(mg, new Rectangle(0, 0,bmp.Width,bmp.Height));
+                mg.Dispose();
+            }
+            if(bmp.PixelFormat != PixelFormat.Format32bppArgb)
+            {
+                bmp.MakeTransparent(bmp.GetPixel(0, 0));
+            }
+            Bitmap imgout = new Bitmap((int)Math.Round(cursorsize[0] * scale), (int)Math.Round(cursorsize[1] * scale), PixelFormat.Format32bppArgb);
+            Graphics myGraphics = Graphics.FromImage(imgout);
+            myGraphics.DrawImage(bmp,0,0,imgout.Width,imgout.Height);
+            myGraphics.Dispose();
+            return CreateCursorFromBitmap(imgout, (int)Math.Round(hotSpot[0] * scale), (int)Math.Round(hotSpot[1] * scale));
         }
 
         string[] ImageExts = { ".png" };
@@ -384,13 +452,13 @@ namespace gInk
         public static extern IntPtr CreateIconIndirect(ref IconInfo icon);
 
         /// Create a cursor from a bitmap, with the hot spot in the middle
-        public static System.Windows.Forms.Cursor CreateCursorFromBitmap(Bitmap bmp)
+        public static System.Windows.Forms.Cursor CreateCursorFromBitmap(Bitmap bmp,int hotX=-1,int hotY=-1)
         {
             IntPtr ptr = (bmp).GetHicon();
             IconInfo tmp = new IconInfo();
-            GetIconInfo(ptr, ref tmp);
-            tmp.xHotspot = bmp.Width / 2;
-            tmp.yHotspot = bmp.Height / 2;
+            GetIconInfo(ptr, ref tmp);       
+            tmp.xHotspot = hotX>=0?hotX:(bmp.Width / 2);
+            tmp.yHotspot = hotY>=0?hotY:(bmp.Height / 2);
             tmp.fIcon = false;
             ptr = CreateIconIndirect(ref tmp);
             System.Windows.Forms.Cursor cu = new System.Windows.Forms.Cursor(ptr);
@@ -1158,7 +1226,7 @@ namespace gInk
             catch { }
             finally
             {
-                cursorred = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                cursorred = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
             }
             try
             {
@@ -1167,7 +1235,7 @@ namespace gInk
             catch { }
             finally
             {
-                cursortarget = getCursFromDiskOrRes("cursortarget", System.Windows.Forms.Cursors.SizeNWSE);
+                cursortarget = getCursFromDiskOrRes(Root.cursortargetFileName, System.Windows.Forms.Cursors.SizeNWSE);
             }
             try
             {
@@ -1176,7 +1244,7 @@ namespace gInk
             catch { }
             finally
             {
-                cursorerase = getCursFromDiskOrRes("cursoreraser", System.Windows.Forms.Cursors.No);
+                cursorerase = getCursFromDiskOrRes(Root.cursoreraserFileName, System.Windows.Forms.Cursors.No);
             }
 
             try
@@ -1186,7 +1254,7 @@ namespace gInk
             catch { }
             finally
             {
-                cursorsnap = getCursFromDiskOrRes("cursorsnap", System.Windows.Forms.Cursors.Cross);
+                cursorsnap = getCursFromDiskOrRes(Root.cursorsnapFileName, System.Windows.Forms.Cursors.Cross);
             }
 
             IC.Ink.Strokes.Clear();
@@ -1716,9 +1784,13 @@ namespace gInk
 
         public Bitmap PrepareArrowBitmap(string fn, Color col, int transparency, int PenWidth_p, float angle_r, out int conn_len)
         {
-            Bitmap bmpi = getImgFromDiskOrRes(fn, ImageExts);
+            string[] fn_size = fn.Split('%');
+            float scale = 1.0F;
+            if (fn_size.Length >= 2)
+                scale = float.Parse(fn_size[1]);
             ImageAttributes imageAttributes = new ImageAttributes();
-
+            Bitmap bmpi = getImgFromDiskOrRes(fn_size[0], ImageExts);
+            // bmpi = new Bitmap(bmpi, (int)Math.Round(scale*bmpi.Width, 0), (int)Math.Round(scale*bmpi.Height, 0));
             conn_len = 0;
             int i = bmpi.Height / 2 + 1; //normally line 101
             while (conn_len < bmpi.Width && !bmpi.GetPixel(conn_len, i).ToArgb().Equals(Color.Blue.ToArgb()))
@@ -1736,9 +1808,10 @@ namespace gInk
             ColorMatrix colorMatrix = new ColorMatrix(colorMatrixElements);
             imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
-            float f = PenWidth_p / 18.0F;
+            float f = scale * PenWidth_p / 18.0F;
             float w = (float)(Math.Abs(Math.Cos(angle_r)) * f * bmpi.Width + Math.Abs(Math.Sin(angle_r)) * f * bmpi.Height);
             float h = (float)(Math.Abs(Math.Sin(angle_r)) * f * bmpi.Width + Math.Abs(Math.Cos(angle_r)) * f * bmpi.Height);
+            conn_len = (int)Math.Round(conn_len * f, 0);
 
             Bitmap bmpo = new Bitmap((int)Math.Round(w, 0), (int)Math.Round(h, 0), PixelFormat.Format32bppPArgb);
             Graphics g = Graphics.FromImage(bmpo);
@@ -1886,7 +1959,7 @@ namespace gInk
             }
             catch
             {
-                IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
             }
             System.Windows.Forms.Cursor.Position = new Point(System.Windows.Forms.Cursor.Position.X, System.Windows.Forms.Cursor.Position.Y);
 
@@ -2468,10 +2541,10 @@ namespace gInk
                     try
                     {
                         IC.Cursor = cursorred;
-                    }                 
+                    }
                     catch
                     {
-                        IC.Cursor = getCursFromDiskOrRes("cursorred", System.Windows.Forms.Cursors.NoMove2D);
+                        IC.Cursor = getCursFromDiskOrRes(Root.cursorredFileName, System.Windows.Forms.Cursors.NoMove2D);
                     }
 
                 }
@@ -3170,7 +3243,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursorred", System.Windows.Forms.Cursors.NoMove2D);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursorredFileName, System.Windows.Forms.Cursors.NoMove2D);
                 }
             }
 
@@ -3638,7 +3711,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
                 }
             }
             else if (tool == Tools.Edit)
@@ -3650,7 +3723,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
                 }
                 ModifyStrokesSelection(true, ref InprogressSelection, StrokesSelection);
                 if (StrokesSelection?.Count > 0)
@@ -3696,7 +3769,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
                 }
             }
             else if (tool == Tools.Move)
@@ -3710,7 +3783,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
                 }
             }
             else if (tool == Tools.Copy)
@@ -3724,7 +3797,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
                 }
             }
             else if (tool == Tools.Scale)
@@ -3738,9 +3811,9 @@ namespace gInk
                 {
                     IC.Cursor = cursortarget;
                 }
-               catch
+                catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursortarget", System.Windows.Forms.Cursors.NoMoveHoriz);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursortargetFileName, System.Windows.Forms.Cursors.NoMoveHoriz);
                 }
             }
             else if (tool == Tools.Rotate)
@@ -3756,7 +3829,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursortarget", System.Windows.Forms.Cursors.NoMove2D);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursortargetFileName, System.Windows.Forms.Cursors.NoMove2D);
                 }
             }
             else if (tool == Tools.PatternLine)
@@ -3795,7 +3868,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes(PatternLineSteps < 2 ? "cursortarget" : "cursorred", System.Windows.Forms.Cursors.NoMoveHoriz);
+                    IC.Cursor = getCursFromDiskOrRes(PatternLineSteps < 2 ? Root.cursortargetFileName : Root.cursorredFileName, System.Windows.Forms.Cursors.NoMoveHoriz);
                 }
             }
             Root.UponButtonsUpdate |= 0x2;
@@ -3854,7 +3927,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
                 }
             }
             else if (pen == -3)
@@ -3957,7 +4030,7 @@ namespace gInk
                     }
                     catch
                     {
-                        cursorerase = getCursFromDiskOrRes("cursoreraser", System.Windows.Forms.Cursors.No);
+                        cursorerase = getCursFromDiskOrRes(Root.cursoreraserFileName, System.Windows.Forms.Cursors.No);
                         //Console.WriteLine(e.Message);
                         continue;
                     }
@@ -4043,7 +4116,7 @@ namespace gInk
                     }
                     catch
                     {
-                        IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                        IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
                     }
                 }
                 else //if (Root.CanvasCursor == 1)
@@ -4163,7 +4236,7 @@ namespace gInk
             }
             catch
             {
-                this.Cursor = getCursFromDiskOrRes("cursorred", System.Windows.Forms.Cursors.Cross);
+                this.Cursor = getCursFromDiskOrRes(Root.cursorredFileName, System.Windows.Forms.Cursors.Cross);
 
             }
             Root.ResizeDrawingWindow = true;
@@ -4339,7 +4412,7 @@ namespace gInk
             }
             catch*/
             {
-                this.Cursor = getCursFromDiskOrRes("cursorsnap", System.Windows.Forms.Cursors.Cross);
+                this.Cursor = getCursFromDiskOrRes(Root.cursorsnapFileName, System.Windows.Forms.Cursors.Cross);
             }
 
             Root.gpPenWidthVisible = false;
@@ -4552,7 +4625,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
                 }
                 System.Windows.Forms.Cursor.Position = new Point(System.Windows.Forms.Cursor.Position.X, System.Windows.Forms.Cursor.Position.Y);
                 return;
@@ -5184,7 +5257,7 @@ namespace gInk
                 }
                 catch
                 {
-                    IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                    IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
                 }
                 System.Windows.Forms.Cursor.Position = new Point(System.Windows.Forms.Cursor.Position.X, System.Windows.Forms.Cursor.Position.Y);
             }
@@ -6732,7 +6805,7 @@ namespace gInk
             }
             catch
             {
-                IC.Cursor = getCursFromDiskOrRes("cursorarrow", System.Windows.Forms.Cursors.NoMove2D);
+                IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
             }
             btZoom.BackgroundImage = getImgFromDiskOrRes("ZoomWin_act");
         }

@@ -166,12 +166,16 @@ namespace gInk
             }
         }
 
-        public string LoadImage(string fn)
+        public string LoadImage(string fnscaled)
         {
+            string[]fns = fnscaled.Split('%');
+            string fn = fns[0];
             string fn1 = Path.GetFileNameWithoutExtension(fn);
             // fn2 is required as Windows file system is case insensitive and some names are typed manually in config.ini file
             string fn2 = fn.Replace('\\','/').ToLower();
             bool fnd = false;
+            float scale = 1.0f;
+            if (fns.Length == 2 && float.TryParse(fns[1], out scale)) { ; };
             foreach(ListViewItem it in ImageListViewer.Items)
             {
                 fnd = it.ImageKey.Equals(fn2);
@@ -181,14 +185,14 @@ namespace gInk
             {
                 ImageListViewer.Items.Add(new ListViewItem(fn1, fn2));
                 ApngImage img = new ApngImage(fn);
-                img.DefaultImage._image.Tag = img.DefaultImage._image.Width * 10000 + img.DefaultImage._image.Height;
+                img.DefaultImage._image.Tag = (int)(img.DefaultImage._image.Width * scale) * 10000 + (int)(img.DefaultImage._image.Height * scale);
                 if(!ImageListViewer.LargeImageList.Images.ContainsKey(fn2))
                     ImageListViewer.LargeImageList.Images.Add(fn2, (Image)(img.DefaultImage.GetImage().Clone()));
                 if (!Originals.ContainsKey(fn2))
                     Originals.Add(fn2, (Image)(img.DefaultImage.GetImage().Clone()));
                 int j = ImageListViewer.LargeImageList.Images.IndexOfKey(fn2);
-                ImgSizes[j].X = Originals[fn2].Width;
-                ImgSizes[j].Y = Originals[fn2].Height;
+                ImgSizes[j].X = (int)(Originals[fn2].Width*scale);
+                ImgSizes[j].Y = (int)(Originals[fn2].Height * scale);
                 if (img.IsAnimated() && !Animations.ContainsKey(fn2))
                     Animations.Add(fn2, img);
             }

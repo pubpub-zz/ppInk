@@ -228,6 +228,11 @@ namespace gInk
         public Color WindowModeBorderUnselected = Color.DarkGray;
         public Color WindowModeBorderSelected = Color.Black;
 
+        public string cursorarrowFileName = "cursorarrow";
+        public string cursortargetFileName = "cursortarget";
+        public string cursoreraserFileName = "cursoreraser";
+        public string cursorsnapFileName = "cursorsnap";
+        public string cursorredFileName = "cursorred";
 
         public int CursorX, CursorY;
         public int CursorX0 = int.MinValue, CursorY0 = int.MinValue;
@@ -1232,6 +1237,22 @@ namespace gInk
                             Hotkey_Lasso.Parse(sPara);
                             break;
 
+                        case "CURSOR_ARROW":
+                            cursorarrowFileName = sPara;
+                            break;
+                        case "CURSOR_TARGET":
+                            cursortargetFileName = sPara;
+                            break;
+                        case "CURSOR_ERASER":
+                            cursoreraserFileName = sPara;
+                            break;
+                        case "CURSOR_SNAP":
+                            cursorsnapFileName = sPara;
+                            break;
+                        case "CURSOR_RED":
+                            cursorredFileName = sPara;
+                            break;
+
                         case "BUTTONCLICK_FOR_LINESTYLE":
                             if (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON")
                                 ButtonClick_For_LineStyle = true;
@@ -1658,7 +1679,7 @@ namespace gInk
                                 foreach (string st1 in st)
                                 {
                                     string st2;
-                                    if (st1.Contains(".") && !Path.IsPathRooted(st1))
+                                    if (st1.StartsWith(".") && !Path.IsPathRooted(st1))
                                         st2 = Global.ProgramFolder + st1;
                                     else
                                         st2 = st1;

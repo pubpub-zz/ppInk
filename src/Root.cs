@@ -1003,6 +1003,16 @@ namespace gInk
 			}
 		}
 
+        private int GetPenNumber(string sName)
+        {
+            int penid = -1;
+            string st = sName.Substring(3, 2);
+            if (st.EndsWith("_"))
+                st = st.Substring(0, 1);
+            int.TryParse(st, out penid);
+            return penid;
+        }
+
         public void ReadOptions(string file)
 		{
 			if (!File.Exists(file))
@@ -1041,11 +1051,8 @@ namespace gInk
 
 					if (sName.StartsWith("PEN"))
 					{
-						int penid = 0;
-                        string st = sName.Substring(3, 2);
-                        if (st.EndsWith("_"))
-                            st = st.Substring(0, 1);
-                        if (int.TryParse(st, out penid))
+						int penid = GetPenNumber(sName);
+                        if (penid>=0)
 						{
 							if (sName.EndsWith("_ENABLED"))
 							{
@@ -1916,8 +1923,8 @@ namespace gInk
 
 					if (sName.StartsWith("PEN"))
 					{
-						int penid = 0;
-						if (int.TryParse(sName.Substring(3, 1), out penid) && penid >= 0 && penid < MaxPenCount)
+                        int penid = GetPenNumber(sName);
+						if (penid >= 0)
 						{
                             if (sName.EndsWith("_ENABLED"))
                             {
@@ -1969,7 +1976,6 @@ namespace gInk
                                 sPara = Hotkey_Pens[penid].ToStringInvariant();
                             }
 						}
-
 					}
 
 					switch (sName)
@@ -2166,9 +2172,11 @@ namespace gInk
                         case "MAGNET":
                             sPara = (MagneticRadius / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString(CultureInfo.InvariantCulture);
                             break;
-                        case "MAGNETIC_ANGLE_TOLERANCE":
-                            sPara = MagneticAngleTolerance.ToString();
+                        /*removed as this param is only adjustable through config.ini
+                         * case "MAGNETIC_ANGLE_TOLERANCE":
+                            sPara = (MagneticAngleTolerance/MagneticAngle *100.0F).ToString();
                             break;
+                        */
                         case "MAGNETIC_ANGLE":
                             sPara = MagneticAngle.ToString();
                             break;
@@ -2337,7 +2345,7 @@ namespace gInk
                             sPara = CreateM3U ? "True" : "False";
                             break;
                         case "HOTKEY_CREATEINDEX":
-                            sPara = Hotkey_CreateIndex.ToString();
+                            sPara = Hotkey_CreateIndex.ToStringInvariant();
                             break;
                         case "CREATE_INDEX_ON_UNDOCK":
                             sPara = CreateIndexOnUndock ? "True" : "False";                            
@@ -2365,7 +2373,16 @@ namespace gInk
                             {
                                 sPara = "";
                                 foreach (string st1 in StampFileNames)
-                                    sPara += MakeRelativePath(Global.ProgramFolder, st1).Replace('\\','/') + ";";
+                                {
+                                    string[] sts = st1.Split('%');
+                                    if (sts[0].Contains("."))
+                                        sPara += MakeRelativePath(Global.ProgramFolder, sts[0]).Replace('\\', '/');
+                                    else
+                                        sPara += sts[0];
+                                    if (sts.Length == 2)
+                                        sPara += "%" + sts[1];
+                                    sPara += ";";
+                                }
                                 if (sPara.Length>1)
                                     sPara = sPara.Remove(sPara.Length - 1, 1); // to suppress last ;
                                 else //if(sPara.Length <=1)
@@ -2392,10 +2409,16 @@ namespace gInk
                             {
                                 sPara = "";
                                 foreach (string st1 in ArrowHead)
-                                    if (st1.Contains("."))
-                                        sPara += MakeRelativePath(Global.ProgramFolder, st1).Replace('\\', '/') + ";";
+                                {
+                                    string[] sts = st1.Split('%');
+                                    if (sts[0].Contains("."))
+                                        sPara += MakeRelativePath(Global.ProgramFolder, sts[0]).Replace('\\', '/');
                                     else
-                                        sPara += st1 + ";";
+                                        sPara += sts[0];
+                                    if (sts.Length == 2)
+                                        sPara += "%" + sts[1];
+                                    sPara += ";";
+                                }
                                 if (sPara.Length > 1)
                                     sPara = sPara.Remove(sPara.Length - 1, 1); // to suppress last ;
                                 else //if(sPara.Length <=1)
@@ -2410,10 +2433,16 @@ namespace gInk
                             {
                                 sPara = "";
                                 foreach (string st1 in ArrowTail)
-                                    if (st1.Contains("."))
-                                        sPara += MakeRelativePath(Global.ProgramFolder, st1).Replace('\\', '/') + ";";
+                                {
+                                    string[] sts = st1.Split('%');
+                                    if (sts[0].Contains("."))
+                                        sPara += MakeRelativePath(Global.ProgramFolder, sts[0]).Replace('\\', '/');
                                     else
-                                        sPara += st1 + ";";
+                                        sPara += sts[0];
+                                    if (sts.Length == 2)
+                                        sPara += "%" + sts[1];
+                                    sPara += ";";
+                                }
                                 if (sPara.Length > 1)
                                     sPara = sPara.Remove(sPara.Length - 1, 1); // to suppress last ;
                                 else //if(sPara.Length <=1)
@@ -2448,7 +2477,6 @@ namespace gInk
                         case "SNAP_IN_POINTER_PRESSTWICE_KEY": //directly the int value; expected to be in hotkey.ini
                             sPara = ((int)SnapInPointerPressTwiceKey).ToString();
                             break;
-
                         case "MEASURES_ENABLED":
                             sPara = MeasureEnabled? "True" : "False";
                             break;

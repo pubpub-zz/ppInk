@@ -1212,7 +1212,6 @@ namespace gInk
                 }
 
             }
-            setPenWidthBarPosition();
 
             pboxPenWidthIndicator.Top = 0;
             pboxPenWidthIndicator.Left = (int)Math.Sqrt(Root.GlobalPenWidth * 30.0F);
@@ -1306,6 +1305,8 @@ namespace gInk
                 gpSubTools.Width = dim;
                 gpSubTools.Height = dim1 * 8 + dim3 * 8 + dim1s;
             }
+            gpPenWidth.Height = dim;
+            setPenWidthBarPosition();
 
             Btn_SubTool0.Height = dim1;
             Btn_SubTool0.Width = dim1;
@@ -4389,6 +4390,7 @@ namespace gInk
                 Root.gpPenWidthVisible = !Root.gpPenWidthVisible;
                 if (Root.gpPenWidthVisible)
                 {
+                    setPenWidthBarPosition();
                     pboxPenWidthIndicator.Left = (int)Math.Sqrt(IC.DefaultDrawingAttributes.Width * 30);
                     Root.UponButtonsUpdate |= 0x2;
                 }

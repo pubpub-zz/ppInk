@@ -7354,8 +7354,8 @@ namespace gInk
                     {
                         double theta = Math.Atan2((int)stk.ExtendedProperties[Root.ARROWEND_Y_GUID].Data - (int)stk.ExtendedProperties[Root.ARROWSTART_Y_GUID].Data,
                                                   (int)stk.ExtendedProperties[Root.ARROWEND_X_GUID].Data - (int)stk.ExtendedProperties[Root.ARROWSTART_X_GUID].Data);
-                        Bitmap bmp = PrepareArrowBitmap(Root.ArrowHead[Root.CurrentArrow], Root.FormCollection.IC.DefaultDrawingAttributes.Color, Root.FormCollection.IC.DefaultDrawingAttributes.Transparency,
-                                                   Root.HiMetricToPixel(Root.FormCollection.IC.DefaultDrawingAttributes.Width), (float)theta, out l);
+                        Bitmap bmp = PrepareArrowBitmap(Root.ArrowHead[Root.CurrentArrow], stk.DrawingAttributes.Color, stk.DrawingAttributes.Transparency,
+                                                   Root.HiMetricToPixel(stk.DrawingAttributes.Width), (float)theta, out l);
                         StoredArrowImages.Add(bmp);
                         stk.ExtendedProperties.Add(Root.ARROWSTART_GUID, StoredArrowImages.Count - 1);
                     }
@@ -7363,8 +7363,8 @@ namespace gInk
                     {
                         double theta = Math.Atan2((int)stk.ExtendedProperties[Root.ARROWEND_Y_GUID].Data - (int)stk.ExtendedProperties[Root.ARROWSTART_Y_GUID].Data,
                                                   (int)stk.ExtendedProperties[Root.ARROWEND_X_GUID].Data - (int)stk.ExtendedProperties[Root.ARROWSTART_X_GUID].Data);
-                        Bitmap bmp = PrepareArrowBitmap(Root.ArrowTail[Root.CurrentArrow], Root.FormCollection.IC.DefaultDrawingAttributes.Color, Root.FormCollection.IC.DefaultDrawingAttributes.Transparency,
-                                                   Root.HiMetricToPixel(Root.FormCollection.IC.DefaultDrawingAttributes.Width), (float)(Math.PI + theta), out l);
+                        Bitmap bmp = PrepareArrowBitmap(Root.ArrowTail[Root.CurrentArrow], stk.DrawingAttributes.Color, stk.DrawingAttributes.Transparency,
+                                                   Root.HiMetricToPixel(stk.DrawingAttributes.Width), (float)(Math.PI + theta), out l);
                         StoredArrowImages.Add(bmp);
                         stk.ExtendedProperties.Add(Root.ARROWEND_GUID, StoredArrowImages.Count - 1);
 

@@ -1,93 +1,107 @@
 #### Introduction
 
-ppInk is an on-screen annotation software under Windows, forked from gInk.
+ppInk is a user-friendly on-screen annotation software for Windows, derived from gInk. 
+It offers numerous new features inspired by Epic Pen, another screen annotation software, making it even easier to use. 
+
 
 ![](Animation.gif)
 
-ppInk introduces many new features compared to gInk, greatly inspired by another
-screen annotation software Epic Pen, but even more easy to use. ppInk / gInk are
-made with the idea kept in mind that the interface should be simple and should
-not distract attention of both the presenter and the audience when used for
-presentations. Unlike in many other softwares in the same category, you select
-from pens to draw things instead of changing individual settings of color,
-transparency and tip width everytime. Each pen is a combination of these
-attributes and is configurable to your need.
+It offers numerous new features freely inspired from other application such as  Epic Pen, making it even easier to use. 
+ppInk/gInk is designed with simplicity in mind, ensuring it doesn't distract presenters or audiences during presentations. Instead of adjusting individual settings like color, transparency, and tip width, ppInk allows you to select different pens for drawing, each with configurable attributes.
 
-As another option you can use ppInk to support demonstrations:
+because of that ppInk can be used to annotate and then capture the screens, but it can also be used to support demonstration:
 
 https://user-images.githubusercontent.com/4083478/119278023-16f58b00-bc23-11eb-95de-9dc16505bf43.mp4
 
 (extract from @NOVAinc on Twitch)
 other demo : https://www.twitch.tv/novaaoe/clip/PlacidConcernedBulgogiOptimizePrime-mONUtlMLGvu2uUu1
 
-This tool is intended to be usable through mouse,tablet pen(taking into pressure) but also throug touchscreen or graphic tablet. 
+This tool is intended to be usable through mouse,tablet pen(taking into pressure) but also throug touchscreen or graphic tablet, and keyboard can be used to activate functions.
 
-A set of drawing tools are introduced: Hand Writing, Line (2 points and polyline), Rectangular,
-Ellipsis, Arrow, Numbering Tag, Text Left/Right aligned, cliparts, strokes of patterns and move/copy/resize/rotate.
-
+It provides a variety of drawing tools, including hand writing, lines (2 points and polyline), rectangles, ellipses, arrows, numbering tags, left/right aligned text, cliparts, stroke patterns, and move/copy/resize/rotate functions.
 ![image](screenshot2.png)
 
-In order to reduce the number of buttons, some buttons have multiple functions,
-selected my multiple click on those or some through long click (**or right click as an alternative**):
+To streamline the interface, some buttons have multiple functions that can be accessed through multiple clicks or long clicks (or right clicks). 
 
--   Pen:
-    Short click : select Pen
-    Long Click : Open the pen parameters dialog
+* **Pen**:
 
--   Hand <IMG src="https://user-images.githubusercontent.com/4083478/130368095-bf41c299-5e27-4e6e-b94a-6959afea9258.png" width=200>
-/ Rectangular <IMG src="https://user-images.githubusercontent.com/4083478/130368108-db7a8dd2-e465-4ebe-923d-bf573cfa53c6.png" width=200>
-/ Ellipsis <IMG src="https://user-images.githubusercontent.com/4083478/130368123-469c7ee4-d28e-44b2-8467-2d70b437e321.png" width=200>
-:  
-    unfilled drawing -\> filled with pen color -\> outside filled with pen color -\> filled with white -\> filled
-    with black
+    Short click : select Pen<BR> 
+    Long Click / Right click : Open the pen parameters dialog   
     
--   Line<IMG src="https://user-images.githubusercontent.com/4083478/130368141-ae6d7cd7-af5f-4215-ad59-e1de5c7d97bb.png" width=200>
-:
-    2 points -\> polyline -\> pen color filled polygon -\> white filled polygon -\> black filled polygon
+|**Hand**|<IMG src="https://user-images.githubusercontent.com/4083478/130368095-bf41c299-5e27-4e6e-b94a-6959afea9258.png" width=200>|
+|**Rectangular**|<IMG src="https://user-images.githubusercontent.com/4083478/130368108-db7a8dd2-e465-4ebe-923d-bf573cfa53c6.png" width=200>|
+|**Ellipsis**|<IMG src="https://user-images.githubusercontent.com/4083478/130368123-469c7ee4-d28e-44b2-8467-2d70b437e321.png" width=200>|  
 
--   Numbering :  
-    transparent background -\> edit tag Number -\> white background -\> black background
+    any click: select next tool in the following order:<BR> 
+    line stroke -\> pen color filled area -\> pen color the background but the drawn area -\> white filled area -\> black filled
+    area
+    in line stroke, all line style are applied.
+    
+*   **Line**<IMG src="https://user-images.githubusercontent.com/4083478/130368141-ae6d7cd7-af5f-4215-ad59-e1de5c7d97bb.png" width=200> :<BR>
+    segment line -\> polyline -\> pen color filled polygon -\> pen color background but polygon -\> white filled polygon -\> black filled polygon
 
--   Arrow :
-    arrows heads and tails are now customizable. multiple click will scroll through the different arrows. you can select the ends either in options/general, or with a long press on the arrow button. 
- the definition image shall be 300x201 and a line size of 18px(the image will be shrinked/enlarged to match the curren pen size). the center correspond to the visual end. the line will be ended a little before center by default, but you can define a different position with a blue pixel on line 101 (centered line). normally the ends will be rotated to be aligned with the line, except if the filename of the image is starting with !(eg to have always horizontal square)
- <IMG src="https://user-images.githubusercontent.com/4083478/130369626-c5693244-e48a-4640-95f5-ff162cfccda4.png" width=300>
+*   **Numbering** :  
+    transparent background -\> **modify** tag Number -\> white background -\> black background
 
--   Text:  
+*   **Arrow** :
+    clicking multiple times will scroll through different arrow styles. To select the ends, you have two options: either go to 'Options/General' or perform a long press on the arrow button.
+    
+    Arrow heads and tails can be customized. Multiple clicks will cycle through different arrow options. You can adjust the list of arrow heads either in the options/general settings or by long-pressing the arrow button.
+The arrow heads are defined by 300x201px images. These images are designed for an 18px wide line. The drawn image will be resized to match the current pen size. The arrow head image is centered on the reference points, which correspond to where the cursor starts or stops the line. On the center line (line 101) of the image, a blue pixel (R=0, G=0, B=255) is expected to indicate where the line should end. If this reference point cannot be found, the center of the image is considered.
+By default, the arrow heads are rotated to align with the line. However, if the name of the head definition image starts with an exclamation mark (!), the rotation will be ignored. This is useful for lines where the end is a square that should remain horizontal.
+    <IMG src="https://user-images.githubusercontent.com/4083478/130369626-c5693244-e48a-4640-95f5-ff162cfccda4.png" width=300>
+
+    When drawing an arrow using the left button, the arrow tail is positioned where you initially pressed the button, and the arrow head is placed where you release the button. 
+    If you are using the right button, the arrow is drawn in the head and the tail are exchanged.
+    (note : _remember that a long press on touch screen wil engage a right click_)
+    
+    
+*   Text![image](https://github.com/pubpub-zz/ppInk/assets/4083478/daa1462b-8dbe-47b9-81f2-126b75348339):<BR>
     Text left aligned -\> Text Right aligned
-    You can now use ctrl+enter to validate the entry
+    You can use ctrl+enter to validate the entry
 
--   Move:  
+*   Move:  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/e454b112-71e6-4a93-b26c-4ea87cc8c944):<BR>
     Move 1 drawing -\> Copy 1 drawing -\> Move all drawings.
     
--   Edit:
-    Short click : modify text/number tool (text and font) *or* the color/pen width of a stroke
-    Long click : edit default font (for the time of the session)
-    if some strokes are selected before short click, the pen/color dialog will open to modify all selected strokes at once.
-
--   Lasso:
-    Allow selection of multiple stroke either with the lasso, or clicking on strokes (surrounded). left click for lasso/selection will add to selection, and right click will substract (for touchscreen, remember that longclick is engaging rightclick).\
-    Each time you click on lasso tool or use shortcut the selection is reset.
+*   Lasso![image](https://github.com/pubpub-zz/ppInk/assets/4083478/97472f1f-03df-495b-be36-bee12bdcc660):
+    Allows selection of multiple strokes/drawings.
+    you can extend(left button) or reduce(right button) the selection by: 
+        * outlining strokes with the lasso ; right click shows a pink outline to indicate substraction, 
+        * clicking on strokes (marked by a red dash box where hovering them). 
+        
+        * right clicking will remove the hovered  for lasso/selection will add to selection, and right click will substract (for touchscreen, remember that longclick is engaging rightclick).\
+    Each time you click on lasso tool(or use the shortcut),the selection is reset.
     Once you have just added a stroke with the lasso, you can use undo to cancel this selection modification
     In lasso mode, the global length is reported in a tooltip.
-    After lasso selection, you can:
-    * engage Erase to delete selection
-    * engage move/copy to move/copy selection
-    * engage edit to modify color/line style/width of the selected strokes
+    ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/6d88452d-0315-4bae-96c8-e1840883d46b)
+    if the drawing is a 2 segment polyline, the angle will also be displayed
+    ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/f0ab085f-890c-40b7-89a6-3199f0ed00f2)
 
--   Resize / Rotate:
+    When you have selected some drawing,
+    * engage Erase tool :           will delete selected objects
+    * engage move or copy tool :    will move/copy the selected objects
+    * engage edit tool :            will modify color/line style/width of the selected strokes
+
+*   Edit![image](https://github.com/pubpub-zz/ppInk/assets/4083478/33c7d6e6-5521-411d-b198-1c08a2c7b4ab):
+    Short click : modify text/number tool (text and font) *or* the color/pen width of a stroke
+    Long/right click : edit default font (for the duration of the session only)
+    if some strokes are selected before short click, the pen/color dialog will open to modify all selected strokes at once.
+
+*   Resize / Rotate![image](https://github.com/pubpub-zz/ppInk/assets/4083478/7c7c23c2-64c4-4b19-a7b4-777709078627):<BR>
     Allow to resize or rotate the selection (also applies to stroke under the cursor if no selection has been done first).
-    First the cursor becomes a target in order,waiting for the center for the transformation with left click, or you can right click: in this case the center will be the center of the selected stroke(s)
-    Then the cursor becomes an arrow, and you  adjust the size or the angle.
+    To set the transformation: 
+        * the cursor becomes a target shape : indicate the center of the transformation : either a point or a drawing/selection in with case the center of the containing box is used:
+        then
+        * the cursor becomes a red big arrow : click and drag to scale/rotate the selected (if applicable) else the hovered drawing. this can be done many times
     https://user-images.githubusercontent.com/4083478/130367372-233d6d64-06fc-4f0f-a976-d66a621f36ac.mp4
 
--   Pointer Mode (arrow cursor):
+*   Pointer Mode ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/39cbcf5f-497c-4e01-92d8-9508e364eebb):<BR>
     Short click : engage Pointer Mode
     Long click : engage Window mode (Open a window) or click( to come back to fullscreen) 
 
--   Pen Width:
+*   Pen Width:![image](https://github.com/pubpub-zz/ppInk/assets/4083478/38bf48b5-5e36-4147-844b-41c53e9a7e67)<BR>
     Short click : select Pen Width
-    Long click : engage **color picker**: this functions allow to modify the current pen color picking up a color on screen; in this mode mousewheel modifies transparency 
+    Long/Right click : engage **color picker**: this functions allow to modify the current pen color picking up a color on screen; in this mode mousewheel modifies transparency 
 
 -   Cliparts:
     Open the dialog to select image and the background/frame. This list displayed of cliparts is initialized from the list defined 

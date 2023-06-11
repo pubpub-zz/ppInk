@@ -45,6 +45,8 @@ namespace gInk
         public string ButtonNameMagn;
         public string ButtonNameClipArt;
         public string ButtonNameVideo;
+        public string PagePrevHK;
+        public string PageNextHK;
         public string SaveStroke;
         public string LoadStroke;
         public string ButtonNameZoom;
@@ -103,6 +105,7 @@ namespace gInk
         public string ButtonCancelText;
         public string ButtonExitText;
         public string ButtonFontText;
+        public string ButtonPageNextPrev;
         public string ButtonSaveText;
         public string ButtonPrevText;
         public string ButtonNextText;

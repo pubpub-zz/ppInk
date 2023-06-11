@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Globalization;
+using System.IO;
 
 namespace gInk
 {
@@ -443,6 +444,7 @@ namespace gInk
                                     if (s.Contains('/'))
                                         s = Root.FormCollection.ClipartsDlg.LoadImage(s);
                                     Root.ImageStamp = Root.FormCollection.ClipartsDlg.getClipArtData(s);
+                                    Root.FormCollection.RotatingOnLine = Path.GetFileName(Root.ImageStamp.ImageStamp).StartsWith("~");
 
                                     Root.ImageStamp.Filling = f;
                                     if (w > 0)

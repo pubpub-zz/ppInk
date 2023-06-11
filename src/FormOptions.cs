@@ -163,6 +163,7 @@ namespace gInk
 				cbAllowDragging.Checked = true;
 			if (Root.AllowHotkeyInPointerMode)
 				cbAllowHotkeyInPointer.Checked = true;
+            cbPagesEnabled.Checked = Root.PagesEnabled;
             cbLoadSaveEnabled.Checked = Root.LoadSaveEnabled;
             ColorPickerEnaCb.Checked = Root.ColorPickerEnabled;
             SwapSnapsBehviorsCb.Checked = !Root.SwapSnapsBehaviors;
@@ -322,6 +323,8 @@ namespace gInk
             hiToolClipArt1.Hotkey = Root.Hotkey_ClipArt1;
             hiToolClipArt2.Hotkey = Root.Hotkey_ClipArt2;
             hiToolClipArt3.Hotkey = Root.Hotkey_ClipArt3;
+            hiPrevPage.Hotkey = Root.Hotkey_PagePrev;
+            hiNextPage.Hotkey = Root.Hotkey_PageNext;
             hiLoadStrokes.Hotkey = Root.Hotkey_LoadStrokes;
             hiSaveStrokes.Hotkey = Root.Hotkey_SaveStrokes;
 
@@ -484,6 +487,8 @@ namespace gInk
             this.lbHkClipart2.Text = shortTxt(Root.Local.ButtonNameClipArt) + " 2";
             this.lbHkClipart3.Text = shortTxt(Root.Local.ButtonNameClipArt) + " 3";
             this.lbHkZoom.Text = shortTxt(Root.Local.ButtonNameZoom);
+            this.lbHkPrevPage.Text = shortTxt(Root.Local.PagePrevHK);
+            this.lbHkNextPage.Text = shortTxt(Root.Local.PageNextHK);
             this.lbHkLoadStrokes.Text = shortTxt(Root.Local.LoadStroke);
             this.lbHkSaveStrokes.Text = shortTxt(Root.Local.SaveStroke);
 
@@ -1503,6 +1508,11 @@ namespace gInk
         private void VideoTabCtrl_SelectedIndexChanged(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.Default;
+        }
+
+        private void cbPagesEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            Root.PagesEnabled =  (sender as CheckBox).Checked;
         }
     }
 }

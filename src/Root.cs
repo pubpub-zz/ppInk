@@ -204,6 +204,7 @@ namespace gInk
         public bool SnapEnabled = true;
         public bool UndoEnabled = true;
         public bool ClearEnabled = true;
+        public bool PagesEnabled = false;
         public bool LoadSaveEnabled = true;
         public bool PanEnabled = true;
         public bool InkVisibleEnabled = true;
@@ -296,7 +297,9 @@ namespace gInk
         public Hotkey Hotkey_LineStyle = new Hotkey();
         public Hotkey Hotkey_Lasso = new Hotkey();
         public UInt32 LineStyleRotateEnabled= 0xFF;  // field of bits
-        
+
+        public Hotkey Hotkey_PagePrev = new Hotkey();
+        public Hotkey Hotkey_PageNext = new Hotkey();
         public Hotkey Hotkey_LoadStrokes = new Hotkey();
         public Hotkey Hotkey_SaveStrokes = new Hotkey();
 
@@ -1234,6 +1237,12 @@ namespace gInk
                         case "HOTKEY_LINESTYLE":
                             Hotkey_LineStyle.Parse(sPara);
                             break;
+                        case "HOTKEY_PREVPAGE":
+                            Hotkey_PagePrev.Parse(sPara);
+                            break;
+                        case "HOTKEY_NEXTPAGE":
+                            Hotkey_PageNext.Parse(sPara);
+                            break;
                         case "HOTKEY_LOADSTROKES":
                             Hotkey_LoadStrokes.Parse(sPara);
                             break;
@@ -1473,6 +1482,9 @@ namespace gInk
 							if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
 								PanEnabled = false;
 							break;
+                        case "PAGES_ICON":
+                            PagesEnabled = (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON");
+                            break;
                         case "LOADSAVE_ICON":
                             if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
                                 LoadSaveEnabled = false;
@@ -2093,6 +2105,12 @@ namespace gInk
                         case "HOTKEY_LINESTYLE":
                             sPara = Hotkey_LineStyle.ToStringInvariant();
                             break;
+                        case "HOTKEY_PREVPAGE":
+                            sPara = Hotkey_PagePrev.ToStringInvariant();
+                            break;
+                        case "HOTKEY_NEXTPAGE":
+                            sPara = Hotkey_PageNext.ToStringInvariant();
+                            break;
                         case "HOTKEY_LOADSTROKES":                            
                             sPara = Hotkey_LoadStrokes.ToStringInvariant();
                             break;
@@ -2253,6 +2271,9 @@ namespace gInk
                                 sPara = "True";
                             else
                                 sPara = "False";
+                            break;
+                        case "PAGES_ICON":
+                            sPara = PagesEnabled?"True":"False";
                             break;
                         case "LOADSAVE_ICON":
                             if (LoadSaveEnabled)

@@ -166,6 +166,10 @@ namespace gInk
 
         public List<Bitmap> StoredArrowImages = new List<Bitmap>();
 
+        public int PageIndex = 0;
+        public int PageMax = 0;
+
+
 
         // http://www.csharp411.com/hide-form-from-alttab/
         protected override CreateParams CreateParams
@@ -684,7 +688,8 @@ namespace gInk
                 gpButtons.Height = dim;
                 gpButtons.Width = (int)((dim1 * .5 + dim3) + (penSec + (Root.PensExtraSet ? (dim4 / 6) : 0) + (Root.ToolsEnabled ? (6 * dim4s) : 0) + (Root.EraserEnabled ? dim4 : 0) + (Root.PanEnabled ? 2 * dim4s : 0)
                                                                      + (Root.PointerEnabled ? dim4 : 0) + (Root.PenWidthEnabled ? dim4 : 0) + (Root.InkVisibleEnabled ? dim4 : 0) + (Root.ZoomEnabled > 0 ? dim4s : 0)
-                                                                     + (Root.SnapEnabled ? dim4 : 0) + (Root.UndoEnabled ? dim4 : 0) + (Root.ClearEnabled ? dim4 : 0) + (Root.LoadSaveEnabled ? dim4s : 0)
+                                                                     + (Root.SnapEnabled ? dim4 : 0) + (Root.UndoEnabled ? dim4 : 0) + (Root.ClearEnabled ? dim4 : 0)
+                                                                     + (Root.PagesEnabled ? dim4s : 0) + (Root.LoadSaveEnabled ? dim4s : 0)
                                                                      + ((Root.VideoRecordMode != VideoRecordMode.NoVideo) ? dim4 : 0)
                                                                      + dim1));
             }
@@ -693,7 +698,8 @@ namespace gInk
                 gpButtons.Width = dim;
                 gpButtons.Height = (int)((dim1 * .5 + dim3) + (penSec + (Root.PensExtraSet ? (dim4 / 6) : 0) + (Root.ToolsEnabled ? (6 * dim4s) : 0) + (Root.EraserEnabled ? dim4 : 0) + (Root.PanEnabled ? 2 * dim4s : 0)
                                                                       + (Root.PointerEnabled ? dim4 : 0) + (Root.PenWidthEnabled ? dim4 : 0) + (Root.InkVisibleEnabled ? dim4 : 0) + (Root.ZoomEnabled > 0 ? dim4s : 0)
-                                                                      + (Root.SnapEnabled ? dim4 : 0) + (Root.UndoEnabled ? dim4 : 0) + (Root.ClearEnabled ? dim4 : 0) + (Root.LoadSaveEnabled ? dim4s : 0)
+                                                                      + (Root.SnapEnabled ? dim4 : 0) + (Root.UndoEnabled ? dim4 : 0) + (Root.ClearEnabled ? dim4 : 0)
+                                                                      + (Root.PagesEnabled ? dim4s : 0) + (Root.LoadSaveEnabled ? dim4s : 0)                                                                       
                                                                       + ((Root.VideoRecordMode != VideoRecordMode.NoVideo) ? dim4 : 0)
                                                                       + dim1));
             }
@@ -1053,6 +1059,26 @@ namespace gInk
             else
                 btClear.Visible = false;
 
+            if (Root.PagesEnabled)
+            {
+                btPagePrev.Height = dim1s;
+                btPagePrev.Width = dim1s;
+                btPagePrev.Visible = true;
+                btPagePrev.BackgroundImage = getImgFromDiskOrRes("PagePrev", ImageExts);
+                SetButtonPosition(prev, btPagePrev, dim3);
+                btPageNext.Height = dim1s;
+                btPageNext.Width = dim1s;
+                btPageNext.Visible = true;
+                btPageNext.BackgroundImage = getImgFromDiskOrRes("PageNext", ImageExts);
+                SetSmallButtonNext(btPagePrev, btPageNext, dim2s);
+                prev = btPagePrev;
+            }
+            else
+            {
+                btPagePrev.Visible = false;
+                btPageNext.Visible = false;
+            }
+
             if (Root.LoadSaveEnabled)
             {
                 btSave.Height = dim1s;
@@ -1291,6 +1317,8 @@ namespace gInk
             this.toolTip.SetToolTip(this.btClip1, Root.Local.ButtonNameClipArt + "-1 (" + Root.Hotkey_ClipArt1.ToString() + ")");
             this.toolTip.SetToolTip(this.btClip2, Root.Local.ButtonNameClipArt + "-2 (" + Root.Hotkey_ClipArt2.ToString() + ")");
             this.toolTip.SetToolTip(this.btClip3, Root.Local.ButtonNameClipArt + "-3 (" + Root.Hotkey_ClipArt3.ToString() + ")");
+            this.toolTip.SetToolTip(this.btPagePrev, String.Format(Root.Local.ButtonPageNextPrev, ""));
+            this.toolTip.SetToolTip(this.btPageNext, String.Format(Root.Local.ButtonPageNextPrev, ""));
             this.toolTip.SetToolTip(this.btSave, String.Format(Root.Local.SaveStroke, ""));
             this.toolTip.SetToolTip(this.btLoad, String.Format(Root.Local.LoadStroke, ""));
             this.toolTip.SetToolTip(this.btLasso, Root.Local.ButtonNameLasso + " (" + Root.Hotkey_Lasso.ToString() + ")");
@@ -1355,7 +1383,10 @@ namespace gInk
             PatternPoints.Clear();
             StoredPatternPoints.Clear();
 
-            Console.WriteLine("C=" + (DateTime.Now.Ticks / 1e7).ToString());
+            PageIndex = 0;
+            PageMax = 0;
+
+        Console.WriteLine("C=" + (DateTime.Now.Ticks / 1e7).ToString());
         }
 
         private void SetSubBarPosition(Panel Tb, Button RefButton)
@@ -4536,7 +4567,8 @@ namespace gInk
         bool LastColorEditStatus = false;
         bool LastLineStyleStatus = false;
         bool LastLassoStatus = false;
-
+        bool LastPagePrevStatus = false;
+        bool LastPageNextStatus = false;
         bool LastLoadStrokesStatus = false;
         bool LastSaveStrokesStatus = false;
 
@@ -5648,6 +5680,22 @@ namespace gInk
                         SelectNextLineStyle(btPen[Root.CurrentPen]);
                 }
                 LastLineStyleStatus = pressed;
+
+                pressed = (GetKeyState(Root.Hotkey_PagePrev.Key) & 0x8000) == 0x8000;
+                if (pressed && !LastPagePrevStatus && Root.Hotkey_PagePrev.ModifierMatch(control, alt, shift, win))
+                {
+                    btPagePrev_Click(btPagePrev,null);
+                    LastPagePrevStatus = false;
+                }
+                LastPagePrevStatus = pressed;
+
+                pressed = (GetKeyState(Root.Hotkey_PageNext.Key) & 0x8000) == 0x8000;
+                if (pressed && !LastPageNextStatus && Root.Hotkey_PageNext.ModifierMatch(control, alt, shift, win))
+                {
+                    btPageNext_Click(btPagePrev,null);
+                    LastPageNextStatus = false;
+                }
+                LastPageNextStatus = pressed;
 
                 pressed = ((GetKeyState(Root.Hotkey_LoadStrokes.Key) & 0x8000) == 0x8000) && Root.Hotkey_LoadStrokes.ModifierMatch(control, alt, shift, win);
                 if (pressed && !LastLoadStrokesStatus)
@@ -7649,7 +7697,95 @@ namespace gInk
 		static extern UInt32 GetWindowLong(IntPtr hWnd, int nIndex);
 		[DllImport("user32.dll")]
 		static extern int SetWindowLong(IntPtr hWnd, int nIndex, UInt32 dwNewLong);
-		[DllImport("user32.dll")]
+
+        private void btPagePrev_Click(object sender, EventArgs e)
+        {
+            string st = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath));
+
+            btPagePrev.RightToLeft = RightToLeft.No;
+            longClickTimer.Stop(); // for an unkown reason the mouse arrives later
+            if (ToolbarMoved)
+            {
+                ToolbarMoved = false;
+                return;
+            }
+            StopAllZooms();
+
+            if (PageIndex>0)
+            {
+                try
+                {
+                    SaveStrokes(st+"Page"+PageIndex.ToString()+".strokes.txt");
+                    Console.WriteLine("Load "+st + "Page" + PageIndex.ToString() + ".strokes.txt");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(SaveStrokeFile);
+                    string errorMsg = "Silent exception logged \r\n:" + ex.Message + "\r\n\r\nStack Trace:\r\n" + ex.StackTrace + "\r\n\r\n";
+                    Program.WriteErrorLog(errorMsg);
+                };
+                PageIndex--;
+                btClear_Click(null, null);
+                try
+                {
+                    LoadStrokes(st + "Page" + PageIndex.ToString() + ".strokes.txt");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(SaveStrokeFile);
+                    string errorMsg = "Silent exception logged \r\n:" + ex.Message + "\r\n\r\nStack Trace:\r\n" + ex.StackTrace + "\r\n\r\n";
+                    Program.WriteErrorLog(errorMsg);
+                };
+            }
+        }
+
+        private void btPageNext_Click(object sender, EventArgs e)
+        {
+            string st = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath));
+
+            btPageNext.RightToLeft = RightToLeft.No;
+            longClickTimer.Stop(); // for an unkown reason the mouse arrives later
+            if (ToolbarMoved)
+            {
+                ToolbarMoved = false;
+                return;
+            }
+            StopAllZooms();
+
+            try
+            {
+                SaveStrokes(st + "Page" + PageIndex.ToString() + ".strokes.txt");
+                Console.WriteLine("Load " + st + "Page" + PageIndex.ToString() + ".strokes.txt");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(SaveStrokeFile);
+                string errorMsg = "Silent exception logged \r\n:" + ex.Message + "\r\n\r\nStack Trace:\r\n" + ex.StackTrace + "\r\n\r\n";
+                Program.WriteErrorLog(errorMsg);
+            };
+            PageIndex++;
+            btClear_Click(null, null);
+
+            if (PageIndex <= PageMax)
+            {
+                try
+                {
+                    LoadStrokes(st + "Page" + PageIndex.ToString() + ".strokes.txt");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(SaveStrokeFile);
+                    string errorMsg = "Silent exception logged \r\n:" + ex.Message + "\r\n\r\nStack Trace:\r\n" + ex.StackTrace + "\r\n\r\n";
+                    Program.WriteErrorLog(errorMsg);
+                };
+            }
+            else
+            {
+                PageMax++;
+            }
+        }
+
+        [DllImport("user32.dll")]
 		public extern static bool SetLayeredWindowAttributes(IntPtr hwnd, uint crKey, byte bAlpha, uint dwFlags);
 		[DllImport("user32.dll", SetLastError = false)]
 		static extern IntPtr GetDesktopWindow();

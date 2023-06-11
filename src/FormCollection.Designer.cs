@@ -31,6 +31,8 @@ namespace gInk
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCollection));
             this.gpButtons = new System.Windows.Forms.Panel();
+            this.btPageNext = new System.Windows.Forms.Button();
+            this.btPagePrev = new System.Windows.Forms.Button();
             this.btExtraPens = new System.Windows.Forms.Button();
             this.btScaleRot = new System.Windows.Forms.Button();
             this.btLasso = new System.Windows.Forms.Button();
@@ -87,6 +89,8 @@ namespace gInk
             // gpButtons
             // 
             this.gpButtons.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.gpButtons.Controls.Add(this.btPageNext);
+            this.gpButtons.Controls.Add(this.btPagePrev);
             this.gpButtons.Controls.Add(this.btExtraPens);
             this.gpButtons.Controls.Add(this.btScaleRot);
             this.gpButtons.Controls.Add(this.btLasso);
@@ -126,6 +130,46 @@ namespace gInk
             this.gpButtons.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gpButtons_MouseDown);
             this.gpButtons.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gpButtons_MouseMove);
             this.gpButtons.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gpButtons_MouseUp);
+            // 
+            // btPageNext
+            // 
+            this.btPageNext.BackColor = System.Drawing.Color.Transparent;
+            this.btPageNext.BackgroundImage = global::gInk.Properties.Resources.PageNext;
+            this.btPageNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btPageNext.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btPageNext.FlatAppearance.BorderSize = 0;
+            this.btPageNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btPageNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btPageNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btPageNext.ForeColor = System.Drawing.Color.Transparent;
+            this.btPageNext.Location = new System.Drawing.Point(1337, 0);
+            this.btPageNext.Margin = new System.Windows.Forms.Padding(2);
+            this.btPageNext.Name = "btPageNext";
+            this.btPageNext.Size = new System.Drawing.Size(46, 46);
+            this.btPageNext.TabIndex = 17;
+            this.toolTip.SetToolTip(this.btPageNext, "Exit Drawing");
+            this.btPageNext.UseVisualStyleBackColor = true;
+            this.btPageNext.Click += new System.EventHandler(this.btPageNext_Click);
+            // 
+            // btPagePrev
+            // 
+            this.btPagePrev.BackColor = System.Drawing.Color.Transparent;
+            this.btPagePrev.BackgroundImage = global::gInk.Properties.Resources.PagePrev;
+            this.btPagePrev.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btPagePrev.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btPagePrev.FlatAppearance.BorderSize = 0;
+            this.btPagePrev.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btPagePrev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btPagePrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btPagePrev.ForeColor = System.Drawing.Color.Transparent;
+            this.btPagePrev.Location = new System.Drawing.Point(1306, 0);
+            this.btPagePrev.Margin = new System.Windows.Forms.Padding(2);
+            this.btPagePrev.Name = "btPagePrev";
+            this.btPagePrev.Size = new System.Drawing.Size(46, 46);
+            this.btPagePrev.TabIndex = 16;
+            this.toolTip.SetToolTip(this.btPagePrev, "Exit Drawing");
+            this.btPagePrev.UseVisualStyleBackColor = true;
+            this.btPagePrev.Click += new System.EventHandler(this.btPagePrev_Click);
             // 
             // btExtraPens
             // 
@@ -361,7 +405,7 @@ namespace gInk
             this.btStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btStop.ForeColor = System.Drawing.Color.Transparent;
-            this.btStop.Location = new System.Drawing.Point(1346, 2);
+            this.btStop.Location = new System.Drawing.Point(1283, 0);
             this.btStop.Margin = new System.Windows.Forms.Padding(2);
             this.btStop.Name = "btStop";
             this.btStop.Size = new System.Drawing.Size(46, 46);
@@ -403,7 +447,7 @@ namespace gInk
             this.btInkVisible.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btInkVisible.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btInkVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btInkVisible.Location = new System.Drawing.Point(1296, 2);
+            this.btInkVisible.Location = new System.Drawing.Point(1256, 3);
             this.btInkVisible.Margin = new System.Windows.Forms.Padding(2);
             this.btInkVisible.Name = "btInkVisible";
             this.btInkVisible.Size = new System.Drawing.Size(46, 46);
@@ -424,7 +468,7 @@ namespace gInk
             this.btPan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btPan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btPan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btPan.Location = new System.Drawing.Point(1246, 2);
+            this.btPan.Location = new System.Drawing.Point(1219, 4);
             this.btPan.Margin = new System.Windows.Forms.Padding(2);
             this.btPan.Name = "btPan";
             this.btPan.Size = new System.Drawing.Size(46, 46);
@@ -1162,6 +1206,8 @@ namespace gInk
         public System.Windows.Forms.Button btLasso;
         public System.Windows.Forms.Button btScaleRot;
         public System.Windows.Forms.Button btExtraPens;
+        public System.Windows.Forms.Button btPagePrev;
+        public System.Windows.Forms.Button btPageNext;
     }
 }
 

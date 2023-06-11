@@ -174,6 +174,7 @@ namespace gInk
         public static Guid ISHIDDEN_GUID = new Guid(10, 11, 12, 10, 0, 0, 0, 0, 0, 2, 10);
         public static Guid ISBACKGROUND_GUID = new Guid(10, 11, 12, 10, 0, 0, 0, 0, 0, 2, 11);
         public static Guid ANIMATIONFRAMEIMG_GUID = new Guid(10, 11, 12, 10, 0, 0, 0, 0, 0, 2, 12);
+        public static Guid IMAGE_ON_LINE_GUID = new Guid(10, 11, 12, 10, 0, 0, 0, 0, 0, 2, 19);
         public static Guid REPETITIONDISTANCE_GUID = new Guid(10, 11, 12, 10, 0, 0, 0, 0, 0, 2, 20);
         public static Guid LISTOFPOINTS_GUID = new Guid(10, 11, 12, 10, 0, 0, 0, 0, 0, 2, 21);
         public static Guid ARROWSTART_GUID = new Guid(10, 11, 12, 10, 0, 0, 0, 0, 0, 2, 22);    // pointing head

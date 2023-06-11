@@ -543,17 +543,29 @@ namespace gInk
                         int Y = (int)(double)(st.ExtendedProperties[Root.IMAGE_Y_GUID].Data);
                         int W = (int)(double)(st.ExtendedProperties[Root.IMAGE_W_GUID].Data);
                         int H = (int)(double)(st.ExtendedProperties[Root.IMAGE_H_GUID].Data);
+                        bool ImageOnLine = st.ExtendedProperties.Contains(Root.IMAGE_ON_LINE_GUID);
                         if (st.ExtendedProperties.Contains(Root.LISTOFPOINTS_GUID))
                         {
                             Double Rotation = st.ExtendedProperties.Contains(Root.ROTATION_GUID) ? (double)st.ExtendedProperties[Root.ROTATION_GUID].Data : 0;
                             List<Point> pts = Root.FormCollection.StoredPatternPoints[(int)(st.ExtendedProperties[Root.LISTOFPOINTS_GUID].Data)];
+                            Point PrevPoint = new Point(Int32.MinValue, Int32.MinValue);
                             foreach (Point pt in pts)
-                            {
+                            {                                
+                                if (PrevPoint.X != Int32.MinValue)
+                                {
+                                    Rotation = Math.Atan2(pt.Y - PrevPoint.Y, pt.X- PrevPoint.X)/Math.PI*180.0;
+                                }
+                                if(ImageOnLine)
+                                {
+                                    PrevPoint.X = pt.X;
+                                    PrevPoint.Y = pt.Y;
+                                }
+
                                 if (Rotation != 0)
                                 {
-                                    g.TranslateTransform(pt.X, pt.Y);
+                                    g.TranslateTransform(pt.X + W / 2, pt.Y + H / 2);
                                     g.RotateTransform((float)Rotation);
-                                    g.TranslateTransform(-pt.X, -pt.Y);
+                                    g.TranslateTransform(-(pt.X + W / 2), -(pt.Y + H / 2));
                                 }
                                 g.DrawImage(img, new Rectangle(pt.X, pt.Y, W, H));
                                 g.ResetTransform();
@@ -936,14 +948,37 @@ namespace gInk
             gOutCanvus.DrawRectangle(p,Math.Min(CursorX0,CursorX), Math.Min(CursorY0, CursorY), dX, dY);
             p.Dispose();
         }
-        public void DrawImagesOnGraphic(Graphics g, List<Point> pts, Image img, int W, int H, DrawingAttributes dr = null, DashStyle st = DashStyle.Solid)
+        public void DrawImagesOnGraphic(Graphics g, List<Point> pts, Image img, int W, int H, DrawingAttributes dr = null, DashStyle st = DashStyle.Solid, bool OnLine = false)
         {
+            Double Rotation = 0.0D;
             if (pts == null)
                 return;
             //Pen p = PenForDrawOn(dr, st);
-            foreach(Point pt in pts)
+            Point PrevPoint = new Point(Int32.MinValue, Int32.MinValue);
+            if(OnLine && pts.Count >= 2)
             {
-                gOutCanvus.DrawImage(img, pt.X, pt.Y, W, H);
+                Rotation = Math.Atan2(pts[1].Y - pts[0].Y, pts[1].X - pts[0].X) / Math.PI * 180.0;
+            }
+            foreach (Point pt in pts)
+            {
+                if (PrevPoint.X != Int32.MinValue)
+                {
+                    Rotation = Math.Atan2(pt.Y - PrevPoint.Y, pt.X - PrevPoint.X) / Math.PI * 180.0;
+                }
+                if (OnLine)
+                {
+                    PrevPoint.X = pt.X;
+                    PrevPoint.Y = pt.Y;
+                }
+
+                if (Rotation != 0)
+                {
+                    gOutCanvus.TranslateTransform(pt.X + W / 2, pt.Y + H / 2);
+                    gOutCanvus.RotateTransform((float)Rotation);
+                    gOutCanvus.TranslateTransform(-(pt.X + W / 2), -(pt.Y + H / 2));
+                }
+                gOutCanvus.DrawImage(img, new Rectangle(pt.X, pt.Y, W, H));
+                gOutCanvus.ResetTransform();
             }
             //p.Dispose();
         }
@@ -1004,10 +1039,10 @@ namespace gInk
                     List<Point> pts = new List<Point>();
                     pts.Add(new Point() { X = CursorX0 - (m ? (Root.ImageStamp.X / 2) : 0), Y = CursorY0 - (m ? (Root.ImageStamp.Y / 2) : 0) });
                     pts.Add(new Point() { X = CursorX - (m ? (Root.ImageStamp.X / 2) : 0), Y = CursorY - (m ? (Root.ImageStamp.Y / 2) : 0) });
-                    DrawImagesOnGraphic(g, pts, Root.FormCollection.PatternImage, Root.ImageStamp.X, Root.ImageStamp.Y);
+                    DrawImagesOnGraphic(g, pts, Root.FormCollection.PatternImage, Root.ImageStamp.X, Root.ImageStamp.Y,OnLine: Root.FormCollection.RotatingOnLine);
                 }
                 else if (Root.ToolSelected == Tools.PatternLine && Root.FormCollection.PatternLineSteps == 2)
-                    DrawImagesOnGraphic(g, Root.FormCollection.PatternPoints,Root.FormCollection.PatternImage, Root.ImageStamp.X, Root.ImageStamp.Y);
+                    DrawImagesOnGraphic(g, Root.FormCollection.PatternPoints,Root.FormCollection.PatternImage, Root.ImageStamp.X, Root.ImageStamp.Y,OnLine: Root.FormCollection.RotatingOnLine);
                 else if (Root.ToolSelected == Tools.Oval)
                     if ((Root.FormCollection.CurrentMouseButton == MouseButtons.Right) || ((int)(Root.FormCollection.CurrentMouseButton) == 2))
                         DrawEllipseOnGraphic(g, CursorX0, CursorY0, CursorX, CursorY, da, ds);

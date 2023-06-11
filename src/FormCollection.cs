@@ -158,6 +158,7 @@ namespace gInk
         public Stroke LineForPatterns = null;
         public int PatternLineSteps = -1;          //0 = getSize ; 1 = getDistance; 2 = getStroke
         public Bitmap PatternImage = null;
+        public bool RotatingOnLine = false;
         public ListPoint PatternPoints = new List<Point>();
         public List<ListPoint> StoredPatternPoints = new List<ListPoint>();
         public int PatternLastPtIndex = -1;
@@ -2460,12 +2461,28 @@ namespace gInk
                     e.Stroke.ExtendedProperties.Add(Root.IMAGE_Y_GUID, (double)Root.CursorY0);
                     e.Stroke.ExtendedProperties.Add(Root.IMAGE_W_GUID, (double)Root.ImageStamp.X);
                     e.Stroke.ExtendedProperties.Add(Root.IMAGE_H_GUID, (double)Root.ImageStamp.Y);
-                    e.Stroke.ExtendedProperties.Add(Root.ROTATION_GUID, 0.0D);
+                    double angle;
+                    if (Path.GetFileName(Root.ImageStamp.ImageStamp).StartsWith("~"))
+                    {
+                        angle = 180.0 / Math.PI * Math.Atan2(PatternPoints[1].Y - PatternPoints[0].Y, PatternPoints[1].X - PatternPoints[0].X);
+                        if (angle == 0) angle = 1;
+                        e.Stroke.ExtendedProperties.Add(Root.IMAGE_ON_LINE_GUID, true);
+                    }
+                    else
+                        angle = 0;
+                    e.Stroke.ExtendedProperties.Add(Root.ROTATION_GUID, angle);                    
                     if (e.Stroke.ExtendedProperties.Contains(Root.FADING_PEN))
                         FadingList.Add(e.Stroke);
                     e.Stroke.ExtendedProperties.Add(Root.REPETITIONDISTANCE_GUID, PatternDist);
                     StoredPatternPoints.Add(new ListPoint(PatternPoints));
                     e.Stroke.ExtendedProperties.Add(Root.LISTOFPOINTS_GUID, StoredPatternPoints.Count - 1);
+                    if (ClipartsDlg.Animations.ContainsKey(Root.ImageStamp.ImageStamp))
+                    {
+                        AnimationStructure ani = buildAni(Root.ImageStamp.ImageStamp);
+                        Animations.Add(AniPoolIdx, ani);
+                        e.Stroke.ExtendedProperties.Add(Root.ANIMATIONFRAMEIMG_GUID, AniPoolIdx);
+                        AniPoolIdx++;
+                    }                    
                     Root.ImageStamp.Store = false;
                 }
                 LineForPatterns = null;
@@ -2552,9 +2569,10 @@ namespace gInk
                             Root.ImageStamp.Wstored = Root.ImageStamp.X;
                             Root.ImageStamp.Hstored = Root.ImageStamp.Y;
                         }
-                            PatternLineSteps = 1; // nextStep 
+                        PatternLineSteps = 1; // nextStep 
                         PatternImage?.Dispose();
                         PatternImage = new Bitmap(Root.ImageStamp.ImageStamp);
+                        RotatingOnLine = Path.GetFileName(Root.ImageStamp.ImageStamp).StartsWith("~");
                         PatternPoints.Clear();
                     }
                 }

@@ -444,7 +444,7 @@ namespace gInk
                                     if (s.Contains('/'))
                                         s = Root.FormCollection.ClipartsDlg.LoadImage(s);
                                     Root.ImageStamp = Root.FormCollection.ClipartsDlg.getClipArtData(s);
-                                    Root.FormCollection.RotatingOnLine = Path.GetFileName(Root.ImageStamp.ImageStamp).StartsWith("~");
+                                    Root.FormCollection.RotatingOnLine = Path.GetFileName(Root.ImageStamp.ImageStamp).StartsWith("~"); //
 
                                     Root.ImageStamp.Filling = f;
                                     if (w > 0)

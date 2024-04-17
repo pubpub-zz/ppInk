@@ -262,6 +262,20 @@ namespace gInk
                                 bmp = new Bitmap(filename);
                                 cursorsize[0] = bmp.Width; cursorsize[1] = bmp.Height;
                                 hotSpot[0] = bmp.Width / 2; hotSpot[1] = bmp.Height / 2;
+                                try
+                                {
+                                    string fn1 = Path.GetFileNameWithoutExtension(namesize[0]);
+                                    fn1 = fn1.Split('@')[1];
+                                    string[] lst = fn1.Split('.');
+                                    int dx = int.Parse(lst[0]);
+                                    int dy = int.Parse(lst[1]);
+                                    hotSpot[0] = dx;
+                                    hotSpot[1] = dy;
+                                }
+                                catch
+                                {
+                                    ;
+                                }
                             }
                             catch (Exception e)
                             {
@@ -278,7 +292,12 @@ namespace gInk
             {
                 curs = new System.Windows.Forms.Cursor(((System.Drawing.Icon)Properties.Resources.ResourceManager.GetObject(namesize[0])).Handle);
                 cursorsize[0] = 128; cursorsize[1] = 128;
-                hotSpot[0] = curs.HotSpot.X; hotSpot[1] = curs.HotSpot.Y;
+                hotSpot[0] = (int)(cursorsize[0]* (1.0*curs.HotSpot.X)/curs.Size.Width); hotSpot[1] = (int)(cursorsize[1]* (1.0*curs.HotSpot.Y)/curs.Size.Height);
+                if(hotSpot[0]>=cursorsize[0] || hotSpot[1] >= cursorsize[1])
+                {
+                    hotSpot[0] = cursorsize[0] / 2;
+                    hotSpot[1] = cursorsize[1] / 2;
+                }
                 bmp = new Bitmap(cursorsize[0], cursorsize[1], PixelFormat.Format32bppArgb);
                 Graphics mg = Graphics.FromImage(bmp);
                 curs.DrawStretched(mg, new Rectangle(0, 0,bmp.Width,bmp.Height));
@@ -1718,9 +1737,28 @@ namespace gInk
 
         private Stroke AddImageStroke(int CursorX0, int CursorY0, int CursorX, int CursorY, string fn, int Filling = -10)
         {
+            Point org_sz = ClipartsDlg.ImgSizes[ClipartsDlg.ImageListViewer.LargeImageList.Images.IndexOfKey(Root.ImageStamp.ImageStamp)];
             if (Filling == -10)
                 Filling = Root.ImageStamp.Filling;
             Stroke st = AddRectStroke(CursorX0, CursorY0, CursorX, CursorY, Filling);
+            try
+            {
+                string fn1 = Path.GetFileNameWithoutExtension(fn);
+                fn1 = fn1.Split('@')[1];
+                string[] lst = fn1.Split('.');
+                int dx = int.Parse(lst[0]);
+                int dy = int.Parse(lst[1]);
+                dx = (int)(dx * (CursorX - CursorX0)*1.0 / org_sz.X);
+                dy = (int)(dy * (CursorY - CursorY0)*1.0 / org_sz.Y);
+                CursorX -= dx;
+                CursorX0 -= dx;
+                CursorY -= dy;
+                CursorY0 -= dy;
+            }
+            catch
+            {
+                ;
+            }
             st.ExtendedProperties.Add(Root.IMAGE_GUID, fn);
             st.ExtendedProperties.Add(Root.IMAGE_X_GUID, (double)CursorX0);
             st.ExtendedProperties.Add(Root.IMAGE_Y_GUID, (double)CursorY0);

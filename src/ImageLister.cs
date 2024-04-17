@@ -149,7 +149,7 @@ namespace gInk
         {
             //using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = Global.ProgramFolder;
+                openFileDialog.InitialDirectory = Program.RunningFolder;
                 openFileDialog.Filter = "Images(*.png;*.bmp;*.jpg;*.jpeg;*.gif;*.ico;*.apng)|*.png;*.bmp;*.jpg;*.jpeg;*.gif;*.ico;*.apng|All files (*.*)|*.*";
                 openFileDialog.RestoreDirectory = true;
 

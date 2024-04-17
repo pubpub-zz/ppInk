@@ -274,8 +274,10 @@ namespace gInk
 		{
 			DirectoryInfo d = new DirectoryInfo("./lang/");
 			if (!d.Exists)
-				d = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "lang");
-			if (!d.Exists)
+				d = new DirectoryInfo(Program.RunningFolder + "lang");
+            if (!d.Exists)
+                d = new DirectoryInfo(Program.ProgramFolder + "lang");
+            if (!d.Exists)
 				return;
 
 			FileInfo[] Files = d.GetFiles("*.txt");
@@ -345,7 +347,9 @@ namespace gInk
             string filename = "./lang/" + loname + ".txt";
 
             if (!File.Exists(filename))
-                filename = AppDomain.CurrentDomain.BaseDirectory + "lang/" + loname + ".txt";
+                filename = Program.RunningFolder + "lang/" + loname + ".txt";
+            if (!File.Exists(filename))
+                filename = Program.ProgramFolder + "lang/" + loname + ".txt";
             if (!File.Exists(filename))
                 return;
 

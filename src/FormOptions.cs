@@ -798,25 +798,25 @@ namespace gInk
         private void SaveConfigBtn_Click(object sender, EventArgs e)
         {
             String config_ini,st;
-            using (var f = new StreamReader("config.ini"))
+            using (var f = new StreamReader(Program.RunningFolder + "config.ini"))
                 config_ini = f.ReadToEnd();
-            using (var f = new StreamReader("defaults.ini"))
+            using (var f = new StreamReader(Program.RunningFolder + "defaults.ini"))
                 st=Root.CompleteConfig(f.ReadToEnd(), config_ini);
             if (st != "")
-                using(var f = new StreamWriter("config.ini"))
+                using(var f = new StreamWriter(Program.RunningFolder + "config.ini"))
                     f.Write(config_ini + "\n" + st);
 
-            using (var f = new StreamReader("pens.ini"))
+            using (var f = new StreamReader(Program.RunningFolder + "pens.ini"))
                 config_ini = f.ReadToEnd();
-            using (var f = new StreamReader("pensdef.ini"))
+            using (var f = new StreamReader(Program.RunningFolder + "pensdef.ini"))
                 st = Root.CompleteConfig(f.ReadToEnd(), config_ini);
             if (st != "")
-                using (var f = new StreamWriter("pens.ini"))
+                using (var f = new StreamWriter(Program.RunningFolder + "pens.ini"))
                     f.Write(config_ini + "\n" + st);
 
-            Root.SaveOptions("pens.ini");
-            Root.SaveOptions("config.ini");
-            Root.SaveOptions("hotkeys.ini");
+            Root.SaveOptions(Program.RunningFolder + "pens.ini");
+            Root.SaveOptions(Program.RunningFolder + "config.ini");
+            Root.SaveOptions(Program.RunningFolder + "hotkeys.ini");
         }
 
         private void Float_Validating(object sender, CancelEventArgs e)

@@ -67,7 +67,7 @@ namespace gInk
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.FileName = ArrowHead.Split('%')[0];
-                dlg.InitialDirectory = Global.ProgramFolder;
+                dlg.InitialDirectory = Program.RunningFolder;
                 dlg.Filter = "Images(*.png;*.bmp;*.jpg;*.jpeg;*.gif;*.ico;*.apng)|*.png;*.bmp;*.jpg;*.jpeg;*.gif;*.ico;*.apng|All files (*.*)|*.*";
                 dlg.RestoreDirectory = true;
                 dlg.FilterIndex = 1;
@@ -91,7 +91,7 @@ namespace gInk
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.FileName = ArrowTail.Split('%')[0];
-                dlg.InitialDirectory = Global.ProgramFolder;
+                dlg.InitialDirectory = Program.RunningFolder;
                 dlg.Filter = "Images(*.png;*.bmp;*.jpg;*.jpeg;*.gif;*.ico;*.apng)|*.png;*.bmp;*.jpg;*.jpeg;*.gif;*.ico;*.apng|All files (*.*)|*.*";
                 dlg.RestoreDirectory = true;
                 dlg.FilterIndex = 1;

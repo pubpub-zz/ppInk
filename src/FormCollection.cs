@@ -217,7 +217,7 @@ namespace gInk
                     string[] exts = { ".cur", ".ico" };
                     foreach (string ext in exts)
                     {
-                        filename = Global.ProgramFolder + namesize[0] + ext;
+                        filename = Program.RunningFolder + namesize[0] + ext;
                         if (File.Exists(filename))
                             try
                             {
@@ -238,7 +238,7 @@ namespace gInk
                     string[] exts = { ".ani" };
                     foreach (string ext in exts)
                     {
-                        filename = Global.ProgramFolder + namesize[0] + ext;
+                        filename = Program.RunningFolder + namesize[0] + ext;
                         if (File.Exists(filename))
                             try
                             {
@@ -255,7 +255,7 @@ namespace gInk
                     string[]  exts = { ".bmp",".png",".tif",".jpg", ".jpeg" };
                     foreach (string ext in exts)
                     {
-                        filename = Global.ProgramFolder + namesize[0] + ext;
+                        filename = Program.RunningFolder + namesize[0] + ext;
                         if (File.Exists(filename))
                             try
                             {
@@ -311,7 +311,7 @@ namespace gInk
                 if (Path.IsPathRooted(name))
                     filename = name + ext;
                 else
-                    filename = Global.ProgramFolder + name + ext;
+                    filename = Program.RunningFolder + name + ext;
                 if (File.Exists(filename))
                     try
                     {

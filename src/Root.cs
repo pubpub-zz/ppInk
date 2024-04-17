@@ -498,10 +498,11 @@ namespace gInk
 
         public Root()
 		{
-            Global.ProgramFolder = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0])).Replace('\\','/');
-            SelectionFramePen.DashPattern = new float[]{4,4};       // dashed red line for selection drawing
+            /*Global.ProgramFolder = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0])).Replace('\\','/');
             if (Global.ProgramFolder[Global.ProgramFolder.Length - 1] != '/')
                 Global.ProgramFolder += '/';
+            */
+            SelectionFramePen.DashPattern = new float[]{4,4};       // dashed red line for selection drawing
 			for (int p = 0; p < MaxDisplayedPens; p++)
 				Hotkey_Pens[p] = new Hotkey();
 
@@ -513,11 +514,11 @@ namespace gInk
 
             SetDefaultPens();
 			SetDefaultConfig();
-            ReadOptions("defaults.ini");
-            ReadOptions("config.ini");
-            ReadOptions("pensdef.ini");
-            ReadOptions("pens.ini");
-			ReadOptions("hotkeys.ini");
+            ReadOptions(Program.RunningFolder + "defaults.ini");
+            ReadOptions(Program.RunningFolder + "config.ini");
+            ReadOptions(Program.RunningFolder + "pensdef.ini");
+            ReadOptions(Program.RunningFolder + "pens.ini");
+			ReadOptions(Program.RunningFolder + "hotkeys.ini");
             Hotkey_SnapClose.Parse("Escape");
 
             if (TagFont=="")     // if no options, we apply text parameters
@@ -1019,9 +1020,12 @@ namespace gInk
 
         public void ReadOptions(string file)
 		{
+            string file2 = file;
 			if (!File.Exists(file))
-				file = AppDomain.CurrentDomain.BaseDirectory + file;
-			if (!File.Exists(file))
+				file = Program.RunningFolder + file2;
+            if (!File.Exists(file))
+                file = Program.ProgramFolder + file2;
+            if (!File.Exists(file))
 				return;
 
 
@@ -1675,7 +1679,7 @@ namespace gInk
                                 {
                                     string st2;
                                     if (!Path.IsPathRooted(st1))
-                                        st2 = Global.ProgramFolder + st1;
+                                        st2 = Program.RunningFolder + st1;
                                     else
                                         st2 = st1;
                                     if (!ContainsInsensitive(StampFileNames, st2))
@@ -1700,7 +1704,7 @@ namespace gInk
                                 {
                                     string st2;
                                     if (st1.StartsWith(".") && !Path.IsPathRooted(st1))
-                                        st2 = Global.ProgramFolder + st1;
+                                        st2 = Program.RunningFolder + st1;
                                     else
                                         st2 = st1;
                                     ArrowHead.Add(st2);
@@ -1715,7 +1719,7 @@ namespace gInk
                                 {
                                     string st2;
                                     if (st1.Contains(".") && !Path.IsPathRooted(st1))
-                                        st2 = Global.ProgramFolder + st1;
+                                        st2 = Program.RunningFolder + st1;
                                     else
                                         st2 = st1;
                                     ArrowTail.Add(st2);
@@ -1875,7 +1879,7 @@ namespace gInk
 
             sPara = lst[0];
             if (!Path.IsPathRooted(sPara))
-                sPara = Global.ProgramFolder + sPara;
+                sPara = Program.RunningFolder + sPara;
             sPara = sPara.Replace('\\', '/').ToLower();
             if (!ContainsInsensitive(StampFileNames, sPara))
                 StampFileNames.Insert(StampFileNames.Count, sPara);
@@ -1900,7 +1904,7 @@ namespace gInk
             bool ArrowTailAlreadyFilled = false;
 
             if (!File.Exists(file))
-				file = AppDomain.CurrentDomain.BaseDirectory + file;
+				file = Program.RunningFolder+ file;
 			if (!File.Exists(file))
 				return;
 
@@ -2398,7 +2402,7 @@ namespace gInk
                                 {
                                     string[] sts = st1.Split('%');
                                     if (sts[0].Contains("."))
-                                        sPara += MakeRelativePath(Global.ProgramFolder, sts[0]).Replace('\\', '/');
+                                        sPara += MakeRelativePath(Program.RunningFolder, sts[0]).Replace('\\', '/');
                                     else
                                         sPara += sts[0];
                                     if (sts.Length == 2)
@@ -2415,15 +2419,15 @@ namespace gInk
                                 sPara = " ";
                             break;
                         case "IMAGESTAMP1":
-                            sPara = MakeRelativePath(Global.ProgramFolder, ImageStamp1.ImageStamp).Replace('\\', '/') + ";" + ImageStamp1.Wstored.ToString() + ";" + ImageStamp1.Hstored.ToString() + ";" 
+                            sPara = MakeRelativePath(Program.RunningFolder, ImageStamp1.ImageStamp).Replace('\\', '/') + ";" + ImageStamp1.Wstored.ToString() + ";" + ImageStamp1.Hstored.ToString() + ";" 
                                                         + Fill2Str(ImageStamp1.Filling) + ";" + (ImageStamp1.PatternLine ? "Line;"+ImageStamp1.Distance.ToString(CultureInfo.InvariantCulture) : "Point");
                             break;
                         case "IMAGESTAMP2":
-                            sPara = MakeRelativePath(Global.ProgramFolder, ImageStamp2.ImageStamp).Replace('\\', '/') + ";" + ImageStamp2.Wstored.ToString() + ";" + ImageStamp2.Hstored.ToString() + ";" 
+                            sPara = MakeRelativePath(Program.RunningFolder, ImageStamp2.ImageStamp).Replace('\\', '/') + ";" + ImageStamp2.Wstored.ToString() + ";" + ImageStamp2.Hstored.ToString() + ";" 
                                                         + Fill2Str(ImageStamp2.Filling) + ";" + (ImageStamp2.PatternLine ? "Line;" + ImageStamp2.Distance.ToString(CultureInfo.InvariantCulture) : "Point");
                             break;
                         case "IMAGESTAMP3":
-                            sPara = MakeRelativePath(Global.ProgramFolder, ImageStamp3.ImageStamp).Replace('\\', '/') + ";" + ImageStamp3.Wstored.ToString() + ";" + ImageStamp3.Hstored.ToString() + ";" 
+                            sPara = MakeRelativePath(Program.RunningFolder, ImageStamp3.ImageStamp).Replace('\\', '/') + ";" + ImageStamp3.Wstored.ToString() + ";" + ImageStamp3.Hstored.ToString() + ";" 
                                                         + Fill2Str(ImageStamp3.Filling) + ";" + (ImageStamp3.PatternLine ? "Line;" + ImageStamp3.Distance.ToString(CultureInfo.InvariantCulture) : "Point");
                             break;
                         case "ARROW_HEAD":
@@ -2434,7 +2438,7 @@ namespace gInk
                                 {
                                     string[] sts = st1.Split('%');
                                     if (sts[0].Contains("."))
-                                        sPara += MakeRelativePath(Global.ProgramFolder, sts[0]).Replace('\\', '/');
+                                        sPara += MakeRelativePath(Program.RunningFolder, sts[0]).Replace('\\', '/');
                                     else
                                         sPara += sts[0];
                                     if (sts.Length == 2)
@@ -2458,7 +2462,7 @@ namespace gInk
                                 {
                                     string[] sts = st1.Split('%');
                                     if (sts[0].Contains("."))
-                                        sPara += MakeRelativePath(Global.ProgramFolder, sts[0]).Replace('\\', '/');
+                                        sPara += MakeRelativePath(Program.RunningFolder, sts[0]).Replace('\\', '/');
                                     else
                                         sPara += sts[0];
                                     if (sts.Length == 2)

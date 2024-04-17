@@ -32,7 +32,8 @@ namespace gInk
         public static extern bool ShowWindow(IntPtr hwnd, int nCmdShow);
 
         public static int StartInkingMsg = RegisterWindowMessage("START_INKING");
-
+        public static string ProgramFolder = "";
+        public static string RunningFolder = "";
 
         public static CallForm frm;
 
@@ -40,9 +41,22 @@ namespace gInk
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-		static void Main()
+		static void Main(string [] args)
 		{
             if (!EnsureSingleInstance()) return;
+
+            ProgramFolder = AppDomain.CurrentDomain.BaseDirectory;
+            ProgramFolder = ProgramFolder.Replace("/", "\\");
+            if (!ProgramFolder.EndsWith("\\"))
+                ProgramFolder += "\\";
+
+            RunningFolder = ProgramFolder;
+            for(int i=0;i<args.Length;i++)
+            {
+                if (args[i] == "-c")
+                    RunningFolder = args[i + 1];
+            }
+            RunningFolder = PrepareConfigFolder(ProgramFolder, RunningFolder);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -100,6 +114,46 @@ namespace gInk
             FreeConsole();
 		}
 
+        private static string PrepareConfigFolder(string programFolder, string runningFolder)
+        // returns CurrentFolder
+        {
+            try
+            {
+                if (runningFolder != programFolder)
+                    throw new Exception("forced running folder");
+                string tst_fn = runningFolder + "$test";
+                FileStream tst = new FileStream(tst_fn,FileMode.CreateNew);
+                tst.Close();
+                File.Delete(tst_fn);
+            }
+            catch
+            {
+                if (runningFolder == programFolder || runningFolder == "$")
+                    runningFolder = "%APPDATA%" + "\\ppInk\\";
+                runningFolder = Environment.ExpandEnvironmentVariables(runningFolder);
+                if (!runningFolder.EndsWith("\\"))
+                    runningFolder += "\\";
+                if (!File.Exists(runningFolder+"files_copied"))
+                {
+                    string[] NON_COPY_EXTS = { ".DLL", ".EXE", ".W32", ".X64", ".MD", ".ZIP", ".LNK", ".PDB", };
+                    string[] INI_FILES = { "CONFIG.INI", "HOTKEYS.INI", "PENS.INI",};
+                    foreach (string f in Directory.GetFiles(programFolder, "*.*", SearchOption.AllDirectories))
+                    {
+                        string f1 = f.Replace(programFolder, runningFolder);
+                        if (INI_FILES.Contains(Path.GetFileName(f).ToUpper()) && File.Exists(f1))
+                            continue;
+                        if(!NON_COPY_EXTS.Contains(Path.GetExtension(f).ToUpper()))
+                        {
+                            Directory.CreateDirectory(Path.GetDirectoryName(f1));
+                            File.Copy(f, f1, true);
+                        }
+                    }
+                }
+            }
+            Directory.SetCurrentDirectory(runningFolder);
+            return runningFolder;
+        }
+
         private static void UIThreadException(object sender, ThreadExceptionEventArgs t)
 		{
 			DialogResult result = DialogResult.Cancel;
@@ -150,19 +204,27 @@ namespace gInk
 
                 ShowErrorDialog("UnhandledException", errorMsg);
 
-				if (!EventLog.SourceExists("UnhandledException"))
-				{
-					EventLog.CreateEventSource("UnhandledException", "Application");
-				}
-				EventLog myLog = new EventLog();
-				myLog.Source = "UnhandledException";
-				myLog.WriteEntry(errorMsg);
-			}
+                try
+                {
+                    if (!EventLog.SourceExists("UnhandledException"))
+                    {
+                        EventLog.CreateEventSource("UnhandledException", "Application");
+                    }
+                    EventLog myLog = new EventLog();
+                    myLog.Source = "UnhandledException";
+                    myLog.WriteEntry(errorMsg);
+                }
+                catch
+                {
+                    ;
+                }
+
+            }
 			catch (Exception exc)
 			{
 				try
 				{
-					MessageBox.Show("Fatal Non-UI Error", "Fatal Non-UI Error. Could not write the error to the event log. Reason: " + exc.Message, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+					MessageBox.Show("Fatal Non-UI Error. Could not write the error to the event log. Reason: " + exc.Message, "Fatal Non-UI Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 				}
 				finally
 				{
@@ -217,7 +279,7 @@ namespace gInk
 		{
 			try
 			{
-				FileStream fs = new FileStream("crash.txt", FileMode.Append);
+				FileStream fs = new FileStream(Program.RunningFolder+"crash.txt", FileMode.Append);
 				StreamWriter sw = new StreamWriter(fs);
                 sw.Write(System.DateTime.Now.ToString("MM / dd / yyyy HH:mm"));
 				sw.Write(errormsg);
@@ -226,7 +288,7 @@ namespace gInk
 			}
 			catch
 			{
-				FileStream fs = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "crash.txt", FileMode.Append);
+				FileStream fs = new FileStream(Program.RunningFolder+ "crash.txt", FileMode.Append);
 				StreamWriter sw = new StreamWriter(fs);
                 sw.Write(System.DateTime.Now.ToString("MM / dd / yyyy HH:mm"));
                 sw.Write(errormsg);

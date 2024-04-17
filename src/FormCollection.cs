@@ -692,6 +692,11 @@ namespace gInk
                 if (Root.PenEnabled[b])
                     nbPen++;
 
+            FirstPenDisplayed = 0;
+            while (!Root.PenEnabled[FirstPenDisplayed])
+                FirstPenDisplayed++;
+            oldShiftPensExtra = null;
+
             // set dimensions and positions 
             int dim = (int)Math.Round(Screen.PrimaryScreen.Bounds.Height * Root.ToolbarHeight);
             int dim1 = (int)(dim * NormSizePercent);
@@ -4025,9 +4030,9 @@ namespace gInk
                     SavedPen = LastPenSelected;
                 }
                 SelectTool(-1, 0);       // Alt will be processed inhere
-                for (int b = 0; b < Root.MaxDisplayedPens; b++)
+                /*for (int b = 0; b < Root.MaxDisplayedPens; b++)
                 {
-                    /*try
+                    try
                     {
                         btPen[b].BackgroundImage.Dispose();
                     }
@@ -4035,10 +4040,9 @@ namespace gInk
                     //btPen[b].Image = image_pen[b];
                     btPen[b].BackgroundImage = buildPenIcon(Root.PenAttr[b + FirstPenDisplayed].Color, Root.PenAttr[b + FirstPenDisplayed].Transparency, false,
                                                             Root.PenAttr[b + FirstPenDisplayed].ExtendedProperties.Contains(Root.FADING_PEN), 
-                                                            Root.LineStyleToString(Root.PenAttr[b + FirstPenDisplayed].ExtendedProperties), Root.PenAttr[b + FirstPenDisplayed].Width);// image_pen[b];
-                    */
-                    recomputePensSet();
-                }
+                                                            Root.LineStyleToString(Root.PenAttr[b + FirstPenDisplayed].ExtendedProperties), Root.PenAttr[b + FirstPenDisplayed].Width);// image_pen[b];                    
+                }*/
+                recomputePensSet();
                 btPan.BackgroundImage = getImgFromDiskOrRes("pan_act", ImageExts);
                 EnterEraserMode(false);
                 Root.UnPointer();
@@ -5390,7 +5394,12 @@ namespace gInk
                 if (Root.PensExtraSet && ((shift || control) != oldShiftPensExtra))
                 {
                     recomputePens = true;
-                    FirstPenDisplayed = oldShiftPensExtra == true ? Root.MaxDisplayedPens : 0;
+                    //Console.Write("!!!!! {0} {1} {2} ", (shift || control), FirstPenDisplayed != 0, ((shift || control) ^ (FirstPenDisplayed = 0)));
+                    if(oldShiftPensExtra != null)
+                        FirstPenDisplayed = (FirstPenDisplayed == 0)? Root.MaxDisplayedPens : 0;
+                        while (!Root.PenEnabled[FirstPenDisplayed])
+                            FirstPenDisplayed++;
+                    //Console.WriteLine(" !! {0}", FirstPenDisplayed);
                 }
                 else
                     recomputePens = false;
@@ -6154,6 +6163,8 @@ namespace gInk
             if (ExtraPensByClick)
             {
                 FirstPenDisplayed = 0;
+                while (!Root.PenEnabled[FirstPenDisplayed])
+                    FirstPenDisplayed++;
                 recomputePensSet(FirstPenDisplayed, Root.CurrentPen);
                 ExtraPensByClick = false;
             }
@@ -6193,6 +6204,8 @@ namespace gInk
             if(ExtraPensByClick)
             {
                 FirstPenDisplayed = 0;
+                while (!Root.PenEnabled[FirstPenDisplayed])
+                    FirstPenDisplayed++;
                 recomputePensSet(FirstPenDisplayed, Root.CurrentPen);
                 ExtraPensByClick = false;
             }        
@@ -6206,6 +6219,8 @@ namespace gInk
                 FirstPenDisplayed = Root.MaxDisplayedPens;
             else
                 FirstPenDisplayed = 0;
+            while (!Root.PenEnabled[FirstPenDisplayed])
+                FirstPenDisplayed++;
             recomputePensSet(FirstPenDisplayed, Root.CurrentPen);
             ExtraPensByClick = true;
         }

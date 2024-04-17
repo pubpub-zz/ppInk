@@ -5462,6 +5462,7 @@ namespace gInk
                 if (pressed && !LastEraserStatus && Root.Hotkey_Eraser.ModifierMatch(control, alt, shift, win))
                 {
                     SelectPen(-1);
+                    FromHandToLineOnShift = false;
                 }
                 LastEraserStatus = pressed;
 
@@ -5495,6 +5496,7 @@ namespace gInk
                     else
                         MouseTimeDown = DateTime.Now;
                     btPointer_Click(btPointer, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastPointerStatus = pressed;
 
@@ -5502,6 +5504,7 @@ namespace gInk
                 if (pressed && !LastPanStatus && Root.Hotkey_Pan.ModifierMatch(control, alt, shift, win))
                 {
                     btPan_Click(null, null);//SelectPen(-3);
+                    FromHandToLineOnShift = false;
                 }
                 LastPanStatus = pressed;
 
@@ -5512,6 +5515,7 @@ namespace gInk
                         btScaleRot_Click(0, null);
                     else
                         btScaleRot_Click(1, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastScaleRotStatus = pressed;
 
@@ -5523,6 +5527,7 @@ namespace gInk
                     else
                         MouseTimeDown = DateTime.Now;
                     btClear_Click(btClear, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastClearStatus = pressed;
 
@@ -5530,6 +5535,7 @@ namespace gInk
                 if (pressed && !LastVideoStatus && Root.Hotkey_Video.ModifierMatch(control, alt, shift, win))
                 {
                     btVideo_Click(null, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastVideoStatus = pressed;
 
@@ -5537,6 +5543,7 @@ namespace gInk
                 if (pressed && !LastDockStatus && Root.Hotkey_DockUndock.ModifierMatch(control, alt, shift, win))
                 {
                     btDock_Click(null, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastDockStatus = pressed;
 
@@ -5548,6 +5555,7 @@ namespace gInk
                     else
                         MouseTimeDown = DateTime.Now;
                     btSnap_Click(btSnap, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastSnapStatus = pressed;
 
@@ -5559,18 +5567,20 @@ namespace gInk
                 LastHandStatus = pressed;
 
                 // if shift is pressed in handtool we go to line tool temporaly
-                pressed = (GetKeyState(Root.Hotkey_Line.Key) & 0x8000) == 0x8000;
-                if (Root.ToolSelected == Tools.Hand && (shift || control))
+                if (Root.AltAsOneCommand >= 1)
                 {
-                    btTool_Click(btLine, null);
+                    if (Root.ToolSelected == Tools.Hand && (shift || control))
+                    {
+                        btTool_Click(btLine, null);
                     FromHandToLineOnShift = true;
                 }
                 if (FromHandToLineOnShift && !(shift || control))
                 {
-                    btTool_Click(btHand, null);
-                    FromHandToLineOnShift = false;
+                        btTool_Click(btHand, null);
+                        FromHandToLineOnShift = false;
+                    }
                 }
-
+                pressed = (GetKeyState(Root.Hotkey_Line.Key) & 0x8000) == 0x8000;
                 if (pressed && !LastLineStatus && Root.Hotkey_Line.ModifierMatch(control, alt, shift, win))
                 {
                     btTool_Click(btLine, null);
@@ -5581,6 +5591,7 @@ namespace gInk
                 if (pressed && !LastRectStatus && Root.Hotkey_Rect.ModifierMatch(control, alt, shift, win))
                 {
                     btTool_Click(btRect, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastRectStatus = pressed;
 
@@ -5588,6 +5599,7 @@ namespace gInk
                 if (pressed && !LastOvalStatus && Root.Hotkey_Oval.ModifierMatch(control, alt, shift, win))
                 {
                     btTool_Click(btOval, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastOvalStatus = pressed;
 
@@ -5603,12 +5615,14 @@ namespace gInk
                     MouseTimeDown = DateTime.Now;
                     LastArrowStatus = pressed; // btSave will be long... to prevent to restart process...
                     btTool_Click(btArrow, null);
+                    FromHandToLineOnShift = false;
                 }
                 if (LastArrowStatus && pressed && DateTime.Now.CompareTo(LongHkPress) > 0)
                 {
                     LongHkPress = DateTime.Now.AddYears(1);
                     MouseTimeDown = DateTime.FromBinary(0);
                     btTool_Click(btArrow, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastArrowStatus = pressed;
 
@@ -5617,6 +5631,7 @@ namespace gInk
                 {
                     MouseTimeDown = DateTime.Now;
                     btTool_Click(btNumb, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastNumbStatus = pressed;
 
@@ -5625,6 +5640,7 @@ namespace gInk
                 {
                     MouseTimeDown = DateTime.Now;
                     btTool_Click(btText, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastTextStatus = pressed;
 
@@ -5640,6 +5656,7 @@ namespace gInk
                 if (pressed && !LastMoveStatus && Root.Hotkey_Move.ModifierMatch(control, alt, shift, win))
                 {
                     btPan_Click(null, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastMoveStatus = pressed;
 
@@ -5661,6 +5678,7 @@ namespace gInk
                 if (pressed && !LastClipArtStatus && Root.Hotkey_ClipArt.ModifierMatch(control, alt, shift, win))
                 {
                     btTool_Click(btClipArt, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastClipArtStatus = pressed;
 
@@ -5669,6 +5687,7 @@ namespace gInk
                 {
                     MouseTimeDown = DateTime.Now;
                     btTool_Click(btClip1, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastClipArt1Status = pressed;
 
@@ -5677,6 +5696,7 @@ namespace gInk
                 {
                     MouseTimeDown = DateTime.Now;
                     btTool_Click(btClip2, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastClipArt2Status = pressed;
 
@@ -5685,6 +5705,7 @@ namespace gInk
                 {
                     MouseTimeDown = DateTime.Now;
                     btTool_Click(btClip3, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastClipArt3Status = pressed;
 
@@ -5693,6 +5714,7 @@ namespace gInk
                 {
                     MouseTimeDown = DateTime.Now;
                     PenWidth_Change(Root.PenWidth_Delta);
+                    FromHandToLineOnShift = false;
                 }
                 LastPenWidthPlus = pressed;
 
@@ -5701,6 +5723,7 @@ namespace gInk
                 {
                     MouseTimeDown = DateTime.Now;
                     PenWidth_Change(-Root.PenWidth_Delta);
+                    FromHandToLineOnShift = false;
                 }
                 LastPenWidthMinus = pressed;
 
@@ -5711,6 +5734,7 @@ namespace gInk
                         StartStopPickUpColor(1);
                     else
                         StartStopPickUpColor(0);
+                    FromHandToLineOnShift = false;
                 }
                 LastColorPickupStatus = pressed;
 
@@ -5718,6 +5742,7 @@ namespace gInk
                 if (pressed && !LastLassoStatus && Root.Hotkey_Lasso.ModifierMatch(control, alt, shift, win))
                 {
                     btLasso_Click(null, null);
+                    FromHandToLineOnShift = false;
                 }
                 LastLassoStatus = pressed;
 
@@ -5726,6 +5751,7 @@ namespace gInk
                 {
                     if (Root.CurrentPen >= 0)
                         btColor_LongClick(btPen[Root.CurrentPen]);
+                    FromHandToLineOnShift = false;
                 }
                 LastColorEditStatus = pressed;
 
@@ -5734,6 +5760,7 @@ namespace gInk
                 {
                     if (Root.CurrentPen >= 0)
                         SelectNextLineStyle(btPen[Root.CurrentPen]);
+                    FromHandToLineOnShift = false;
                 }
                 LastLineStyleStatus = pressed;
 

@@ -17,7 +17,7 @@ namespace gInk
     public partial class ImageLister : Form
     {
         Root Root;
-        public Point[] ImgSizes = new Point[100]; // I wanted to use the tag, but for an unknown reason it affects image display in dialogbox....
+        public Point[] ImgSizes = new Point[1000]; // I wanted to use the tag, but for an unknown reason it affects image display in dialogbox....
         public int ImageStampFilling=-1;
         public string ImageStamp;
         public int ImgSizeX = -1;

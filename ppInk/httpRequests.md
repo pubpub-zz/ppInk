@@ -284,3 +284,15 @@ PickupMode(True/False),
 
 Red(0-255),Green(0-255),Blue(0-255),Transparency(0-255) (Optionals, only if
 pickupMode=true)
+
+**http://localhost:7999/ChangePage [?N=-1/1]**
+
+*Change Drawing Page*
+
+N=-1 to simulate press on PagePrev ; N=1 to simulate press on PageNext
+
+JSon fields :
+
+PageNumber : current page starting at 1 (after change)
+
+TotalPage : number of pages

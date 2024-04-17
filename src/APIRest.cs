@@ -1009,6 +1009,38 @@ namespace gInk
                                   (!Root.ColorPickerMode?"}":string.Format(",\n\"Red\" : {0}, \"Green\" : {1}, \"Blue\" : {2}, \"Transparency\" : {3}  }}",
                                                                            Root.PickupColor.R, Root.PickupColor.G, Root.PickupColor.B, Root.PickupTransparency));
                     }
+                    else if (req.Url.AbsolutePath == "/ChangePage")
+                    {
+                        string s;
+                        if (!(Root.FormDisplay.Visible || Root.FormCollection.Visible))
+                        {
+                            resp.StatusCode = 409;
+                            ret = "!!!!! Not in Inking mode";
+                        }
+                        else if (query.TryGetValue("N", out s))
+                        {
+                            int delta_page;
+                            if (int.TryParse(s, out delta_page) && Math.Abs(delta_page) <= 1)
+                            {
+                                if (delta_page == -1)
+                                    Root.FormCollection.btPagePrev_Click(null, null);
+                                else if (delta_page == 1)
+                                    Root.FormCollection.btPageNext_Click(null, null);
+                                // else 0 : do nothing just to get current page number
+                            }
+                            else if (query.Count==0)
+                            {
+                                delta_page=0;
+                            }
+                            else
+                            {
+                                resp.StatusCode = 400;
+                                ret = string.Format("!!!! Error in Query ({0}) - {1} ", req.HttpMethod, req.Url.AbsoluteUri);
+                            }
+                        }
+                        if (resp.StatusCode == 200)
+                            ret = string.Format(" {{ \"PageNumer\" : {0}, \"TotalPages\" : {1} }}", Root.FormCollection.PageIndex + 1, Root.FormCollection.PageMax + 1);
+                    }
 
 
                     else // unknow command...

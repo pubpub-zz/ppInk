@@ -7716,7 +7716,7 @@ namespace gInk
 		[DllImport("user32.dll")]
 		static extern int SetWindowLong(IntPtr hWnd, int nIndex, UInt32 dwNewLong);
 
-        private void btPagePrev_Click(object sender, EventArgs e)
+        public void btPagePrev_Click(object sender, EventArgs e)
         {
             string st = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath));
 
@@ -7757,7 +7757,7 @@ namespace gInk
             }
         }
 
-        private void btPageNext_Click(object sender, EventArgs e)
+        public void btPageNext_Click(object sender, EventArgs e)
         {
             string st = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath));
 

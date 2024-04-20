@@ -95,11 +95,14 @@ namespace gInk
         public string OptionMeasureGroup;
         public string OptionMeasureLenLabel;
         public string OptionMeasureAngle;
+        public string OptionMeasureWhileDrawing;
         public string FormatLength;
         public string FormatRectSize;
         public string FormatEllipseSize;    
         public string FormatAngle;
         public string FormaTotalLength;
+
+        public string ReScalePrompt;
 
         public string ButtonOkText;
         public string ButtonCancelText;

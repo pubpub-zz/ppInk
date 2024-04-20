@@ -176,6 +176,7 @@ namespace gInk
             Measure2DigEd.Text = Root.Measure2Digits.ToString();
             Measure2UnitEd.Text = Root.Measure2Unit;
             MeasureAngleCb.Checked = Root.MeasureAnglCounterClockwise;
+            MeasureWhileDrawing.Checked = Root.MeasureWhileDrawing;
 
             APIRestEd.Text = Root.APIRestUrl;
             APIRestEd.BackColor = Root.APIRest.IsListening() ? Color.White : Color.Orange;
@@ -427,6 +428,7 @@ namespace gInk
             MeasurementBox.Text = Root.Local.OptionMeasureGroup;
             Measuse1Lbl.Text = Root.Local.OptionMeasureLenLabel;
             MeasureAngleCb.Text = Root.Local.OptionMeasureAngle;
+            MeasureWhileDrawing.Text = Root.Local.OptionMeasureWhileDrawing;
 
             this.lbNote.Text = Root.Local.OptionsGeneralNotePenwidth;
 
@@ -1255,6 +1257,8 @@ namespace gInk
         private void MeasureEnabledCb_CheckedChanged(object sender, EventArgs e)
         {
             Root.MeasureEnabled = MeasureEnabledCb.Checked;
+            if (!Root.MeasureEnabled)
+                Root.MeasureWhileDrawing = false;
             MeasurementBox.Enabled = Root.MeasureEnabled;
         }
 
@@ -1513,6 +1517,11 @@ namespace gInk
         private void cbPagesEnabled_CheckedChanged(object sender, EventArgs e)
         {
             Root.PagesEnabled =  (sender as CheckBox).Checked;
+        }
+
+        private void MeasureWhileDrawing_CheckedChanged(object sender, EventArgs e)
+        {
+            Root.MeasureWhileDrawing = (sender as CheckBox).Checked;
         }
     }
 }

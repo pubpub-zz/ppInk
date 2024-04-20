@@ -254,6 +254,7 @@ namespace gInk
         public static int Measure2Digits=1;
         public static string Measure2Unit = "Pixel";
         public static bool MeasureAnglCounterClockwise = true;
+        public static bool MeasureWhileDrawing = false;
 
 
         // hotkey options
@@ -1775,6 +1776,13 @@ namespace gInk
                             else if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
                                 MeasureEnabled  = false;
                             break;
+                        case "MEASURE_WHILE_DRAWING":
+                            if (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON")
+                                MeasureWhileDrawing = true;
+                            else if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
+                                MeasureWhileDrawing = false;
+                            break;
+                            break;
                         case "MEASURE_LEN_SCALE":
                             if (Double.TryParse(sPara, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempd))
                                 Measure2Scale = tempd;
@@ -2504,7 +2512,10 @@ namespace gInk
                             sPara = ((int)SnapInPointerPressTwiceKey).ToString();
                             break;
                         case "MEASURES_ENABLED":
-                            sPara = MeasureEnabled? "True" : "False";
+                            sPara = MeasureEnabled ? "True" : "False";
+                            break;
+                        case "MEASURE_WHILE_DRAWING":
+                            sPara = MeasureWhileDrawing ? "True" : "False";
                             break;
                         case "MEASURE_LEN_SCALE":
                             sPara = Measure2Scale.ToString(CultureInfo.InvariantCulture);
@@ -2660,6 +2671,7 @@ namespace gInk
             return relativePath;
         }
 
+        // Should be considered as Obsolete as transfered in FormCollection;
         public double ConvertMeasureLength(double hl)
         {
             return hl * 0.037795280352161 * Measure2Scale;
@@ -2755,6 +2767,54 @@ namespace gInk
                 if (s.Equals(key, StringComparison.InvariantCultureIgnoreCase))
                     return true;
             return false;
+        }
+
+        public String InputBox(string prompt="", string title="ppInk", string deflt="")
+        {
+            Size size = new System.Drawing.Size(300, 100);
+            Form inputBox = new Form();      
+            inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            inputBox.Text = title;
+            inputBox.ClientSize = size;
+            inputBox.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            inputBox.TopMost = true;
+
+            Label promptText = new Label();
+            promptText.Size = new System.Drawing.Size(size.Width - 10, 45);            
+            promptText.Location = new System.Drawing.Point(5, 5);
+            promptText.Text = prompt;
+            inputBox.Controls.Add(promptText);
+
+            TextBox textBox = new TextBox();
+            textBox.Size = new System.Drawing.Size(size.Width - 10, 23);
+            textBox.Location = new System.Drawing.Point(5, 45);
+            textBox.Text = deflt;
+            inputBox.Controls.Add(textBox);
+
+            Button okButton = new Button();
+            okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            okButton.Name = "okButton";
+            okButton.Size = new System.Drawing.Size(75, 23);
+            okButton.Text = "&OK";
+            okButton.Location = new System.Drawing.Point(size.Width - 80 - 80, 70);
+            inputBox.Controls.Add(okButton);
+
+            Button cancelButton = new Button();
+            cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new System.Drawing.Size(75, 23);
+            cancelButton.Text = "&Cancel";
+            cancelButton.Location = new System.Drawing.Point(size.Width - 80, 70);
+            inputBox.Controls.Add(cancelButton);
+
+            inputBox.AcceptButton = okButton;
+            inputBox.CancelButton = cancelButton;
+
+            DialogResult result = inputBox.ShowDialog();
+            if (result == DialogResult.OK)
+                return textBox.Text;
+            else
+                return "";
         }
 
         [DllImport("user32.dll")]

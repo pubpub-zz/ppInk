@@ -170,6 +170,8 @@ namespace gInk
         public int PageIndex = 0;
         public int PageMax = 0;
 
+        public static double Measure2Scale = Root.Measure2Scale;
+
 
 
         // http://www.csharp411.com/hide-form-from-alttab/
@@ -591,6 +593,12 @@ namespace gInk
             Initialize();
         }
 
+        public double ConvertMeasureLength(double hl)
+        {
+            return hl * 0.037795280352161 * Measure2Scale;
+        }
+
+
         private string MemoHintClose;
         private string MemoHintDock;
 
@@ -608,6 +616,7 @@ namespace gInk
 
             MeasureNumberFormat = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
             MeasureNumberFormat.NumberDecimalDigits = Root.Measure2Digits;
+            Measure2Scale = Root.Measure2Scale;
 
             for (int i = 0; i < StoredArrowImages.Count; i++)
                 try { StoredArrowImages[i].Dispose(); } catch { }
@@ -2407,7 +2416,11 @@ namespace gInk
             // a separate Ink object. 
             Console.WriteLine("deleting ");
         }
+
         int dbgcpt = 0;
+        private Stroke currentStroke = null;
+        private int HideMetricCountDown = 0;
+
 
         private void IC_Stroke(object sender, InkCollectorStrokeEventArgs e)
         {
@@ -2744,6 +2757,39 @@ namespace gInk
             //CurrentMouseButton = MouseButtons.None;
             Root.CursorX0 = Int32.MinValue;
             Root.CursorY0 = Int32.MinValue;
+            bool redefineScale = ((CurrentMouseButton == MouseButtons.Right) || ((int)CurrentMouseButton == 2)); // right button pressed
+            if (Root.MeasureWhileDrawing )
+            {
+                if (redefineScale &&
+                    (Root.ToolSelected == Tools.Hand || Root.ToolSelected == Tools.Line ||
+                     Root.ToolSelected == Tools.StartArrow || Root.ToolSelected == Tools.EndArrow)
+                    )
+                {
+                    Double l = StrokeLength(IC.Ink.Strokes[IC.Ink.Strokes.Count - 1]);
+                    Double f = ConvertMeasureLength(l);
+                    string st;
+                    Double g;
+                    while (true)
+                    {
+                        st = string.Format(MeasureNumberFormat, "{0:N}", f);
+                        AllowInteractions(true);
+                        st = Root.InputBox(Root.Local.ReScalePrompt + " (" + Root.Measure2Unit + ")", "ppInk", st);
+                        AllowInteractions(false);
+                        if (st == "")
+                            break;
+                        if (Double.TryParse(st, out g))
+                        {
+                            Measure2Scale *= g / f;
+                            break;
+                        }
+
+                    }
+                }
+                MetricToolTip.Show(MeasureStroke(IC.Ink.Strokes[IC.Ink.Strokes.Count - 1]), this, Root.CursorX, Root.CursorY - 80);
+                HideMetricCountDown = 3000 / tiSlide.Interval;
+            }
+                
+            currentStroke = null;
             IC.Selection.Clear();
             Console.WriteLine(" ------------------ " + (dbgcpt++).ToString());
         }
@@ -2933,6 +2979,20 @@ namespace gInk
                 PatternLastPtIndex = 0;
                 PatternLastPtRemain = 0;
             }
+
+            switch(Root.ToolSelected)
+            {
+                case Tools.Hand:
+                case Tools.Line:
+                case Tools.Poly:
+                case Tools.Rect:
+                case Tools.Oval:
+                case Tools.StartArrow:
+                case Tools.EndArrow:
+                    currentStroke = e.Stroke;
+                    break;
+            }
+
         }
 
         private Stroke SavHoveredForSelection;
@@ -3083,6 +3143,7 @@ namespace gInk
 
 
         public Point LasteXY;
+        private long lastHintDraw;
 
         private void IC_MouseMove(object sender, CancelMouseEventArgs e)
         {
@@ -3161,7 +3222,8 @@ namespace gInk
                 }
                 else
                 {
-                    MetricToolTip.Hide(this);
+                    if (!Root.MeasureWhileDrawing)
+                        MetricToolTip.Hide(this);                   
                     return;
                 }
             }
@@ -3246,6 +3308,46 @@ namespace gInk
                 Rotate(StrokesSelection, movedStroke, TransformXc, TransformYc, LasteXY.X, LasteXY.Y, currentxy.X, currentxy.Y);
                 Root.UponAllDrawingUpdate = true;
             }
+
+            if (currentStroke != null && Root.MeasureEnabled)
+            {
+                if ((DateTime.Now.Ticks- lastHintDraw) > (200 * 10000))
+                { 
+                    string str = "?????";
+                    Point st = currentStroke.GetPoint(0);
+                    Point en = currentStroke.GetPoint(currentStroke.GetPoints().Length-1);
+                    switch (Root.ToolSelected)
+                    {
+                        case Tools.Hand:
+                            str = string.Format(MeasureNumberFormat, Root.Local.FormatLength,
+                                                ConvertMeasureLength(StrokeLength(currentStroke)), Root.Measure2Unit);
+                            break;
+                        case Tools.Line:
+                        case Tools.EndArrow:
+                        case Tools.StartArrow:
+                            str = string.Format(MeasureNumberFormat, Root.Local.FormatLength,
+                                                ConvertMeasureLength(Math.Sqrt(Math.Pow(st.X - en.X,2) + Math.Pow(st.Y - en.Y,2))), Root.Measure2Unit);
+                            break;
+                        case Tools.Rect:
+                            str = string.Format(MeasureNumberFormat, " " + Root.Local.FormatRectSize, ConvertMeasureLength(Math.Abs(st.X - en.X)), 
+                                                ConvertMeasureLength(Math.Abs(st.Y - en.Y)), Root.Measure2Unit);
+                            break;
+                        case Tools.Oval:
+                            str = string.Format(MeasureNumberFormat, " " + Root.Local.FormatRectSize, ConvertMeasureLength(Math.Abs(st.X - en.X)),
+                                                ConvertMeasureLength(Math.Abs(st.Y - en.Y)), Root.Measure2Unit);
+                            break;
+                        case Tools.Poly:
+                            str = string.Format(MeasureNumberFormat, Root.Local.FormatLength,
+                                                ConvertMeasureLength(StrokeLength(PolyLineInProgress) +
+                                                Math.Sqrt(Math.Pow(st.X - en.X, 2) + Math.Pow(st.Y - en.Y, 2))), Root.Measure2Unit);
+                            break;
+                    }
+
+                    MetricToolTip.Show(str, this, e.X, e.Y - 80);
+                    lastHintDraw = DateTime.Now.Ticks;
+                }
+            }
+
 
             LasteXY = currentxy;
         }
@@ -3427,8 +3529,10 @@ namespace gInk
         {
             int j;
             Point pt, pt1;
-            Double sum = 0.0F;            
+            Double sum = 0.0F;
 
+            if (st == null)
+                return 0;
             pt = st.GetPoint(0);
             j = st.GetPoints().Length;
             for (int i = 1; i < j; i++)
@@ -3450,34 +3554,37 @@ namespace gInk
             string str = "";
             const int EIGHT_NB_ELLIPSE_PTS = 15;
 
-            j = st.GetPoints().Length;
-            str = string.Format(MeasureNumberFormat, Root.Local.FormatLength, Root.ConvertMeasureLength(StrokeLength(st)), Root.Measure2Unit);
+            try
+            {
+                j = st.GetPoints().Length;
+            }
+            catch
+            {
+                return "";
+            }
+            str = string.Format(MeasureNumberFormat, Root.Local.FormatLength, ConvertMeasureLength(StrokeLength(st)), Root.Measure2Unit);
             if(j==9 && st.GetPoint(0) == st.GetPoint(j-1)) // shortcut to check it is a rectangle
             {
                 pt = st.GetPoint(0);
                 pt1 = st.GetPoint(2);
-                Console.WriteLine("{0} - {1}", pt, pt1);
                 pt.X -= pt1.X; pt.Y -= pt1.Y;
                 lng = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
                 pt = st.GetPoint(4);
-                Console.WriteLine("{0} - {1}", pt, pt1);
                 pt.X -= pt1.X; pt.Y -= pt1.Y;
                 larg = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
-                str += string.Format(MeasureNumberFormat, " " + Root.Local.FormatRectSize, Root.ConvertMeasureLength(lng), Root.ConvertMeasureLength(larg), Root.Measure2Unit);
+                str += string.Format(MeasureNumberFormat, " " + Root.Local.FormatRectSize, ConvertMeasureLength(lng), ConvertMeasureLength(larg), Root.Measure2Unit);
             }
             else if (j == NB_ELLIPSE_PTS + 1 && st.GetPoint(0) == st.GetPoint(j - 1)) // shortcut to check it is a rectangle
             {
                 pt = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + ( NB_ELLIPSE_PTS) / 4);
                 pt1 = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + (3 * NB_ELLIPSE_PTS) / 4);
-                Console.WriteLine("{0} - {1}", pt, pt1);
                 pt.X -= pt1.X; pt.Y -= pt1.Y;
                 lng = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
                 pt = st.GetPoint(EIGHT_NB_ELLIPSE_PTS );
                 pt1 = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + NB_ELLIPSE_PTS / 2 );
-                Console.WriteLine("{0} - {1}", pt, pt1);
                 pt.X -= pt1.X; pt.Y -= pt1.Y;
                 larg = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
-                str += string.Format(MeasureNumberFormat, " " + Root.Local.FormatEllipseSize, Root.ConvertMeasureLength(lng), Root.ConvertMeasureLength(larg), Root.Measure2Unit);
+                str += string.Format(MeasureNumberFormat, " " + Root.Local.FormatEllipseSize, ConvertMeasureLength(lng), ConvertMeasureLength(larg), Root.Measure2Unit);
             }
             else if (j == 3)
             {
@@ -3519,9 +3626,9 @@ namespace gInk
                 c++;
             }
             if (LengthOnly)
-                return Root.ConvertMeasureLength(sum).ToString(CultureInfo.InvariantCulture);// for REST_API
+                return ConvertMeasureLength(sum).ToString(CultureInfo.InvariantCulture);// for REST_API
             else
-                return string.Format(MeasureNumberFormat, Root.Local.FormaTotalLength, Root.ConvertMeasureLength(sum), Root.Measure2Unit, c);
+                return string.Format(MeasureNumberFormat, Root.Local.FormaTotalLength, ConvertMeasureLength(sum), Root.Measure2Unit, c);
         }
 
         public void ActivateStrokesInput(bool active)
@@ -4837,6 +4944,13 @@ namespace gInk
         {
             Initializing = false;
             Tick++;
+
+            if(HideMetricCountDown >0)
+            {
+                HideMetricCountDown--;
+                if (HideMetricCountDown == 0)
+                    MetricToolTip.Hide(this);
+            }
 
             if (IC.EditingMode == InkOverlayEditingMode.Delete && !IC.CollectingInk && !Root.EraserMode)
                 IC.EditingMode = InkOverlayEditingMode.Ink;

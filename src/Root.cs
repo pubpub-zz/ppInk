@@ -255,6 +255,7 @@ namespace gInk
         public static string Measure2Unit = "Pixel";
         public static bool MeasureAnglCounterClockwise = true;
         public static bool MeasureWhileDrawing = false;
+        public static bool Measure_Save_Scale = true;
 
 
         // hotkey options
@@ -1782,6 +1783,11 @@ namespace gInk
                             else if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
                                 MeasureWhileDrawing = false;
                             break;
+                        case "MEASURE_SAVE_SCALE":
+                            if (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON")
+                                Measure_Save_Scale = true;
+                            else if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
+                                Measure_Save_Scale = false;                            
                             break;
                         case "MEASURE_LEN_SCALE":
                             if (Double.TryParse(sPara, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempd))
@@ -2517,6 +2523,9 @@ namespace gInk
                         case "MEASURE_WHILE_DRAWING":
                             sPara = MeasureWhileDrawing ? "True" : "False";
                             break;
+                        case "MEASURE_SAVE_SCALE":
+                            sPara = Measure_Save_Scale ? "True" : "False";
+                            break;                      
                         case "MEASURE_LEN_SCALE":
                             sPara = Measure2Scale.ToString(CultureInfo.InvariantCulture);
                             break;

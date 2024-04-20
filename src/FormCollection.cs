@@ -2777,6 +2777,7 @@ namespace gInk
                         if (Double.TryParse(st, out g))
                         {
                             Measure2Scale *= g / f;
+                            Root.Measure2Scale = Measure2Scale;
                             break;
                         }
 

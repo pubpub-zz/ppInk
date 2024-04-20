@@ -364,9 +364,9 @@ namespace gInk
 
             /*            g.DrawImage(b1, new Rectangle(b.Width / 2, 0, b.Width / 2, b.Height / 2), 0, b1.Height / 2, b1.Width / 2, b1.Height / 2,GraphicsUnit.Pixel);
                         b1.Dispose();
-            b1 = PrepareArrowBitmap(tail, col, 0, (int)Math.Round(WidthForHalfDiag), (float)(-45.0 * Math.PI / 180.0), out j);
+                        b1 = PrepareArrowBitmap(tail, col, 0, (int)Math.Round(WidthForHalfDiag), (float)(-45.0 * Math.PI / 180.0), out j);
 
-            g.DrawImage(b1, new Rectangle(0, b.Height / 2, b.Width / 2, b.Height / 2), b1.Width / 2, 0, b1.Width / 2, b1.Height / 2, GraphicsUnit.Pixel);
+                        g.DrawImage(b1, new Rectangle(0, b.Height / 2, b.Width / 2, b.Height / 2), b1.Width / 2, 0, b1.Width / 2, b1.Height / 2, GraphicsUnit.Pixel);
                         Pen p = new Pen(col,2);
                         g.DrawLine(p, (1F - .25F * i / 150.0F) * b.Width, ( .25F * i / 150.0F) * b.Height, (.25F * j / 150.0F) * b.Width, (1F - .25F * j / 150.0F) * b.Height);
             */
@@ -1276,7 +1276,7 @@ namespace gInk
 
             tempArrowCursor = null;
             try
-            {                
+            {
                 cursorred?.Dispose();
             }
             catch { }
@@ -1477,12 +1477,12 @@ namespace gInk
 
         public void AltTabActivate()
         {
-             if (Initializing)
+            if (Initializing)
             {
                 Initializing = false;
                 return;
             }
-            if (ButtonsEntering != 0 || DateTime.Now <= Root.PointerChangeDate) 
+            if (ButtonsEntering != 0 || DateTime.Now <= Root.PointerChangeDate)
             {
                 return;
             }
@@ -1615,7 +1615,7 @@ namespace gInk
                 else if (Root.ToolSelected == Tools.NumberTag)
                 {
                     TagSize += (e.Delta > 0 ? 1 : -1);
-                    TagSize = Math.Min(Math.Max(4, TagSize), 255);                
+                    TagSize = Math.Min(Math.Max(4, TagSize), 255);
                 }
                 else
                     PenWidth_Change(e.Delta > 0 ? Root.PenWidth_Delta : -Root.PenWidth_Delta);
@@ -2792,7 +2792,7 @@ namespace gInk
         }
 
         private List<Point> getEquiPointsFromStroke(Stroke stk, double dist, ref int Start, ref double Remain, int Xoff = 0, int Yoff = 0, bool ConvertInkSpaceToPixel = true)
-            // remain indicates how much length remains previous extractions at position Start, updated to match new array
+        // remain indicates how much length remains previous extractions at position Start, updated to match new array
         {
             List<Point> o = new List<Point>();
             Point[] pts = stk.GetPoints(Start, stk.PacketCount - Start);        // hope that PacketCount==
@@ -2920,7 +2920,7 @@ namespace gInk
                 //Console.WriteLine("StrokesSel " + StrokesSelection.Count.ToString());
             }
 
-            if (!Root.InkVisible && Root.Snapping <= 0)
+            if (!Root.InkVisible && Root.Snapping <= 0 && !(Root.LassoMode || ZoomCapturing || Root.EraserMode))
             {
                 Root.SetInkVisible(true);
             }
@@ -2964,7 +2964,7 @@ namespace gInk
                     try
                     {
                         if (minStroke.ExtendedProperties.Contains(Root.ANIMATIONFRAMEIMG_GUID))
-                            Animations.Remove((int)minStroke.ExtendedProperties[Root.ANIMATIONFRAMEIMG_GUID].Data);                        
+                            Animations.Remove((int)minStroke.ExtendedProperties[Root.ANIMATIONFRAMEIMG_GUID].Data);
                     }
                     catch { };
                     IC.Ink.DeleteStroke(minStroke);
@@ -3028,10 +3028,10 @@ namespace gInk
                 Root.Snapping = 2;
             }
 
-            if (!Root.InkVisible && Root.Snapping <= 0)
+            /*if (!Root.InkVisible && Root.Snapping <= 0)
             {
                 Root.SetInkVisible(true);
-            }
+            }*/
 
             LasteXY.X = e.X;
             LasteXY.Y = e.Y;
@@ -3057,7 +3057,7 @@ namespace gInk
             if (Root.LassoMode && IC.Ink.Strokes.Count > 0)
                 AppendToSelection = ((int)e.Button == 1) || (e.Button == MouseButtons.Left);
 
-                SavHoveredForSelection = Root.LassoMode ? Root.StrokeHovered : null;
+            SavHoveredForSelection = Root.LassoMode ? Root.StrokeHovered : null;
 
             if (Root.ToolSelected == Tools.Move || Root.ToolSelected == Tools.Copy || Root.ToolSelected == Tools.Scale || Root.ToolSelected == Tools.Rotate)  // Scale & Rotate here to init movedStroke
             {
@@ -3172,7 +3172,7 @@ namespace gInk
                 {
                     Stroke ms;
                     float pos1;
-                    if ((Control.ModifierKeys & Keys.Control) != Keys.None 
+                    if ((Control.ModifierKeys & Keys.Control) != Keys.None
                         && NearestStroke(new Point(e.X, e.Y), true, out ms, out pos1, false, false) < 1 + Root.PixelToHiMetric(Root.MinMagneticRadius() / (Root.MagneticRadius >= 0 ^ ((GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0) ? 1 : 10))
                         && ms.PacketCount >= 2)
                     {
@@ -3192,7 +3192,7 @@ namespace gInk
                         TextTheta = 0;
                     }
                 }
-                else if (Root.EraserMode || Root.ToolSelected == Tools.Edit || Root.ToolSelected == Tools.Move || Root.ToolSelected == Tools.Copy || Root.LassoMode 
+                else if (Root.EraserMode || Root.ToolSelected == Tools.Edit || Root.ToolSelected == Tools.Move || Root.ToolSelected == Tools.Copy || Root.LassoMode
                          || Root.ToolSelected == Tools.Scale || Root.ToolSelected == Tools.Rotate)
                 {
                     if (NearestStroke(new Point(e.X, e.Y), true, out Root.StrokeHovered, out pos, false) > 1 + Root.PixelToHiMetric(Root.MinMagneticRadius() / (Root.MagneticRadius >= 0 ^ ((GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0) ? 1 : 10)))
@@ -3238,7 +3238,7 @@ namespace gInk
             }
             else if (Root.ToolSelected != Tools.Hand)
                 MagneticEffect(Root.CursorX0, Root.CursorY0, ref Root.CursorX, ref Root.CursorY, Root.ToolSelected > Tools.Hand && Root.MagneticRadius > 0);
-
+            
             /*if (LasteXY.X == 0 && LasteXY.Y == 0)
             {
                 LasteXY.X = e.X;
@@ -4119,7 +4119,7 @@ namespace gInk
                 try
                 {
                     if (IC.Cursor?.Tag != null && (int)IC.Cursor?.Tag == 2)
-                       IC.Cursor?.Dispose();
+                        IC.Cursor?.Dispose();
                     IC.Cursor = cursorred;
                 }
                 catch
@@ -4302,7 +4302,7 @@ namespace gInk
                 }
 
                 if (bb)
-                    StartStopPickUpColor(1);            
+                    StartStopPickUpColor(1);
                 else if (Root.CanvasCursor == 0)
                 {
                     //cursorred = new System.Windows.Forms.Cursor(gInk.Properties.Resources.cursorred.Handle);
@@ -5515,7 +5515,7 @@ namespace gInk
                 else
                     recomputePens = false;
                 oldShiftPensExtra = (shift || control);
-
+            
 
                 if (recomputePens)
                     recomputePensSet(FirstPenDisplayed, Root.CurrentPen);
@@ -5692,10 +5692,10 @@ namespace gInk
                     if (Root.ToolSelected == Tools.Hand && (shift || control))
                     {
                         btTool_Click(btLine, null);
-                    FromHandToLineOnShift = true;
-                }
-                if (FromHandToLineOnShift && !(shift || control))
-                {
+                        FromHandToLineOnShift = true;
+                    }
+                    if (FromHandToLineOnShift && !(shift || control))
+                    {
                         btTool_Click(btHand, null);
                         FromHandToLineOnShift = false;
                     }
@@ -5765,7 +5765,7 @@ namespace gInk
                 LastTextStatus = pressed;
 
                 pressed = (GetKeyState(Root.Hotkey_Edit.Key) & 0x8000) == 0x8000;
-                if (pressed && !LastEditStatus && Root.Hotkey_Edit.ModifierMatch(control, alt, shift, win))
+                 if (pressed && !LastEditStatus && Root.Hotkey_Edit.ModifierMatch(control, alt, shift, win))
                 {
                     MouseTimeDown = DateTime.Now;
                     btTool_Click(btEdit, null);
@@ -5912,7 +5912,7 @@ namespace gInk
                 if (LastLoadStrokesStatus && !pressed && DateTime.Now.CompareTo(LongHkPress) < 0)
                 {
                     LongHkPress = DateTime.Now.AddYears(1);
-                    MouseTimeDown = DateTime.Now;                    
+                    MouseTimeDown = DateTime.Now;
                     LastSaveStrokesStatus = pressed; // btSave will be long... to prevent to restart process...
                     btLoad_Click(btLoad, null);
                 }

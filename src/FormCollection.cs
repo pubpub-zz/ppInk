@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
@@ -13,11 +12,9 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Text;
 using System.Security.Cryptography;
-using System.Reflection;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.Drawing.Drawing2D;
-using gInk.Apng;
 using System.Text.RegularExpressions;
 
 namespace gInk

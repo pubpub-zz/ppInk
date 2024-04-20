@@ -733,7 +733,7 @@ namespace gInk
 
 			if (result == DialogResult.OK && !string.IsNullOrEmpty(folderBrowserDialog1.SelectedPath))
 			{
-				tbSnapPath.Text = folderBrowserDialog1.SelectedPath.Replace('\\','/');
+				tbSnapPath.Text = folderBrowserDialog1.SelectedPath.Replace('/','\\');
                 if (!tbSnapPath.Text.EndsWith("/"))
                     tbSnapPath.Text += '/';
                 Root.SnapshotBasePath = tbSnapPath.Text;
@@ -742,7 +742,7 @@ namespace gInk
 
 		private void tbSnapPath_ModifiedChanged(object sender, EventArgs e)
 		{
-            tbSnapPath.Text = folderBrowserDialog1.SelectedPath.Replace('\\', '/');
+            tbSnapPath.Text = folderBrowserDialog1.SelectedPath.Replace('/', '\\');
             if (!tbSnapPath.Text.EndsWith("/"))
                 tbSnapPath.Text += '/';
             Root.SnapshotBasePath = tbSnapPath.Text;

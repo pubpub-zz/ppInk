@@ -57,6 +57,8 @@ namespace gInk
                     RunningFolder = args[i + 1];
             }
             RunningFolder = PrepareConfigFolder(ProgramFolder, RunningFolder);
+            RunningFolder = RunningFolder.Replace("\\", "/");
+            ProgramFolder = ProgramFolder.Replace("\\", "/");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

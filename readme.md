@@ -26,66 +26,109 @@ To streamline the interface, some buttons have multiple functions that can be ac
 * **Pen**:
 
     Short click : select Pen<BR> 
-    Long Click / Right click : Open the pen parameters dialog   
-    
-|**Hand**|<IMG src="https://user-images.githubusercontent.com/4083478/130368095-bf41c299-5e27-4e6e-b94a-6959afea9258.png" width=200>|
-|**Rectangular**|<IMG src="https://user-images.githubusercontent.com/4083478/130368108-db7a8dd2-e465-4ebe-923d-bf573cfa53c6.png" width=200>|
-|**Ellipsis**|<IMG src="https://user-images.githubusercontent.com/4083478/130368123-469c7ee4-d28e-44b2-8467-2d70b437e321.png" width=200>|  
+    Long Click / Right click : Open the pen parameters dialog
 
-    any click: select next tool in the following order:<BR> 
-    line stroke -\> pen color filled area -\> pen color the background but the drawn area -\> white filled area -\> black filled
-    area
-    in line stroke, all line style are applied.
+  The pen setup (fading / width / line strokes) applies to the follwing drawings:
     
-*   **Line**<IMG src="https://user-images.githubusercontent.com/4083478/130368141-ae6d7cd7-af5f-4215-ad59-e1de5c7d97bb.png" width=200> :<BR>
-    segment line -\> polyline -\> pen color filled polygon -\> pen color background but polygon -\> white filled polygon -\> black filled polygon
+* **Hand**<BR>
+  <IMG src="https://user-images.githubusercontent.com/4083478/130368095-bf41c299-5e27-4e6e-b94a-6959afea9258.png" width=200>
+  
+* **Rectangular**<BR>
+  <IMG src="https://user-images.githubusercontent.com/4083478/130368108-db7a8dd2-e465-4ebe-923d-bf573cfa53c6.png" width=200>
 
-*   **Numbering** :  
-    transparent background -\> **modify** tag Number -\> white background -\> black background
-
-*   **Arrow** :
-    clicking multiple times will scroll through different arrow styles. To select the ends, you have two options: either go to 'Options/General' or perform a long press on the arrow button.
-    
-    Arrow heads and tails can be customized. Multiple clicks will cycle through different arrow options. You can adjust the list of arrow heads either in the options/general settings or by long-pressing the arrow button.
-The arrow heads are defined by 300x201px images. These images are designed for an 18px wide line. The drawn image will be resized to match the current pen size. The arrow head image is centered on the reference points, which correspond to where the cursor starts or stops the line. On the center line (line 101) of the image, a blue pixel (R=0, G=0, B=255) is expected to indicate where the line should end. If this reference point cannot be found, the center of the image is considered.
-By default, the arrow heads are rotated to align with the line. However, if the name of the head definition image starts with an exclamation mark (!), the rotation will be ignored. This is useful for lines where the end is a square that should remain horizontal.
-    <IMG src="https://user-images.githubusercontent.com/4083478/130369626-c5693244-e48a-4640-95f5-ff162cfccda4.png" width=300>
-
-    When drawing an arrow using the left button, the arrow tail is positioned where you initially pressed the button, and the arrow head is placed where you release the button. 
-    If you are using the right button, the arrow is drawn in the head and the tail are exchanged.
-    (note : _remember that a long press on touch screen wil engage a right click_)
-    
-    
-*   Text![image](https://github.com/pubpub-zz/ppInk/assets/4083478/daa1462b-8dbe-47b9-81f2-126b75348339):<BR>
-    Text left aligned -\> Text Right aligned
-    You can use ctrl+enter to validate the entry
-
-*   Move:  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/e454b112-71e6-4a93-b26c-4ea87cc8c944):<BR>
-    Move 1 drawing -\> Copy 1 drawing -\> Move all drawings.
-    
-*   Lasso![image](https://github.com/pubpub-zz/ppInk/assets/4083478/97472f1f-03df-495b-be36-bee12bdcc660):
-    Allows selection of multiple strokes/drawings.
-    you can extend(left button) or reduce(right button) the selection by: 
-        * outlining strokes with the lasso ; right click shows a pink outline to indicate substraction, 
-        * clicking on strokes (marked by a red dash box where hovering them). 
+* **Ellipsis**<BR>
+  <IMG src="https://user-images.githubusercontent.com/4083478/130368123-469c7ee4-d28e-44b2-8467-2d70b437e321.png" width=200>
+  <BR>
+for those three tools, 
+  any click: select next tool in the following order:<BR> 
+    colored border  -\> colored (filled) area -\> outside filled(inner part remains empty) -\> colored border - white  area -\> colored border - black area
+    <BR>
         
-        * right clicking will remove the hovered  for lasso/selection will add to selection, and right click will substract (for touchscreen, remember that longclick is engaging rightclick).\
-    Each time you click on lasso tool(or use the shortcut),the selection is reset.
-    Once you have just added a stroke with the lasso, you can use undo to cancel this selection modification
-    In lasso mode, the global length is reported in a tooltip.
-    ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/6d88452d-0315-4bae-96c8-e1840883d46b)
-    if the drawing is a 2 segment polyline, the angle will also be displayed
-    ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/f0ab085f-890c-40b7-89a6-3199f0ed00f2)
+* **Line**<BR>
+  <IMG src="https://user-images.githubusercontent.com/4083478/130368141-ae6d7cd7-af5f-4215-ad59-e1de5c7d97bb.png" width=200>
+    segment line -\> polyline -\> pen color filled polygon -\> outer filled polygon -\> colored border - white polygon -\> colored border - black  polygon
 
-    When you have selected some drawing,
-    * engage Erase tool :           will delete selected objects
-    * engage move or copy tool :    will move/copy the selected objects
-    * engage edit tool :            will modify color/line style/width of the selected strokes
+* **Numbering**<BR>
+  <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/c2ebebae-1c52-4b15-8ea3-dd9ae1f0a8f7" width=200>
+  <BR>
+  - Left click select the tool:
+  transparent background -\> **modify** tag Number -\> white background -\> black background
+  - Right/Long click opens the Dialogbox to modify the font/style used for the number tags.
 
-*   Edit![image](https://github.com/pubpub-zz/ppInk/assets/4083478/33c7d6e6-5521-411d-b198-1c08a2c7b4ab):
-    Short click : modify text/number tool (text and font) *or* the color/pen width of a stroke
-    Long/right click : edit default font (for the duration of the session only)
-    if some strokes are selected before short click, the pen/color dialog will open to modify all selected strokes at once.
+* **Arrow**<BR>
+  <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/75e02b49-b5fd-4da0-848a-c1fb015fa85b"><BR>
+  Arrow heads and tails can be customized, and you can cycle through different arrow options clicking .
+    To adjust the list of arrow heads, you have two options: Go to the options/general settings, or long-press the arrow button.
+
+    Arrow heads are defined by 300x201px images and designed for an 18px wide line. The drawn image will be resized to match the current pen size.
+    The arrow head image is centered on the reference points, which correspond to where the cursor starts or stops the line. This position should be marked on the image, on the center line (line 101) of the image,
+    by a blue pixel (R=0, G=0, B=255). If this reference point cannot be found, the center of the image is considered.
+
+    In standard, arrow heads are rotated to align with the line, but, if the arrow filename begins with an exclamation mark (!), the drawing remains horizontal.
+
+    When drawing an arrow on screen, if you press left button:
+  - The arrow tail is positioned where you initially pressed the button.
+  - The arrow head is placed where you release the button.
+    as an alternative, you can select the direction on the sub-toolbar (the arrow head is only selected on the button)
+  
+    If you are using the right button, the arrow is drawn with the head and tail exchanged.(Note: _Remember that a long press on a touch screen will engage a right-click action._)
+
+    a Right/Long click on the button will open the dialogbox to modify the arrow heads :<BR>
+    ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/49bc3da9-19f2-491e-a0fc-3adab46e0a06)
+
+    
+* **Text** <BR>
+  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/daa1462b-8dbe-47b9-81f2-126b75348339)
+  <BR>
+  Any click select the text alignment.
+  left-aligned -\> Text Right-aligned
+
+  Once you will have selected the insert point a dialog box will allow you to type in the text and select properties:
+  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/808b22cc-cdf9-490b-bf2d-94f625a2c978)
+
+  While typing in the text, enter will jump to a new line, and ctrl+enter closes the dialog box
+
+* **Lasso**<BR>
+  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/97472f1f-03df-495b-be36-bee12bdcc660)
+  <BR>
+  Any click activates selection of multiple strokes/drawings.
+  Once the tool select, left click extend the selection, while right-click removes the drawings from the current selection.
+  You can either :
+   - surround strokes with the lasso (red/pink means add/remove)  or
+   - click on strokes marked by a dash box where hovering. 
+  
+  Reselecting the tool will clear the selection.
+  Once you have modified the selection, you can use undo to cancel it.
+  If the measurement is activated (enabled in the Options):
+  In lasso mode, the global length is reported in a tooltip.
+  <BR>
+  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/6d88452d-0315-4bae-96c8-e1840883d46b)
+  <BR>
+  if the drawing is a 2 segment polyline, the angle will also be displayed
+  <BR>
+  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/f0ab085f-890c-40b7-89a6-3199f0ed00f2)
+  <BR>
+  When you have selected some drawing,
+    * Erase tool :           will delete selected objects
+    * move or copy tool :    will move/copy the selected objects
+    * edit tool :            will modify color/line style/width of the selected strokes
+
+* **Move**<BR>
+  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/e454b112-71e6-4a93-b26c-4ea87cc8c944)
+  <BR>
+  Any clic select between the different tool
+  Move one or preselected drawing -\> Copy one or preselected drawing -\> Pan all drawings.
+    
+
+* **Edit**<BR>
+  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/33c7d6e6-5521-411d-b198-1c08a2c7b4ab)
+  <BR>
+  -Left click : modify text/number tool (text and font) *or* the color/pen width of a stroke:
+  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/2b12a417-8581-4f8b-823d-8e07124d5504)
+
+  -Right/Long click : edit the default text font(for the duration of the session only, go the Options for a sustainable modification)
+
+  if some strokes are selected before short click, the pen/color dialog will open to modify all selected strokes at once.
 
 *   Resize / Rotate![image](https://github.com/pubpub-zz/ppInk/assets/4083478/7c7c23c2-64c4-4b19-a7b4-777709078627):<BR>
     Allow to resize or rotate the selection (also applies to stroke under the cursor if no selection has been done first).

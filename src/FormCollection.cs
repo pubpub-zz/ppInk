@@ -3890,6 +3890,8 @@ namespace gInk
             }
             else if (tool == Tools.NumberTag)
             {
+                if (Root.FilledSelected == Filling.Outside)
+                    Root.FilledSelected = Filling.WhiteFilled;
                 if (Root.FilledSelected == Filling.Empty)
                     btNumb.BackgroundImage = getImgFromDiskOrRes("tool_numb_act", ImageExts);
                 else if (Root.FilledSelected == Filling.PenColorFilled)
@@ -6785,7 +6787,7 @@ namespace gInk
             }
             else if (((Button)sender).Name.Contains("Arrow"))
             {
-                CustomizeAndOpenSubTools(-1, "SubToolsArrow", new string[] { "tool_stAr_act", "tool_enAr_act" }, Root.Local.ArrowSubToolsHints,
+                CustomizeAndOpenSubTools(-1, "SubToolsArrow", new string[] { "tool_enAr_act", "tool_stAr_act" }, Root.Local.ArrowSubToolsHints,
                                      new Func<int, bool>[] { ii => { SelectTool(Tools.StartArrow ,Filling.Empty); return true; },
                                                              ii => { SelectTool(Tools.EndArrow ,Filling.Empty); return true; } });
                 if (sender != null && tsp.TotalSeconds > Root.LongClickTime)
@@ -6802,6 +6804,13 @@ namespace gInk
             //               i = (Root.DefaultArrow_start ||Root.ToolSelected==5) ?4:5 ;
             else if (((Button)sender).Name.Contains("Numb"))
             {
+                CustomizeAndOpenSubTools(-1, "SubToolsNumb", new string[] { "tool_numb_act", "tool_numb", "tool_numb_fillW", "tool_numb_fillB" }, Root.Local.OvalSubToolsHints,
+                     new Func<int, bool>[] { ii => { SelectTool(Tools.NumberTag,Filling.Empty); return true; },
+                                                             ii => { SelectTool(Tools.NumberTag,Filling.PenColorFilled); return true; },  // the setNumber is done in the Case PenColorFilled
+                                                             //ii => { SelectTool(Tools.Oval,Filling.Outside ); return true; },
+                                                             ii => { SelectTool(Tools.NumberTag,Filling.WhiteFilled); return true; },
+                                                             ii => { SelectTool(Tools.NumberTag,Filling.BlackFilled ); return true; } });
+
                 if (sender != null && tsp.TotalSeconds > Root.LongClickTime)
                 {
                     TagFontBtn_Modify();

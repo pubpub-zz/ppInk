@@ -215,6 +215,7 @@ namespace gInk
         public string LineSubToolsHints;
         public string RectSubToolsHints;
         public string OvalSubToolsHints;
+        public string NumberSubToolsHints;
         public string ArrowSubToolsHints;
         public string TextSubToolsHints;
 

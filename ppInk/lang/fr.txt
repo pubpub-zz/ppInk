@@ -42,7 +42,7 @@ ButtonNameLine = "Lignes (Segment | Ligne brisée | polygone en couleur | extér
 ButtonNameRect = "Rectangle (vide | rempli couleur | extérieur | blanc | noir)"
 ButtonNameOval = "Ellipse (vide | rempli couleur | extérieur | blanc | noir)"
 ButtonNameArrow = "Flèche (tête au début | fin)"
-ButtonNameNumb = "Puce numérotée (pose | modifie lanumérotation)"
+ButtonNameNumb = "Puce numérotée (marque | modifie la numérotation|Fond blanc|Fond noir)"
 ButtonNameText = "Texte (aligné gauche|droite)"
 ButtonNameEdit = "Edition (Texte,numéro,couleur&largeur d'un tracé)"
 ButtonNameMagn = "Effet aimanté"
@@ -207,6 +207,7 @@ HandSubToolsHints = "Dessin à main levée\nForme à main Coloriée\nForme évid
 LineSubToolsHints = "Segment\nLigne brisée\nPolygone de couleur\nPolygone évidé\nPolygone blanc\nPolygone noir"
 RectSubToolsHints = "Rectangle\nRectangle Rempli\nRectangle évidé\nRectangle blanche\nRectangle noir"
 OvalSubToolsHints = "Ellipse\nEllipse de couleur\nEllipse évidée\nEllipse blanche\nEllipse noir"
+NumberSubToolsHints = "Numero\nModifie la numérotation\nFond Blanc\nFond noir"
 ArrowSubToolsHints = "Flèche commençant par la pointe\nFlèche commençant par la queue"
 TextSubToolsHints = "Texte aligné à gauche\nTexte aligné à droite"
 

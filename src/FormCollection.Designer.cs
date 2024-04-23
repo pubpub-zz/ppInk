@@ -668,7 +668,7 @@ namespace gInk
             this.btNumb.Size = new System.Drawing.Size(46, 46);
             this.btNumb.TabIndex = 0;
             this.toolTip.SetToolTip(this.btNumb, "Add number tag");
-            this.btNumb.UseVisualStyleBackColor = true;
+            this.btNumb.UseVisualStyleBackColor = false;
             this.btNumb.Click += new System.EventHandler(this.btTool_Click);
             this.btNumb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gpButtons_MouseDown);
             this.btNumb.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gpButtons_MouseMove);

@@ -42,7 +42,7 @@ ButtonNameLine = "Line (Segment | Polyline | Colored polygon | Outside | White p
 ButtonNameRect = "Rectangle (Empty | Colored Rectangle| Outside | White Rectangle | Black Rectangle)"
 ButtonNameOval = "Ellipse (Empty | Colored Ellipse | Outside Ellipse| White Ellipse | Black Ellipse)"
 ButtonNameArrow = "Arrow (Head at start | at end)"
-ButtonNameNumb = "Numbered chip (Pin | Reset number)"
+ButtonNameNumb = "Numbered chip (Pin | Reset number|White background|Black background)"
 ButtonNameText = "Text (Left|Right Aligned)"
 ButtonNameEdit = "Edit (Text,Chip,Stroke color & width)"
 ButtonNameMagn = "Magnetic Effect"
@@ -212,6 +212,7 @@ HandSubToolsHints = "Handfree drawing\nColor filled drawing\nEmpty Drawing\nWhit
 LineSubToolsHints = "Segment\nPolyline\nColored Polygon\nEmpty Polygon\nWhite Polygon\nBlack Polygon"
 RectSubToolsHints = "Rectangle\nColored Rectangle\nEmpty Rectangle\nWhite Rectangle\nBlack Rectangle"
 OvalSubToolsHints = "Ellipse\nColored  Ellipse\nEmpty Ellipse\nWhite Ellipse\nBlack Ellipse"
+NumberSubToolsHints = "Number Tag\nRestart Number\nWhite background\nBlack background"
 ArrowSubToolsHints = "Arrow starting by head\nArrow starting by tail"
 TextSubToolsHints = "Left Aligned Text\nRight Aligned Text"
 

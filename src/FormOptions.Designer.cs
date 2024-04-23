@@ -2660,6 +2660,7 @@ namespace gInk
             this.ArrHdAperture.Size = new System.Drawing.Size(37, 20);
             this.ArrHdAperture.TabIndex = 13;
             this.ArrHdAperture.Text = "12.1";
+            this.ArrHdAperture.Visible = false;
             this.ArrHdAperture.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ValidateOnEnter);
             this.ArrHdAperture.Validating += new System.ComponentModel.CancelEventHandler(this.Float_Validating);
             this.ArrHdAperture.Validated += new System.EventHandler(this.ArrHdAperture_Validated);
@@ -2672,6 +2673,7 @@ namespace gInk
             this.ArrHdAptLbl.Size = new System.Drawing.Size(57, 13);
             this.ArrHdAptLbl.TabIndex = 12;
             this.ArrHdAptLbl.Text = "Aperture(°)";
+            this.ArrHdAptLbl.Visible = false;
             // 
             // ArrHdLength
             // 
@@ -2681,6 +2683,7 @@ namespace gInk
             this.ArrHdLength.Size = new System.Drawing.Size(52, 20);
             this.ArrHdLength.TabIndex = 15;
             this.ArrHdLength.Text = "0.123456";
+            this.ArrHdLength.Visible = false;
             this.ArrHdLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ValidateOnEnter);
             this.ArrHdLength.Validating += new System.ComponentModel.CancelEventHandler(this.Float_Validating);
             this.ArrHdLength.Validated += new System.EventHandler(this.ArrHdLength_Validated);
@@ -2693,11 +2696,11 @@ namespace gInk
             this.ArrHdLenLbl.Size = new System.Drawing.Size(70, 13);
             this.ArrHdLenLbl.TabIndex = 14;
             this.ArrHdLenLbl.Text = "Length(%Scr)";
+            this.ArrHdLenLbl.Visible = false;
             // 
             // DefArrStartCb
             // 
             this.DefArrStartCb.AutoSize = true;
-            this.DefArrStartCb.Enabled = false;
             this.DefArrStartCb.Location = new System.Drawing.Point(6, 46);
             this.DefArrStartCb.Name = "DefArrStartCb";
             this.DefArrStartCb.Size = new System.Drawing.Size(156, 17);

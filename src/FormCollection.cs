@@ -3729,7 +3729,7 @@ namespace gInk
             btLine.BackgroundImage = getImgFromDiskOrRes("tool_line", ImageExts);
             btRect.BackgroundImage = getImgFromDiskOrRes("tool_rect", ImageExts);
             btOval.BackgroundImage = getImgFromDiskOrRes("tool_oval", ImageExts);
-            if (tool != Tools.StartArrow)
+            if (tool != Tools.StartArrow && tool != Tools.EndArrow)
             {
                 btArrow.BackgroundImage.Dispose();
                 btArrow.BackgroundImage = BuildArrowBtn(Root.ArrowHead[Root.CurrentArrow], Root.ArrowTail[Root.CurrentArrow], Color.Black);
@@ -3875,14 +3875,13 @@ namespace gInk
                 if (gpSubTools.Visible && subTools_title.Contains("Oval"))
                     changeActiveTool(Root.FilledSelected, false, 1);
             }
-            else if (tool == Tools.StartArrow) // also include tool=5
+            else if (tool == Tools.StartArrow || tool == Tools.EndArrow) // also include tool=5
             {
-                if (Root.ToolSelected == Tools.StartArrow)
+                if (Root.ToolSelected == Tools.StartArrow || Root.ToolSelected == Tools.EndArrow)
                     if (++Root.CurrentArrow >= Root.ArrowHead.Count)
                         Root.CurrentArrow = 0;
                 btArrow.BackgroundImage.Dispose();
                 btArrow.BackgroundImage = BuildArrowBtn(Root.ArrowHead[Root.CurrentArrow], Root.ArrowTail[Root.CurrentArrow], Color.Orange);
-                tool = Tools.StartArrow;
                 if (gpSubTools.Visible && subTools_title.Contains("Arrow"))
                     changeActiveTool(0, false, 1);
             }
@@ -6797,9 +6796,8 @@ namespace gInk
                         Root.CurrentArrow=Root.ArrowHead.Count-1;
                     AllowInteractions(false);
                 }
-                i = Tools.StartArrow;
+                i = Root.DefaultArrow_start ? Tools.EndArrow : Tools.StartArrow;
             }
-            //               i = (Root.DefaultArrow_start ||Root.ToolSelected==5) ?4:5 ;
             else if (((Button)sender).Name.Contains("Numb"))
             {
                 CustomizeAndOpenSubTools(-1, "SubToolsNumb", new string[] { "tool_numb_act", "tool_numb", "tool_numb_fillW", "tool_numb_fillB" }, Root.Local.OvalSubToolsHints,

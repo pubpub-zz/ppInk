@@ -2782,9 +2782,9 @@ namespace gInk
                         }
 
                     }
+                    MetricToolTip.Show(MeasureStroke(IC.Ink.Strokes[IC.Ink.Strokes.Count - 1]), this, Root.CursorX, Root.CursorY - 80);
+                    HideMetricCountDown = 3000 / tiSlide.Interval;
                 }
-                MetricToolTip.Show(MeasureStroke(IC.Ink.Strokes[IC.Ink.Strokes.Count - 1]), this, Root.CursorX, Root.CursorY - 80);
-                HideMetricCountDown = 3000 / tiSlide.Interval;
             }
                 
             currentStroke = null;
@@ -3312,8 +3312,9 @@ namespace gInk
                 if ((DateTime.Now.Ticks- lastHintDraw) > (200 * 10000))
                 { 
                     string str = "?????";
-                    Point st = currentStroke.GetPoint(0);
-                    Point en = currentStroke.GetPoint(currentStroke.GetPoints().Length-1);
+                    Double dx = ConvertMeasureLength(Math.Abs(Root.PixelToHiMetric(Root.CursorX - Root.CursorX0)));
+                    Double dy = ConvertMeasureLength(Math.Abs(Root.PixelToHiMetric(Root.CursorY - Root.CursorY0)));
+                    
                     switch (Root.ToolSelected)
                     {
                         case Tools.Hand:
@@ -3324,20 +3325,17 @@ namespace gInk
                         case Tools.EndArrow:
                         case Tools.StartArrow:
                             str = string.Format(MeasureNumberFormat, Root.Local.FormatLength,
-                                                ConvertMeasureLength(Math.Sqrt(Math.Pow(st.X - en.X,2) + Math.Pow(st.Y - en.Y,2))), Root.Measure2Unit);
+                                                Math.Sqrt(dx*dx+dy*dy), Root.Measure2Unit);
                             break;
                         case Tools.Rect:
-                            str = string.Format(MeasureNumberFormat, " " + Root.Local.FormatRectSize, ConvertMeasureLength(Math.Abs(st.X - en.X)), 
-                                                ConvertMeasureLength(Math.Abs(st.Y - en.Y)), Root.Measure2Unit);
+                            str = string.Format(MeasureNumberFormat, Root.Local.FormatRectSize, dx, dy, Root.Measure2Unit);
                             break;
                         case Tools.Oval:
-                            str = string.Format(MeasureNumberFormat, " " + Root.Local.FormatRectSize, ConvertMeasureLength(Math.Abs(st.X - en.X)),
-                                                ConvertMeasureLength(Math.Abs(st.Y - en.Y)), Root.Measure2Unit);
+                            str = string.Format(MeasureNumberFormat, Root.Local.FormatEllipseSize, dx, dy, Root.Measure2Unit);
                             break;
                         case Tools.Poly:
                             str = string.Format(MeasureNumberFormat, Root.Local.FormatLength,
-                                                ConvertMeasureLength(StrokeLength(PolyLineInProgress) +
-                                                Math.Sqrt(Math.Pow(st.X - en.X, 2) + Math.Pow(st.Y - en.Y, 2))), Root.Measure2Unit);
+                                                ConvertMeasureLength(StrokeLength(PolyLineInProgress)) + Math.Sqrt(dx*dx+dy*dy), Root.Measure2Unit);
                             break;
                     }
 

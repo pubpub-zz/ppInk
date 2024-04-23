@@ -1,4 +1,4 @@
-#### Introduction
+# Introduction
 
 ppInk is a user-friendly on-screen annotation software for Windows, derived from gInk. 
 It offers numerous new features inspired by Epic Pen, another screen annotation software, making it even easier to use. 
@@ -23,20 +23,21 @@ It provides a variety of drawing tools, including hand writing, lines (2 points 
 
 To streamline the interface, some buttons have multiple functions that can be accessed through multiple clicks or long clicks (or right clicks). 
 
-* **Pen**:
+### **Pens**:
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/e82f31e9-88bb-4fc9-9b6d-0da489e74eff)
 
-    Short click : select Pen<BR> 
-    Long Click / Right click : Open the pen parameters dialog
+Short click : select Pen<BR> 
+Long Click / Right click : Open the pen parameters dialog
 
-  The pen setup (fading / width / line strokes) applies to the follwing drawings:
+The pen setup (fading / width / line strokes) applies to the follwing drawings:
     
-* **Hand**<BR>
+### **Hand**<BR>
   <IMG src="https://user-images.githubusercontent.com/4083478/130368095-bf41c299-5e27-4e6e-b94a-6959afea9258.png" width=200>
   
-* **Rectangular**<BR>
+### **Rectangular**<BR>
   <IMG src="https://user-images.githubusercontent.com/4083478/130368108-db7a8dd2-e465-4ebe-923d-bf573cfa53c6.png" width=200>
 
-* **Ellipsis**<BR>
+### **Ellipsis**<BR>
   <IMG src="https://user-images.githubusercontent.com/4083478/130368123-469c7ee4-d28e-44b2-8467-2d70b437e321.png" width=200>
   <BR>
 for those three tools, 
@@ -44,19 +45,20 @@ for those three tools,
     colored border  -\> colored (filled) area -\> outside filled(inner part remains empty) -\> colored border - white  area -\> colored border - black area
     <BR>
         
-* **Line**<BR>
+### **Line**<BR>
   <IMG src="https://user-images.githubusercontent.com/4083478/130368141-ae6d7cd7-af5f-4215-ad59-e1de5c7d97bb.png" width=200>
-    segment line -\> polyline -\> pen color filled polygon -\> outer filled polygon -\> colored border - white polygon -\> colored border - black  polygon
+  <BR>
+  segment line -\> polyline -\> pen color filled polygon -\> outer filled polygon -\> colored border - white polygon -\> colored border - black  polygon
 
-* **Numbering**<BR>
+### **Numbering**<BR>
   <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/c2ebebae-1c52-4b15-8ea3-dd9ae1f0a8f7" width=200>
   <BR>
   - Left click select the tool:
   transparent background -\> **modify** tag Number -\> white background -\> black background
   - Right/Long click opens the Dialogbox to modify the font/style used for the number tags.
 
-* **Arrow**<BR>
-  <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/75e02b49-b5fd-4da0-848a-c1fb015fa85b"><BR>
+### **Arrow**<BR>
+  <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/75e02b49-b5fd-4da0-848a-c1fb015fa85b" width=100><BR>
   Arrow heads and tails can be customized, and you can cycle through different arrow options clicking .
     To adjust the list of arrow heads, you have two options: Go to the options/general settings, or long-press the arrow button.
 
@@ -77,10 +79,10 @@ for those three tools,
     ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/49bc3da9-19f2-491e-a0fc-3adab46e0a06)
 
     
-* **Text** <BR>
+### **Text** <BR>
   ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/daa1462b-8dbe-47b9-81f2-126b75348339)
   <BR>
-  Any click select the text alignment.
+  Any click select the text alignment.<BR>
   left-aligned -\> Text Right-aligned
 
   Once you will have selected the insert point a dialog box will allow you to type in the text and select properties:
@@ -88,7 +90,7 @@ for those three tools,
 
   While typing in the text, enter will jump to a new line, and ctrl+enter closes the dialog box
 
-* **Lasso**<BR>
+### **Lasso**<BR>
   ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/97472f1f-03df-495b-be36-bee12bdcc660)
   <BR>
   Any click activates selection of multiple strokes/drawings.
@@ -102,45 +104,67 @@ for those three tools,
   If the measurement is activated (enabled in the Options):
   In lasso mode, the global length is reported in a tooltip.
   <BR>
-  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/6d88452d-0315-4bae-96c8-e1840883d46b)
+  <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/6d88452d-0315-4bae-96c8-e1840883d46b">
   <BR>
   if the drawing is a 2 segment polyline, the angle will also be displayed
   <BR>
-  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/f0ab085f-890c-40b7-89a6-3199f0ed00f2)
+  <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/f0ab085f-890c-40b7-89a6-3199f0ed00f2">
   <BR>
   When you have selected some drawing,
     * Erase tool :           will delete selected objects
     * move or copy tool :    will move/copy the selected objects
     * edit tool :            will modify color/line style/width of the selected strokes
 
-* **Move**<BR>
-  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/e454b112-71e6-4a93-b26c-4ea87cc8c944)
+### **Move**
+  <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/e454b112-71e6-4a93-b26c-4ea87cc8c944">
   <BR>
   Any clic select between the different tool
   Move one or preselected drawing -\> Copy one or preselected drawing -\> Pan all drawings.
     
 
-* **Edit**<BR>
-  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/33c7d6e6-5521-411d-b198-1c08a2c7b4ab)
+### **Edit**
+  <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/33c7d6e6-5521-411d-b198-1c08a2c7b4ab" width=80>
   <BR>
   -Left click : modify text/number tool (text and font) *or* the color/pen width of a stroke:
+  
   ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/2b12a417-8581-4f8b-823d-8e07124d5504)
 
   -Right/Long click : edit the default text font(for the duration of the session only, go the Options for a sustainable modification)
 
   if some strokes are selected before short click, the pen/color dialog will open to modify all selected strokes at once.
 
-*   Resize / Rotate![image](https://github.com/pubpub-zz/ppInk/assets/4083478/7c7c23c2-64c4-4b19-a7b4-777709078627):<BR>
-    Allow to resize or rotate the selection (also applies to stroke under the cursor if no selection has been done first).
-    To set the transformation: 
-        * the cursor becomes a target shape : indicate the center of the transformation : either a point or a drawing/selection in with case the center of the containing box is used:
-        then
-        * the cursor becomes a red big arrow : click and drag to scale/rotate the selected (if applicable) else the hovered drawing. this can be done many times
-    https://user-images.githubusercontent.com/4083478/130367372-233d6d64-06fc-4f0f-a976-d66a621f36ac.mp4
+### **Resize / Rotate**
+  <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/7c7c23c2-64c4-4b19-a7b4-777709078627" width=150>
+  <BR>
+  Allow to resize or rotate the selected stroke(s) (also applies to stroke under the cursor if no selection has been done first).
 
-*   Pointer Mode ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/39cbcf5f-497c-4e01-92d8-9508e364eebb):<BR>
-    Short click : engage Pointer Mode
-    Long click : engage Window mode (Open a window) or click( to come back to fullscreen) 
+  Once select, to activate the transformation: 
+  - (_the cursor displays a target shape_)<BR>
+    select the center of the transformation. It can be :
+    * a point which will be the center of the rotation of the resize
+    * a drawing (highlighted with a red box) to use the 'center' of the stroke/shape
+  - (_the cursor becomes a red big arrow_)<BR>
+    click and drag to perform the scaling /rotation of the preselected (else the hovered) strokes.the selected (if applicable)
+    this can be done many times
+ 
+#### Demonstration of different tools:
+
+https://user-images.githubusercontent.com/4083478/130367372-233d6d64-06fc-4f0f-a976-d66a621f36ac.mp4
+
+* **Pointer**<BR>
+  <SRC IMG="https://github.com/pubpub-zz/ppInk/assets/4083478/39cbcf5f-497c-4e01-92d8-9508e364eebb">
+  <BR>
+  Left click : engage Pointer Mode
+  
+  Right/Long click : engage Window mode (Open a window) or click( to come back to fullscreen)
+
+  **Pointer mode** keeps the drawings displayed but the cursor events will  be processed by the windows below.
+  
+  This mode can be engaged clicking on the pointer button on switching between applications with alt+tab
+
+  **Window mode** allows you to define a window where ppInk will be active
+  
+  To come back to full desktop, engage window mode then just short click within the window
 
 *   Pen Width:![image](https://github.com/pubpub-zz/ppInk/assets/4083478/38bf48b5-5e36-4147-844b-41c53e9a7e67)<BR>
     Short click : select Pen Width
@@ -295,7 +319,7 @@ You can now select how the toolbar will be deployed : to left/ to right or verti
 
 *Alt+Tab engaging Pointer*
 
-When the option is set in the options, switching application (with alt+tab) will engage pointer mode. Also, when pointer mode is activated (by any means, ie button click, alt+tab, global short cut), the toolbar is folded automatically, and when pressing undock button, alt+tab, or global shortcut,the inking mode is restored and the toolbar is unfolded.
+When the option is set in the options, switching application (with alt+tab) will engage pointer mode. Also, 
 Note that you can still fold toolbar when drawing without engaging pointer mode with the dock button.
 
 *Measurement tool*
@@ -306,7 +330,7 @@ When enabled, in Move one/Copy one or erase tool, the length of the selected obj
 The example shows also a very specific case where the object is a 3 point polyline, the angle is also computed.
 
 
-*Window mode*
+#### *Window mode*
 
 You can now run ppink in window mode (engaged through Long/Right Click on pointer icon)
 In this mode ppInk is run in a window and you can access clicks or mousewheel applications out of the window:
@@ -413,7 +437,7 @@ Click the exit button or press ESC to exit drawing.
 _note about ini files_: when upgrading to a newer version, you can copy your config.ini / pens.ini / hotkeys.ini. All the new entries will be copied from the defaults part of the delivery,
 you can then change the new parameters and when you will use the `save to files` in the options dialog box, they will be appended to your files
 
-#### How to contribute translation
+#### How to contribute to translations
 
 gInk/ppInk supports multiple languages now (ppInk introduces a few new sentences where internationalization has not be implemented.). Here is how you can contribute translation. Simply create a duplication of the file "en-us.txt" in "bin/lang" folder, rename it and then translate the strings in the file. Check in ppInk to make sure your translation shows correctly, and then you can make a pull request or use https://github.com/pubpub-zz/ppInk/issues/17 to propose your translation.
 
@@ -427,7 +451,7 @@ https://github.com/geovens/gInk
 
 ppInk
 https://github.com/pubpub-zz/ppInk
-&copy; Pubpub-ZZ 2020-2021
+&copy; Pubpub-ZZ 2020-2024
 
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -77,7 +78,7 @@ namespace gInk
                     ArrowHead_Pnl.BackgroundImage.Dispose();
                     ArrowHead = dlg.FileName;
                     ArrowHead_Pnl.BackgroundImage = new Bitmap(ArrowHead);
-                    if(float.Parse(HeadScaleEd.Text) != 1.0F)
+                    if(float.Parse(HeadScaleEd.Text, CultureInfo.InvariantCulture) != 1.0F)
                     {
                         ArrowHead = ArrowHead + "%" + HeadScaleEd.Text;
                     }
@@ -102,7 +103,7 @@ namespace gInk
                     ArrowTail = dlg.FileName;
                     ArrowTail_Pnl.BackgroundImage = new Bitmap(ArrowTail);
                     ArrowTail_Pnl.BackgroundImage.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                    if (float.Parse(TailScaleEd.Text) != 1.0F)
+                    if (float.Parse(TailScaleEd.Text, CultureInfo.InvariantCulture) != 1.0F)
                     {
                         ArrowTail = ArrowTail + "%" + TailScaleEd.Text;
                     }

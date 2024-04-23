@@ -209,7 +209,7 @@ namespace gInk
             int[] cursorsize = new int[2];
             int[] hotSpot = new int[2];
             if (namesize.Length > 1)
-                scale = float.Parse(namesize[1]);
+                scale = float.Parse(namesize[1], CultureInfo.InvariantCulture);
             try
             {
                 {
@@ -1869,7 +1869,7 @@ namespace gInk
             string[] fn_size = fn.Split('%');
             float scale = 1.0F;
             if (fn_size.Length >= 2)
-                scale = float.Parse(fn_size[1]);
+                scale = float.Parse(fn_size[1], CultureInfo.InvariantCulture);
             ImageAttributes imageAttributes = new ImageAttributes();
             Bitmap bmpi = getImgFromDiskOrRes(fn_size[0], ImageExts);
             // bmpi = new Bitmap(bmpi, (int)Math.Round(scale*bmpi.Width, 0), (int)Math.Round(scale*bmpi.Height, 0));
@@ -7536,7 +7536,7 @@ namespace gInk
                     stk.DrawingAttributes.FitToCurve = !st.Contains("NotFit");
                     j = st.IndexOf("W=") + 2;
                     l = st.IndexOf(",", j);
-                    stk.DrawingAttributes.Width = float.Parse(st.Substring(j, l - j));
+                    stk.DrawingAttributes.Width = float.Parse(st.Substring(j, l - j), CultureInfo.InvariantCulture);
                     j = st.IndexOf("S=") + 2;
                     if (j > 0)
                     {
@@ -7593,7 +7593,7 @@ namespace gInk
                             else if (st.Contains("Bool"))
                                 obj = bool.Parse(st2);
                             else if (st.Contains("Single"))
-                                obj = float.Parse(st2);
+                                obj = float.Parse(st2, CultureInfo.InvariantCulture);
                             else if (st.Contains("Double"))
                                 obj = double.Parse(st2);
                             else if (st.Contains("String"))

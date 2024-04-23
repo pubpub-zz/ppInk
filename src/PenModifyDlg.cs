@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -73,7 +74,7 @@ namespace gInk
 
         public float getWidth()
         {
-            return float.Parse(WidthTb.Text);
+            return float.Parse(WidthTb.Text, CultureInfo.InvariantCulture);
         }
 
         public void setDashStyle(Microsoft.Ink.DrawingAttributes pen)

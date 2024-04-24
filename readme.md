@@ -23,26 +23,30 @@ It provides a variety of drawing tools, including hand writing, lines (2 points 
 
 To streamline the interface, some buttons have multiple functions that can be accessed through multiple clicks or long clicks (or right clicks). 
 
-### Pens
+### Pens 
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/e82f31e9-88bb-4fc9-9b6d-0da489e74eff)
 
-Short click : select Pen<BR> 
-Long Click / Right click : Open the pen parameters dialog
+* Short click : select Pen
+* Long Click / Right click : Open the pen parameters dialog
 
 The pen setup (fading / width / line strokes) applies to the following  tools:
     
 ### Hand
   <IMG src="https://user-images.githubusercontent.com/4083478/130368095-bf41c299-5e27-4e6e-b94a-6959afea9258.png" width=200>
   
-### Rectangular
+### Rectangle
   <IMG src="https://user-images.githubusercontent.com/4083478/130368108-db7a8dd2-e465-4ebe-923d-bf573cfa53c6.png" width=200>
 
 ### Ellipsis
   <IMG src="https://user-images.githubusercontent.com/4083478/130368123-469c7ee4-d28e-44b2-8467-2d70b437e321.png" width=200>
 
 ---
-for these three drawing tools, clicks scroll through the following filling options:
-<i>no filling  &rarr; colored (filled) area &rarr; outside filling (interior remains empty) &rarr; white filling &rarr; black filling</i>
+for these three drawing tools, clicks scroll through the following filling options:</BR>
+<i>no filling  &rarr; colored (filled) area &rarr; outer filling (interior remains empty) &rarr; white filling &rarr; black filling</i>
+
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/0717a5ba-c7f5-4a0f-b82b-6efd236673ec)
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/24114fd3-1276-45ca-b4cf-a4cf6795ce6c)
+
 
 ---
         
@@ -52,7 +56,7 @@ for these three drawing tools, clicks scroll through the following filling optio
   
 - any click scroll through the following options:
  
-<i> segment line &rarr; polyline &rarr; pen color filled polygon &rarr; outer filled polygon &rarr; colored border - white polygon &rarr; colored border - black  polygon</i>
+<i> segment line &rarr; polyline &rarr; color filled polygon &rarr; outer filed polygon &rarr; white filled polygon &rarr; black filled polygon</i>
 
 ### Numbering
 
@@ -70,11 +74,13 @@ for these three drawing tools, clicks scroll through the following filling optio
   * Right/Long click on the tool button opens the dialog box to select or modify the arrow heads
  
 As an alternative to Right/long click, the list of arrow heads can be modified through to the options/general settings  both opens the following dialog box:
+
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/49bc3da9-19f2-491e-a0fc-3adab46e0a06)
+
 Arrow heads are 300x201 px images and designed for an 18px wide line.  During drawing The images are resized to match the current pen size.
 
 The arrow head images  reference point are aligned to the drawn segment ends.
-This reference shall be defined on the center line of image(line 101) and shall be marked by a blue pixel (R=0, G=0, B=255). If this blue point does not exist, the center of the image is used.
+This reference shall be defined on the center line of image(_line 101_) and shall be marked by a blue pixel (R=0, G=0, B=255). If this blue point does not exist, the center of the image is used.
 
 By default, arrow heads are rotated to align with the line, but, if the arrow filenames starts with an exclamation mark (!), the drawing remains horizontal. eg.:
 
@@ -89,21 +95,25 @@ this default behavior can be revert:
 * through the setting in the global setting:
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/79f61e5a-19b7-4e4e-86c1-d43443e95fcf">
 
-    as an alternative, you can select the arrow direction in the sub-toolbar 
+as an alternative, you can select the arrow direction in the sub-toolbar 
+
 <i> note: the arrow head can only selected by clicking on the button of the main toolbar</i>
   
 ### Text
   ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/daa1462b-8dbe-47b9-81f2-126b75348339)
+  
 Successive clicks select the  alignment:
+
 <i>left-aligned &rarr; right-aligned</i>
 
-  Once you will have selected the insert point a dialog box will allow you to type in the text and select properties:
-  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/808b22cc-cdf9-490b-bf2d-94f625a2c978)
+Once you will have selected the insert point a dialog box will allow you to type in the text and select properties:
+> <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/808b22cc-cdf9-490b-bf2d-94f625a2c978">
 
   While typing in the text, 'enter' will jump to a new line, ctrl+enter terminates the input
 
 ### Lasso
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/97472f1f-03df-495b-be36-bee12bdcc660)
+
 Any click activates the selection of multiple strokes/drawings.
 Once the tool select, left click adds elements to the selection, while right click removes them.
 You can either :

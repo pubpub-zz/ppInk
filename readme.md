@@ -145,26 +145,27 @@ Any click Scroll through the different tools:
 ### Edit
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/33c7d6e6-5521-411d-b198-1c08a2c7b4ab" width=80>
 
-  - Left click : modify text/number tool (text and font) *or* the color/pen width of a stroke:
-  
-![image](https://github.com/pubpub-zz/ppInk/assets/4083478/2b12a417-8581-4f8b-823d-8e07124d5504)
+  - Left click : modify text/number tool (text and font / frame) 
+  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/96ba128f-31fc-4b24-8d76-4df4b8a20b41)
+		  edit drawings' properties (color, pen width and types, or filling type)
+  ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/abeb9935-5324-4d73-aa6c-7010bdd2f26d)  
   - Right/Long click : edit the text default font(for the duration of the session only, go the Options for a sustainable modification)
 
-  if some strokes are selected before short click, the pen/color dialog will open to modify all selected strokes at once.
+You can apply the same parameters to a group of drawings, selecting them before clicking on the button.
 
 ### Resize / Rotate
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/7c7c23c2-64c4-4b19-a7b4-777709078627" width=150>
   
-Any click Scroll through the different tranformations:
+Any click Scroll let you choose between the different tranformations:
   resize &rarr; rotate 
 the selected stroke(s) (also applies to stroke under the cursor if no selection has been done first).
 
-  Once select, to activate the transformation: 
-  - (_the cursor displays a target shape_)
+  Once select, to activate the transformation:
+  - _the cursor displays a target shape_ (<IMG src="https://raw.githubusercontent.com/pubpub-zz/ppInk/master/src/cursortarget.ico" />)
     select the center of the transformation. It can be :
-    * a point which will be the center of the rotation of the resize
+    * a point which will be the center of the rotation or of the resize
     * a drawing (highlighted with a red box) to use the 'center' of the stroke/shape
-  - (_the cursor becomes a red big arrow_)
+  - _the cursor becomes a red big arrow_(<IMG src="https://raw.githubusercontent.com/pubpub-zz/ppInk/master/ppInk/cursorarrow.ico" />)
     click and drag to perform the scaling /rotation of the preselected (else the hovered) strokes.the selected (if applicable)
     the tranformation can be done many times
  
@@ -176,20 +177,34 @@ https://user-images.githubusercontent.com/4083478/130367372-233d6d64-06fc-4f0f-a
 <IMG SRC="https://github.com/pubpub-zz/ppInk/assets/4083478/39cbcf5f-497c-4e01-92d8-9508e364eebb">
 
 * Left click : engage Pointer Mode
-* Right/Long click : engage Window mode (Open a window) or click( to come back to fullscreen)
+* Right/Long click : start Window mode (Dragging the window box) or Fullscreen (with a short click)
 
-  **Pointer mode** keeps the drawings displayed but the cursor events will  be processed by the windows below.
-  
-  This mode can be engaged clicking on the pointer button on switching between applications with alt+tab
 
-  **Window mode** allows you to define a window where ppInk will be active
-  
-  To come back to full desktop, engage window mode then just short click within the window
+####  Pointer mode 
+This mode can be engaged:
+		- clicking on the pointer button, 
+		- using the global hotkey 
+		- or switching between applications with alt+tab.
+
+When activated, 
+* the drawings remains displayed
+* the toolbar is folded
+* mouse clicks and scrolls are processed by the windows below.
+
+to return to drawing mode:
+		- unfold the toolbar,
+		- press the global hotkey
+		- switch back with alt+tab
+
+#### Window mode
+Window mode allows to run ppink in a window. when mouse is not hovering the window, scrollings are processed by application behind. If you click in the other application, Pointer mode is then activated. Resuming is performed in the same way as described in pointer mode above. 
+
+If you disable "Engage Pointer Mode and Auto-Fold with Alt+Tab", entering pointer mode/drawing mode will be done at first click.
 
 ### Pen Width/Color Picker
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/38bf48b5-5e36-4147-844b-41c53e9a7e67)
 * Short click : select Pen Width
-* Long/Right click : engage **color picker**: this functions allow to modify the current pen color picking up a color on screen; in this mode mousewheel modifies transparency 
+* Long/Right click : engage **color picker**: this functions allow to set the current pen color picking up a color on screen; in this mode mousewheel modifies transparency 
 
 
 ### Cliparts
@@ -460,7 +475,3 @@ https://github.com/geovens/gInk
 ppInk
 https://github.com/pubpub-zz/ppInk
 &copy; Pubpub-ZZ 2020-2024
-
-
-
-

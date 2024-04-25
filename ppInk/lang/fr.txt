@@ -177,6 +177,8 @@ OptionsInverseMouseWheelChecked = "Inverse les actions de la molette\nMolette se
 OptionsFitToCurve = "Lissage des courbes"
 OptionsClick4Stroke = "Clic sur les boutons des stylos pour changer de style de ligne"
 
+QuestionMinWidth = "Confirmer-vous une largeur = 0 (ligne invisible) ?\n(Non => largeur = 1)"
+
 OptionsHotKeySnapInPointerGrp = "Capture d'écran en mode Pointeur"
 OptionsHotKeySnapInPointerLbl = "maintenir...                       ... et appuyer 2 fois sur\n\n\nAucun pour les deux = Désactivé"
 OptionsHotKeySnapInPointerKeys = "(Aucun)\nMaj\nControl\nAlt"

@@ -178,6 +178,8 @@ namespace gInk
         public string OptionsFitToCurve;
         public string OptionsClick4Stroke;
 
+        public string QuestionMinWidth;
+
         public string OptionsPensThin;
         public string OptionsPensNormal;
         public string OptionsPensThick;

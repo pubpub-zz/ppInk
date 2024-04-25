@@ -183,6 +183,8 @@ OptionsInverseMouseWheelChecked = "Inverse MouseWheel control\nWheel = Pen Selec
 OptionsFitToCurve = "Smooth Curves"
 OptionsClick4Stroke = "Click on Pen Buttons to change Line Style"
 
+QuestionMinWidth = "Do you confirm width=0 (invisible line) ?\n(No => width set to 1)"
+
 OptionsHotKeySnapInPointerGrp = "Snapshot in Pointer Mode"
 OptionsHotKeySnapInPointerLbl = "press and hold....                .... and press twice\n\n\nBoth None = Disabled"
 OptionsHotKeySnapInPointerKeys = "None\nShift\nCtrl\nAlt"

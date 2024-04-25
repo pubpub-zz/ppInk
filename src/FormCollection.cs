@@ -1673,8 +1673,16 @@ namespace gInk
 
         private void setStrokeProperties(ref Stroke st, int FilledSelected)
         {
-            if (FilledSelected == Filling.Empty)
+            try { st.ExtendedProperties.Remove(Root.ISSTROKE_GUID); } catch { }
+            try { st.ExtendedProperties.Remove(Root.ISFILLEDCOLOR_GUID);} catch { }
+            try { st.ExtendedProperties.Remove(Root.ISFILLEDOUTSIDE_GUID); } catch { }
+            try { st.ExtendedProperties.Remove(Root.ISFILLEDWHITE_GUID);} catch { }
+            try { st.ExtendedProperties.Remove(Root.ISFILLEDBLACK_GUID); } catch { }
+
+            if (FilledSelected != Filling.PenColorFilled && FilledSelected != Filling.Outside && st.DrawingAttributes.Width > 0)
                 st.ExtendedProperties.Add(Root.ISSTROKE_GUID, true);
+            if (FilledSelected == Filling.Empty)
+                ; 
             else if (FilledSelected == Filling.PenColorFilled)
                 st.ExtendedProperties.Add(Root.ISFILLEDCOLOR_GUID, true);
             else if (FilledSelected == Filling.WhiteFilled)
@@ -6251,11 +6259,13 @@ namespace gInk
                     //ToThrough();
                     TextEdited = true;
 
-                    SelectPen(b);
+                    SelectPen(b + FirstPenDisplayed);
                     Root.UponButtonsUpdate |= 0x2;
-
+                    float w = Root.PenAttr[b + FirstPenDisplayed].Width;
                     if (PenModifyDlg.ModifyPen(ref Root.PenAttr[b + FirstPenDisplayed]))
                     {
+                        if(w!= Root.PenAttr[b + FirstPenDisplayed].Width)
+                            LastPenSelected = -1;
                         if ((Root.ToolSelected == Tools.Move) || (Root.ToolSelected == Tools.Copy) || (Root.ToolSelected == Tools.Edit)) // if move
                             SelectTool(Tools.Hand,Filling.Empty);
                         //PreparePenImages(Root.PenAttr[b].Transparency, ref image_pen[b], ref image_pen_act[b]);

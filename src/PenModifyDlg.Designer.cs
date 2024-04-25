@@ -1,4 +1,4 @@
-﻿namespace gInk
+namespace gInk
 {
     partial class PenModifyDlg
     {
@@ -391,6 +391,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pen Adjustment";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PenModifyDlg_FormClosing);
             this.previewPanel.ResumeLayout(false);
             this.gpPenWidth.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pboxPenWidthIndicator)).EndInit();

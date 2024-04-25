@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -242,5 +242,21 @@ namespace gInk
             SVSquare_MouseMove(sender, new MouseEventArgs(e.Button, e.Clicks, e.X + CursorHSI.Left, e.Y + CursorHSI.Top, e.Delta));
         }
 
+        private void PenModifyDlg_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (getWidth() == 0)
+            {
+                switch (MessageBox.Show(Root.Local.QuestionMinWidth, "ppInk", MessageBoxButtons.YesNoCancel))
+                {
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        return;
+                    case DialogResult.No:
+                        setWidth(1);
+                        break;
+                    }
+                }
+
+        }
     }
 }

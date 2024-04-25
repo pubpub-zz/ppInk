@@ -3173,6 +3173,14 @@ namespace gInk
         {
             float pos;
             //Console.WriteLine("MouseMove");
+            if (!Focused && Root.WindowRect.Width > 0 && !Root.AltTabPointer)
+            {
+                Focus();
+                AltTabActivate();
+                //Root.UnPointer();
+                //Root.FormDisplay.DrawBorder(true);
+            }
+
             if (Root.ColorPickerMode)
             {
                 using (Bitmap bmp = new Bitmap(1, 1))

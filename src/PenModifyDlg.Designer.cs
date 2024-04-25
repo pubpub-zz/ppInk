@@ -1,4 +1,4 @@
-namespace gInk
+﻿namespace gInk
 {
     partial class PenModifyDlg
     {
@@ -57,6 +57,8 @@ namespace gInk
             this.SVSquare = new System.Windows.Forms.Panel();
             this.CursorHSI = new System.Windows.Forms.PictureBox();
             this.WidthTb = new System.Windows.Forms.TextBox();
+            this.FillingCombo = new System.Windows.Forms.ComboBox();
+            this.FillingLbl = new System.Windows.Forms.Label();
             this.previewPanel.SuspendLayout();
             this.gpPenWidth.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxPenWidthIndicator)).BeginInit();
@@ -155,7 +157,7 @@ namespace gInk
             // CancelBtn
             // 
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(578, 370);
+            this.CancelBtn.Location = new System.Drawing.Point(578, 395);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 28;
@@ -165,7 +167,7 @@ namespace gInk
             // OkBtn
             // 
             this.OkBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OkBtn.Location = new System.Drawing.Point(458, 370);
+            this.OkBtn.Location = new System.Drawing.Point(458, 395);
             this.OkBtn.Name = "OkBtn";
             this.OkBtn.Size = new System.Drawing.Size(75, 24);
             this.OkBtn.TabIndex = 29;
@@ -367,13 +369,41 @@ namespace gInk
             this.WidthTb.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.WidthTb.Validating += new System.ComponentModel.CancelEventHandler(this.WidthTb_Validating);
             // 
+            // FillingCombo
+            // 
+            this.FillingCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FillingCombo.FormattingEnabled = true;
+            this.FillingCombo.Items.AddRange(new object[] {
+            "Empty",
+            "Color Filled",
+            "Outer Filled",
+            "White Filled",
+            "Black Filled"});
+            this.FillingCombo.Location = new System.Drawing.Point(440, 360);
+            this.FillingCombo.Name = "FillingCombo";
+            this.FillingCombo.Size = new System.Drawing.Size(221, 21);
+            this.FillingCombo.TabIndex = 37;
+            this.FillingCombo.Visible = false;
+            // 
+            // FillingLbl
+            // 
+            this.FillingLbl.AutoSize = true;
+            this.FillingLbl.Location = new System.Drawing.Point(392, 363);
+            this.FillingLbl.Name = "FillingLbl";
+            this.FillingLbl.Size = new System.Drawing.Size(33, 13);
+            this.FillingLbl.TabIndex = 38;
+            this.FillingLbl.Text = "Filling";
+            this.FillingLbl.Visible = false;
+            // 
             // PenModifyDlg
             // 
             this.AcceptButton = this.OkBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(673, 402);
+            this.ClientSize = new System.Drawing.Size(673, 430);
+            this.Controls.Add(this.FillingLbl);
+            this.Controls.Add(this.FillingCombo);
             this.Controls.Add(this.WidthTb);
             this.Controls.Add(this.SVSquare);
             this.Controls.Add(this.DashStyleGrp);
@@ -437,5 +467,7 @@ namespace gInk
         private System.Windows.Forms.Panel SVSquare;
         private System.Windows.Forms.PictureBox CursorHSI;
         private System.Windows.Forms.TextBox WidthTb;
+        private System.Windows.Forms.ComboBox FillingCombo;
+        private System.Windows.Forms.Label FillingLbl;
     }
 }

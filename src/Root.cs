@@ -43,6 +43,7 @@ namespace gInk
         public const int WhiteFilled = 3;
         public const int BlackFilled = 4;
         public const int Modulo = 5;
+        public const int Invalid = Modulo + 1;
         public static readonly string[] Names = { "NoFrames","Empty", "Pen Colored", "Outside", "White Colored", "Black Colored" };  //starting at -1
     } // applicable to Hand,Rect,Oval
 

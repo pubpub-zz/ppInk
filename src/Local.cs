@@ -179,6 +179,7 @@ namespace gInk
         public string OptionsClick4Stroke;
 
         public string QuestionMinWidth;
+        public string ListEditDlgFillingsText;
 
         public string OptionsPensThin;
         public string OptionsPensNormal;

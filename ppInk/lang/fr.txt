@@ -57,6 +57,8 @@ ButtonNameZoom = "Zoom"
 ButtonNameLasso = "Selection au lasso(Gauche=Ajoute;Droit=Ote;Bouton=Vide la sélection)"
 
 QuestionClipArtUpdate = "Les Cliparts semblent avoir été mis à jour durant l'édition.\nVoulez-vous mettre à jour la liste par défaut?"
+ListEditDlgFillingsText = "Ligne seule;Remplissage de couleur;Extérieur;Remplissage Blanc;Remplissage Noir"
+
 ButtonActivateDebug ="Fenêtre Debug"
 
 SubToolsBarCbText = "Activation de la barre d'outils secondaire"

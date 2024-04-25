@@ -124,12 +124,28 @@ namespace gInk
 
         public bool ModifyPen(ref Microsoft.Ink.DrawingAttributes pen)
         {
+            int i = Filling.Invalid;
+            return ModifyPenAndFilling(ref pen, ref i);
+        }
+
+            public bool ModifyPenAndFilling(ref Microsoft.Ink.DrawingAttributes pen, ref int fill)
+        {
             setColor(pen.Transparency, pen.Color);
             setWidth(pen.Width);
             FadingCB.Checked = pen.ExtendedProperties.Contains(Root.FADING_PEN);
             setDashStyle(pen);
+            if(fill != Filling.Invalid)
+            {
+                FillingLbl.Visible = true;
+                FillingCombo.Visible = true;
+                FillingCombo.SelectedIndex = fill;
+                string[] lst = Root.Local.ListEditDlgFillingsText.Split(';');
+                for(int i = 0; i < lst.Count(); i++)
+                    FillingCombo.Items[i] = lst[i];
+            }
             if (ShowDialog() == DialogResult.OK)
             {
+                fill = FillingCombo.SelectedIndex;
                 pen.Color = getColor();
                 pen.Transparency = (byte)getAlpha();
                 pen.Width = getWidth();

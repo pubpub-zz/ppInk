@@ -1671,6 +1671,22 @@ namespace gInk
                 IsMovingToolbar = 0;
         }
 
+        private int getStrokeProperties(Stroke st)
+        {
+            if (st.ExtendedProperties.Contains(Root.ISFILLEDBLACK_GUID))
+                return Filling.BlackFilled;
+            else if (st.ExtendedProperties.Contains(Root.ISFILLEDWHITE_GUID))
+                return Filling.WhiteFilled;
+            else if (st.ExtendedProperties.Contains(Root.ISFILLEDOUTSIDE_GUID))
+                return Filling.Outside; 
+            else if (st.ExtendedProperties.Contains(Root.ISFILLEDCOLOR_GUID))
+                return Filling.PenColorFilled;
+            //NoFrame looks meaningless 
+            else
+                return Filling.Empty;
+            // No Fading;
+        }
+
         private void setStrokeProperties(ref Stroke st, int FilledSelected)
         {
             try { st.ExtendedProperties.Remove(Root.ISSTROKE_GUID); } catch { }
@@ -2698,9 +2714,11 @@ namespace gInk
                         {
                             AllowInteractions(true);
                             DrawingAttributes da = minStroke.DrawingAttributes.Clone();
-                            if (PenModifyDlg.ModifyPen(ref da))
+                            int fil = getStrokeProperties(minStroke);
+                            if (PenModifyDlg.ModifyPenAndFilling(ref da,ref fil))
                             {
                                 minStroke.DrawingAttributes = da;
+                                setStrokeProperties(ref minStroke, fil);
                             }
                             if (minStroke.ExtendedProperties.Contains(Root.ARROWSTART_GUID))
                             {
@@ -3934,19 +3952,27 @@ namespace gInk
                 if (StrokesSelection?.Count > 0)
                 {
                     DrawingAttributes da;
+                    int fil;
                     try
                     {
                         da = StrokesSelection[0].DrawingAttributes.Clone();
+                        fil = getStrokeProperties(StrokesSelection[0]);
                     }
                     catch
                     {
                         da = IC.DefaultDrawingAttributes.Clone();
+                        fil = Filling.Invalid;
                     }
                     AllowInteractions(true);
-                    if (PenModifyDlg.ModifyPen(ref da))
+                    if (PenModifyDlg.ModifyPenAndFilling(ref da, ref fil)) 
                     {
-                        foreach (Stroke stk in StrokesSelection)
+                        Stroke stk;
+                        for(int i= 0;i < StrokesSelection.Count;i++)
+                        {
+                            stk = StrokesSelection[i];
                             stk.DrawingAttributes = da.Clone();
+                            setStrokeProperties(ref stk, fil);
+                        }
                     }
                     AllowInteractions(false);
                     Root.UponAllDrawingUpdate = true;

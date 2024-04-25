@@ -134,7 +134,7 @@ ButtonDeleteText = "&Delete"
 CheckBoxAutoCloseText =  "Auto\nClose"
 PatternStoreParamTxt = "Save\nPattern Setup"
 ListFillingsText = "No frame;Frame only;Color filled;White filled;Black filled;Line Of Patterns"
-
+ListEditDlgFillingsText = "Frame only;Color filled;Outer;White filled;Black filled"
 
 MenuEntryExit = "Exit"
 MenuEntryOptions = "Options"

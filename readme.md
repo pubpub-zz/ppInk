@@ -44,8 +44,9 @@ The pen setup (fading / width / line strokes) applies to the following  tools:
 for these three drawing tools, clicks scroll through the following filling options:</BR>
 <i>no filling  &rarr; colored (filled) area &rarr; outer filling (interior remains empty) &rarr; white filling &rarr; black filling</i>
 
-![image](https://github.com/pubpub-zz/ppInk/assets/4083478/0717a5ba-c7f5-4a0f-b82b-6efd236673ec)
-![image](https://github.com/pubpub-zz/ppInk/assets/4083478/24114fd3-1276-45ca-b4cf-a4cf6795ce6c)
+<IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/0717a5ba-c7f5-4a0f-b82b-6efd236673ec"  width=25%>
+<IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/24114fd3-1276-45ca-b4cf-a4cf6795ce6c"  width=25%>
+<IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/12389b3e-5478-4e1b-a5d9-ad36dccf128f"  width=25%>
 
 
 ---

@@ -1277,6 +1277,11 @@ namespace gInk
                     return;
                 }
                 SnapShot(Root.SnappingRect);
+                if (Root.FormCollection.SnapWithoutClosing)
+                {
+                    Root.Snapping = 0;
+                    Root.FormCollection.ButtonsEntering = 1;
+                }
                 Root.UponBalloonSnap = true;
                 Root.UponTakingSnap = false;
                 if (!Root.FormCollection.SnapWithoutClosing && (Root.APIRestCloseOnSnap || Root.CloseOnSnap == "true" || (Root.CloseOnSnap == "blankonly" && Root.FormCollection.IC.Ink.Strokes.Count == 0)))

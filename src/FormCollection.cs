@@ -730,7 +730,7 @@ namespace gInk
                 gpButtons.Height = (int)((dim1 * .5 + dim3) + (penSec + (Root.PensExtraSet ? (dim4 / 6) : 0) + (Root.ToolsEnabled ? (6 * dim4s) : 0) + (Root.EraserEnabled ? dim4 : 0) + (Root.PanEnabled ? 2 * dim4s : 0)
                                                                       + (Root.PointerEnabled ? dim4 : 0) + (Root.PenWidthEnabled ? dim4 : 0) + (Root.InkVisibleEnabled ? dim4 : 0) + (Root.ZoomEnabled > 0 ? dim4s : 0)
                                                                       + (Root.SnapEnabled ? dim4 : 0) + (Root.UndoEnabled ? dim4 : 0) + (Root.ClearEnabled ? dim4 : 0)
-                                                                      + (Root.PagesEnabled ? dim4s : 0) + (Root.LoadSaveEnabled ? dim4s : 0)                                                                       
+                                                                      + (Root.PagesEnabled ? dim4s : 0) + (Root.LoadSaveEnabled ? dim4s : 0)
                                                                       + ((Root.VideoRecordMode != VideoRecordMode.NoVideo) ? dim4 : 0)
                                                                       + dim1));
             }
@@ -1417,7 +1417,7 @@ namespace gInk
             PageIndex = 0;
             PageMax = 0;
 
-        Console.WriteLine("C=" + (DateTime.Now.Ticks / 1e7).ToString());
+            Console.WriteLine("C=" + (DateTime.Now.Ticks / 1e7).ToString());
         }
 
         private void SetSubBarPosition(Panel Tb, Button RefButton)
@@ -1678,7 +1678,7 @@ namespace gInk
             else if (st.ExtendedProperties.Contains(Root.ISFILLEDWHITE_GUID))
                 return Filling.WhiteFilled;
             else if (st.ExtendedProperties.Contains(Root.ISFILLEDOUTSIDE_GUID))
-                return Filling.Outside; 
+                return Filling.Outside;
             else if (st.ExtendedProperties.Contains(Root.ISFILLEDCOLOR_GUID))
                 return Filling.PenColorFilled;
             //NoFrame looks meaningless 
@@ -1698,7 +1698,7 @@ namespace gInk
             if (FilledSelected != Filling.PenColorFilled && FilledSelected != Filling.Outside && st.DrawingAttributes.Width > 0)
                 st.ExtendedProperties.Add(Root.ISSTROKE_GUID, true);
             if (FilledSelected == Filling.Empty)
-                ; 
+                ;
             else if (FilledSelected == Filling.PenColorFilled)
                 st.ExtendedProperties.Add(Root.ISFILLEDCOLOR_GUID, true);
             else if (FilledSelected == Filling.WhiteFilled)
@@ -1726,7 +1726,7 @@ namespace gInk
 
             for (int i = 0; i < NB_ELLIPSE_PTS + 1; i++)
             {
-                pts[i] = new Point(CursorX0 + (int)(dX * Math.Cos(Math.PI * (i + NB_ELLIPSE_PTS / 8) / (NB_ELLIPSE_PTS / 2))), 
+                pts[i] = new Point(CursorX0 + (int)(dX * Math.Cos(Math.PI * (i + NB_ELLIPSE_PTS / 8) / (NB_ELLIPSE_PTS / 2))),
                                    CursorY0 + (int)(dY * Math.Sin(Math.PI * (i + NB_ELLIPSE_PTS / 8) / (NB_ELLIPSE_PTS / 2))));
                 Console.WriteLine("{0} - {1} - {2}", i, pts[i].X, pts[i].Y);
             }
@@ -2547,7 +2547,7 @@ namespace gInk
                     }
                     else
                         angle = 0;
-                    e.Stroke.ExtendedProperties.Add(Root.ROTATION_GUID, angle);                    
+                    e.Stroke.ExtendedProperties.Add(Root.ROTATION_GUID, angle);
                     if (e.Stroke.ExtendedProperties.Contains(Root.FADING_PEN))
                         FadingList.Add(e.Stroke);
                     e.Stroke.ExtendedProperties.Add(Root.REPETITIONDISTANCE_GUID, PatternDist);
@@ -2559,7 +2559,7 @@ namespace gInk
                         Animations.Add(AniPoolIdx, ani);
                         e.Stroke.ExtendedProperties.Add(Root.ANIMATIONFRAMEIMG_GUID, AniPoolIdx);
                         AniPoolIdx++;
-                    }                    
+                    }
                     Root.ImageStamp.Store = false;
                 }
                 LineForPatterns = null;
@@ -2812,7 +2812,7 @@ namespace gInk
                     HideMetricCountDown = 3000 / tiSlide.Interval;
                 }
             }
-                
+
             currentStroke = null;
             IC.Selection.Clear();
             Console.WriteLine(" ------------------ " + (dbgcpt++).ToString());
@@ -3255,7 +3255,7 @@ namespace gInk
                 else
                 {
                     if (!Root.MeasureWhileDrawing)
-                        MetricToolTip.Hide(this);                   
+                        MetricToolTip.Hide(this);
                     return;
                 }
             }
@@ -3273,7 +3273,7 @@ namespace gInk
             }
             else if (Root.ToolSelected != Tools.Hand)
                 MagneticEffect(Root.CursorX0, Root.CursorY0, ref Root.CursorX, ref Root.CursorY, Root.ToolSelected > Tools.Hand && Root.MagneticRadius > 0);
-            
+
             /*if (LasteXY.X == 0 && LasteXY.Y == 0)
             {
                 LasteXY.X = e.X;
@@ -3348,7 +3348,7 @@ namespace gInk
                     string str = "?????";
                     Double dx = ConvertMeasureLength(Math.Abs(Root.PixelToHiMetric(Root.CursorX - Root.CursorX0)));
                     Double dy = ConvertMeasureLength(Math.Abs(Root.PixelToHiMetric(Root.CursorY - Root.CursorY0)));
-                    
+
                     switch (Root.ToolSelected)
                     {
                         case Tools.Hand:
@@ -3413,7 +3413,7 @@ namespace gInk
                 }
                 Root.SnappingRect = new Rectangle(left + this.Left, top + this.Top, width, height);
                 Root.UponTakingSnap = true;
-                ExitSnapping();
+                ExitSnapping(false);
                 //CurrentMouseButton = MouseButtons.None;
             }
             else if (Root.PanMode)
@@ -4712,14 +4712,22 @@ namespace gInk
             Root.UnPointer();
         }
 
-        public void ExitSnapping()
+        public void ExitSnapping(bool cancel)
         {
             ActivateStrokesInput(true);
 
             Root.SnappingX = -1;
             Root.SnappingY = -1;
-            Root.Snapping = -60;
-            ButtonsEntering = 1;
+            if(cancel)
+            {
+                Root.Snapping = -60;
+                ButtonsEntering = 1;
+            }
+            else
+            {
+                Root.Snapping = 1;
+                ButtonsEntering = 0;
+            }
             Root.CursorX0 = int.MinValue;
             Root.CursorY0 = int.MinValue;
             Root.SelectPen(Root.CurrentPen);
@@ -5352,7 +5360,7 @@ namespace gInk
                     {
                         if (Root.Snapping > 0)
                         {
-                            ExitSnapping();
+                            ExitSnapping(true);
                         }
                         else if (Root.gpPenWidthVisible)
                         {
@@ -7147,8 +7155,8 @@ namespace gInk
 				// the following block is copyed from tiSlide_Tick() where we check whether ESC is pressed
 				if (Root.Snapping > 0)
 				{
-					ExitSnapping();
-                Root.VideoRecordWindowInProgress = false;
+					ExitSnapping(false);
+                    Root.VideoRecordWindowInProgress = false;
 				}
 				else if (Root.gpPenWidthVisible)
 				{

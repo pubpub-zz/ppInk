@@ -251,7 +251,7 @@ namespace gInk
                     }
                 }
                 {
-                    string[]  exts = { ".bmp",".png",".tif",".jpg", ".jpeg" };
+                    string[] exts = { ".bmp", ".png", ".tif", ".jpg", ".jpeg" };
                     foreach (string ext in exts)
                     {
                         filename = Program.RunningFolder + namesize[0] + ext;
@@ -287,28 +287,28 @@ namespace gInk
             {
                 return nocurs;
             }
-            if(bmp == null)
+            if (bmp == null)
             {
                 curs = new System.Windows.Forms.Cursor(((System.Drawing.Icon)Properties.Resources.ResourceManager.GetObject(namesize[0])).Handle);
                 cursorsize[0] = 128; cursorsize[1] = 128;
-                hotSpot[0] = (int)(cursorsize[0]* (1.0*curs.HotSpot.X)/curs.Size.Width); hotSpot[1] = (int)(cursorsize[1]* (1.0*curs.HotSpot.Y)/curs.Size.Height);
-                if(hotSpot[0]>=cursorsize[0] || hotSpot[1] >= cursorsize[1])
+                hotSpot[0] = (int)(cursorsize[0] * (1.0 * curs.HotSpot.X) / curs.Size.Width); hotSpot[1] = (int)(cursorsize[1] * (1.0 * curs.HotSpot.Y) / curs.Size.Height);
+                if (hotSpot[0] >= cursorsize[0] || hotSpot[1] >= cursorsize[1])
                 {
                     hotSpot[0] = cursorsize[0] / 2;
                     hotSpot[1] = cursorsize[1] / 2;
                 }
                 bmp = new Bitmap(cursorsize[0], cursorsize[1], PixelFormat.Format32bppArgb);
                 Graphics mg = Graphics.FromImage(bmp);
-                curs.DrawStretched(mg, new Rectangle(0, 0,bmp.Width,bmp.Height));
+                curs.DrawStretched(mg, new Rectangle(0, 0, bmp.Width, bmp.Height));
                 mg.Dispose();
             }
-            if(bmp.PixelFormat != PixelFormat.Format32bppArgb)
+            if (bmp.PixelFormat != PixelFormat.Format32bppArgb)
             {
                 bmp.MakeTransparent(bmp.GetPixel(0, 0));
             }
             Bitmap imgout = new Bitmap((int)Math.Round(cursorsize[0] * scale), (int)Math.Round(cursorsize[1] * scale), PixelFormat.Format32bppArgb);
             Graphics myGraphics = Graphics.FromImage(imgout);
-            myGraphics.DrawImage(bmp,0,0,imgout.Width,imgout.Height);
+            myGraphics.DrawImage(bmp, 0, 0, imgout.Width, imgout.Height);
             myGraphics.Dispose();
             return CreateCursorFromBitmap(imgout, (int)Math.Round(hotSpot[0] * scale), (int)Math.Round(hotSpot[1] * scale));
         }
@@ -475,13 +475,13 @@ namespace gInk
         public static extern IntPtr CreateIconIndirect(ref IconInfo icon);
 
         /// Create a cursor from a bitmap, with the hot spot in the middle
-        public static System.Windows.Forms.Cursor CreateCursorFromBitmap(Bitmap bmp,int hotX=-1,int hotY=-1)
+        public static System.Windows.Forms.Cursor CreateCursorFromBitmap(Bitmap bmp, int hotX = -1, int hotY = -1)
         {
             IntPtr ptr = (bmp).GetHicon();
             IconInfo tmp = new IconInfo();
-            GetIconInfo(ptr, ref tmp);       
-            tmp.xHotspot = hotX>=0?hotX:(bmp.Width / 2);
-            tmp.yHotspot = hotY>=0?hotY:(bmp.Height / 2);
+            GetIconInfo(ptr, ref tmp);
+            tmp.xHotspot = hotX >= 0 ? hotX : (bmp.Width / 2);
+            tmp.yHotspot = hotY >= 0 ? hotY : (bmp.Height / 2);
             tmp.fIcon = false;
             ptr = CreateIconIndirect(ref tmp);
             System.Windows.Forms.Cursor cu = new System.Windows.Forms.Cursor(ptr);
@@ -1690,9 +1690,9 @@ namespace gInk
         private void setStrokeProperties(ref Stroke st, int FilledSelected)
         {
             try { st.ExtendedProperties.Remove(Root.ISSTROKE_GUID); } catch { }
-            try { st.ExtendedProperties.Remove(Root.ISFILLEDCOLOR_GUID);} catch { }
+            try { st.ExtendedProperties.Remove(Root.ISFILLEDCOLOR_GUID); } catch { }
             try { st.ExtendedProperties.Remove(Root.ISFILLEDOUTSIDE_GUID); } catch { }
-            try { st.ExtendedProperties.Remove(Root.ISFILLEDWHITE_GUID);} catch { }
+            try { st.ExtendedProperties.Remove(Root.ISFILLEDWHITE_GUID); } catch { }
             try { st.ExtendedProperties.Remove(Root.ISFILLEDBLACK_GUID); } catch { }
 
             if (FilledSelected != Filling.PenColorFilled && FilledSelected != Filling.Outside && st.DrawingAttributes.Width > 0)
@@ -1783,8 +1783,8 @@ namespace gInk
                 string[] lst = fn1.Split('.');
                 int dx = int.Parse(lst[0]);
                 int dy = int.Parse(lst[1]);
-                dx = (int)(dx * (CursorX - CursorX0)*1.0 / org_sz.X);
-                dy = (int)(dy * (CursorY - CursorY0)*1.0 / org_sz.Y);
+                dx = (int)(dx * (CursorX - CursorX0) * 1.0 / org_sz.X);
+                dy = (int)(dy * (CursorY - CursorY0) * 1.0 / org_sz.Y);
                 CursorX -= dx;
                 CursorX0 -= dx;
                 CursorY -= dy;
@@ -2715,7 +2715,7 @@ namespace gInk
                             AllowInteractions(true);
                             DrawingAttributes da = minStroke.DrawingAttributes.Clone();
                             int fil = getStrokeProperties(minStroke);
-                            if (PenModifyDlg.ModifyPenAndFilling(ref da,ref fil))
+                            if (PenModifyDlg.ModifyPenAndFilling(ref da, ref fil))
                             {
                                 minStroke.DrawingAttributes = da;
                                 setStrokeProperties(ref minStroke, fil);
@@ -2781,7 +2781,7 @@ namespace gInk
             Root.CursorX0 = Int32.MinValue;
             Root.CursorY0 = Int32.MinValue;
             bool redefineScale = ((CurrentMouseButton == MouseButtons.Right) || ((int)CurrentMouseButton == 2)); // right button pressed
-            if (Root.MeasureWhileDrawing )
+            if (Root.MeasureWhileDrawing)
             {
                 if (redefineScale &&
                     (Root.ToolSelected == Tools.Hand || Root.ToolSelected == Tools.Line ||
@@ -2844,7 +2844,7 @@ namespace gInk
                     //Point pt = new Point(pts[i].X, pts[i].Y);
                     //Console.Write(pts[i - 1]); Console.Write(pts[i]); Console.Write(pt);
                     //Console.WriteLine(" - {0} - {1}", Remain, p);
-                    if(ConvertInkSpaceToPixel)
+                    if (ConvertInkSpaceToPixel)
                         IC.Renderer.InkSpaceToPixel(Root.FormDisplay.gOneStrokeCanvus, ref pt);
                     pt.X += Xoff;
                     pt.Y += Yoff;
@@ -3004,7 +3004,7 @@ namespace gInk
                 PatternLastPtRemain = 0;
             }
 
-            switch(Root.ToolSelected)
+            switch (Root.ToolSelected)
             {
                 case Tools.Hand:
                 case Tools.Line:
@@ -3343,8 +3343,8 @@ namespace gInk
 
             if (currentStroke != null && Root.MeasureEnabled)
             {
-                if ((DateTime.Now.Ticks- lastHintDraw) > (200 * 10000))
-                { 
+                if ((DateTime.Now.Ticks - lastHintDraw) > (200 * 10000))
+                {
                     string str = "?????";
                     Double dx = ConvertMeasureLength(Math.Abs(Root.PixelToHiMetric(Root.CursorX - Root.CursorX0)));
                     Double dy = ConvertMeasureLength(Math.Abs(Root.PixelToHiMetric(Root.CursorY - Root.CursorY0)));
@@ -3359,7 +3359,7 @@ namespace gInk
                         case Tools.EndArrow:
                         case Tools.StartArrow:
                             str = string.Format(MeasureNumberFormat, Root.Local.FormatLength,
-                                                Math.Sqrt(dx*dx+dy*dy), Root.Measure2Unit);
+                                                Math.Sqrt(dx * dx + dy * dy), Root.Measure2Unit);
                             break;
                         case Tools.Rect:
                             str = string.Format(MeasureNumberFormat, Root.Local.FormatRectSize, dx, dy, Root.Measure2Unit);
@@ -3369,7 +3369,7 @@ namespace gInk
                             break;
                         case Tools.Poly:
                             str = string.Format(MeasureNumberFormat, Root.Local.FormatLength,
-                                                ConvertMeasureLength(StrokeLength(PolyLineInProgress)) + Math.Sqrt(dx*dx+dy*dy), Root.Measure2Unit);
+                                                ConvertMeasureLength(StrokeLength(PolyLineInProgress)) + Math.Sqrt(dx * dx + dy * dy), Root.Measure2Unit);
                             break;
                     }
 
@@ -3580,7 +3580,7 @@ namespace gInk
             int j;
             Point pt, pt1;
             Double ang = Double.NaN;
-            Double larg,lng;
+            Double larg, lng;
             string str = "";
             const int EIGHT_NB_ELLIPSE_PTS = 15;
 
@@ -3593,7 +3593,7 @@ namespace gInk
                 return "";
             }
             str = string.Format(MeasureNumberFormat, Root.Local.FormatLength, ConvertMeasureLength(StrokeLength(st)), Root.Measure2Unit);
-            if(j==9 && st.GetPoint(0) == st.GetPoint(j-1)) // shortcut to check it is a rectangle
+            if (j == 9 && st.GetPoint(0) == st.GetPoint(j - 1)) // shortcut to check it is a rectangle
             {
                 pt = st.GetPoint(0);
                 pt1 = st.GetPoint(2);
@@ -3606,12 +3606,12 @@ namespace gInk
             }
             else if (j == NB_ELLIPSE_PTS + 1 && st.GetPoint(0) == st.GetPoint(j - 1)) // shortcut to check it is a rectangle
             {
-                pt = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + ( NB_ELLIPSE_PTS) / 4);
+                pt = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + (NB_ELLIPSE_PTS) / 4);
                 pt1 = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + (3 * NB_ELLIPSE_PTS) / 4);
                 pt.X -= pt1.X; pt.Y -= pt1.Y;
                 lng = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
-                pt = st.GetPoint(EIGHT_NB_ELLIPSE_PTS );
-                pt1 = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + NB_ELLIPSE_PTS / 2 );
+                pt = st.GetPoint(EIGHT_NB_ELLIPSE_PTS);
+                pt1 = st.GetPoint(EIGHT_NB_ELLIPSE_PTS + NB_ELLIPSE_PTS / 2);
                 pt.X -= pt1.X; pt.Y -= pt1.Y;
                 larg = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
                 str += string.Format(MeasureNumberFormat, " " + Root.Local.FormatEllipseSize, ConvertMeasureLength(lng), ConvertMeasureLength(larg), Root.Measure2Unit);
@@ -3972,10 +3972,10 @@ namespace gInk
                         fil = Filling.Invalid;
                     }
                     AllowInteractions(true);
-                    if (PenModifyDlg.ModifyPenAndFilling(ref da, ref fil)) 
+                    if (PenModifyDlg.ModifyPenAndFilling(ref da, ref fil))
                     {
                         Stroke stk;
-                        for(int i= 0;i < StrokesSelection.Count;i++)
+                        for (int i = 0; i < StrokesSelection.Count; i++)
                         {
                             stk = StrokesSelection[i];
                             stk.DrawingAttributes = da.Clone();
@@ -4571,7 +4571,7 @@ namespace gInk
             {
                 Root.PenAttr[Root.CurrentPen].Transparency = Root.PickupTransparency;
                 Root.PenAttr[Root.CurrentPen].Color = Root.PickupColor;
-                btPen[Root.CurrentPen%Root.MaxDisplayedPens].BackgroundImage = buildPenIcon(Root.PenAttr[Root.CurrentPen].Color, Root.PenAttr[Root.CurrentPen].Transparency, true,
+                btPen[Root.CurrentPen % Root.MaxDisplayedPens].BackgroundImage = buildPenIcon(Root.PenAttr[Root.CurrentPen].Color, Root.PenAttr[Root.CurrentPen].Transparency, true,
                                                             Root.PenAttr[Root.CurrentPen].ExtendedProperties.Contains(Root.FADING_PEN), Root.LineStyleToString(Root.PenAttr[Root.CurrentPen].ExtendedProperties), Root.PenAttr[Root.CurrentPen].Width);// image_pen[b];
                 SelectPen(Root.CurrentPen);
                 Active = 0;

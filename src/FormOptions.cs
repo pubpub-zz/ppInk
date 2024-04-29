@@ -899,7 +899,13 @@ namespace gInk
 
         private void Magnet_TB_Validated(object sender, EventArgs e)
         {
-            Root.MagneticRadius = (int)(float.Parse(Magnet_TB.Text.Replace(",", "."), CultureInfo.InvariantCulture) / 100.0 * System.Windows.SystemParameters.PrimaryScreenWidth);
+            float f = float.Parse(Magnet_TB.Text.Replace(",", "."), CultureInfo.InvariantCulture);
+            Root.MagneticRadius = (int)Math.Round( f/ 100.0 * System.Windows.SystemParameters.PrimaryScreenWidth);
+            if (Root.MagneticRadius == 0 && f != 0.0)
+            {
+                Root.MagneticRadius = Math.Sign(f);
+                Magnet_TB.Text = (Root.MagneticRadius / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString("#0.0000", CultureInfo.InvariantCulture);
+            }
         }
 
         private void DefArrStartCb_CheckedChanged(object sender, EventArgs e)

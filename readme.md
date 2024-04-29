@@ -46,8 +46,7 @@ for these three drawing tools, clicks scroll through the following filling optio
 
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/0717a5ba-c7f5-4a0f-b82b-6efd236673ec"  width=25%>
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/24114fd3-1276-45ca-b4cf-a4cf6795ce6c"  width=25%>
-<IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/12389b3e-5478-4e1b-a5d9-ad36dccf128f"  width=25%>
-
+<IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/ccaf3052-e027-4506-850f-8e1236b3901e"  width=25%>
 
 ---
         
@@ -158,7 +157,7 @@ You can apply the same parameters to a group of drawings, selecting them before 
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/7c7c23c2-64c4-4b19-a7b4-777709078627" width=150>
   
 Any click Scroll let you choose between the different tranformations:
-  resize &rarr; rotate 
+  <i>resize &rarr; rotate </i>
 the selected stroke(s) (also applies to stroke under the cursor if no selection has been done first).
 
   Once select, to activate the transformation:
@@ -202,11 +201,61 @@ Window mode allows to run ppink in a window. when mouse is not hovering the wind
 
 If you disable "Engage Pointer Mode and Auto-Fold with Alt+Tab", entering pointer mode/drawing mode will be done at first click.
 
+### Magnetic
+<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/Magnetic_act.png?raw=true">
+
+Any clicks toggle the magnetic effect. The magnetic effect allows you:
+-   to find the nearest point on a drawing (forced holding down Ctrl key):
+	- on any curve/stroke or ellipse
+	- vertexes of line/polyline/polygones/arrows.
+	- vertexes of middle of sides for rectangles or text bounding boxes
+- follow line directions (forced holding down Shift key):
+	- the direction every __x__ ° from the horizontal.
+   __x__ and the distance of the magnetic effect can be adjusted in the global settings in the option dialog box:
+   <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/8300a409-33fb-4ca9-850c-2ff48edca311">
+
+Hotkeys are availables for all tools,pens (configurable throught right click on icon next to clock)
+
+### Zoom
+<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/Zoom_act.png?raw=true" width=60>
+<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/ZoomWin_act.png?raw=true" width=60>
+<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/flashLight.png?raw=true" width=60>
+
+Any click on this button will scroll through the different zooms and spotlight:
+		<I>Dynamic Zoom  &rarr; Frozen Enlargement  &rarr; Spotlight</I>
+
+#### Dynamic zoom
+
+this zoom that follows the cursor which Two zoom can be activated (multiple clicks on the zoom buttom). the first one offers a live zoom window following the cursor. The window size can be adjusted using Ctrl&nbsp;+&nbsp;mouse wheel.
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/18e2d747-7eac-4f23-9e0d-a85fde41ed71)
+The default size and zoom factors can be modified in the global setting:
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/5929626b-004b-4ae1-9c67-afa4d35e8ee6)
+
+#### Frozen enlargement
+this zoom will :
+* freeze all drawing in progress
+* you can  snapshot an area (the area size ratio are bounded to the screen size) 
+* the area will be displayed full screen
+* you can draw on this new image
+* once finished, a new click on the zoom button will delete all drawings and background and then restore previous work.
+
+#### Spot Mode
+Spot mode is not actually a zoom. when activated, the screen is grayed but around the cursor to focus attention on the cursor:
+ ![image](https://user-images.githubusercontent.com/4083478/130369204-8e898181-c456-46f5-9291-ef0122cba2bd.png) 
+ you can activate this spot pressing alt (the cursor will then be also replaced with a big arrow).
+is activated, the spot mode remains active in pointer mode (allowing to highlight the active cursor)
+
+color, transparency, spot size, and activation with alt can be adjusted in the options / general tab:
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/3561a998-4ff3-49d6-a1a2-9009dcd484d6)
+ 
 ### Pen Width/Color Picker
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/38bf48b5-5e36-4147-844b-41c53e9a7e67)
 * Short click : select Pen Width
-* Long/Right click : engage **color picker**: this functions allow to set the current pen color picking up a color on screen; in this mode mousewheel modifies transparency 
+* Long/Right click : engage **color picker**: 
 
+<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/tool_picker.png?raw=true">
+
+this functions allow to set the current pen color picking up a color on screen; in this mode mousewheel modifies transparency 
 
 ### Cliparts
 Open the dialog to select image and the background/frame. This list displayed of cliparts is initialized from the list defined in the options. you can overload adding images for the inking sessions from files or from the clipboard.
@@ -239,27 +288,7 @@ Note 1 : the checkbox "save Pattern setup" allows when you modify one of the pre
 * Long click : Take a snapshot and return to inking mode (keeping data); use alt+Hokey to do that with keyboard 
 note that an option is available to invert behaviors between Long and short click
 
-### Magnetic
-The magnet activates some magnetic effect :
--   Find a point on the drawing next to the cursor. For rectangles, magnetic
-    effect is available to vertices, and also to the middle of sides.(also activated pressing Ctrl)
--   The 8 points of the bounding rectangle of a text.(also activated pressing Ctrl)
--   On the line from the origin. The lines are horizontal,vertical and every 15°.(also activated pressing Shift)
-The Magnetic distance can be adjusted in the options.
-If only Ctrl or Shift is depressed, the global magnetic effect is switched off to only take into account the magnetic of the pressed key.
-Hotkeys are availables for all tools,pens (configurable throught right click on icon next to clock)
 
- You can move one stroke when clicking first time on the button. The stroke to be moved/copied will be surrounded by a rectangle to identify it and gets its measurement
- When in Move one/Copy one or Erase, when the cursor flies over a shape, a tool tip indicates the length of the stroke. if the stroke is a 3 point polyline, it will also indicates the drawn angle.
-
-### Zoom
-Two zoom can be activated (multiple clicks on the zoom buttom). the first one offers a standard dynamic window following the cursor. with the second one, you select the area that you want to enlarge. this area will be frozen and then full displayed on the screen. You can then carry on drawing on this new enlarged background image. a new click will end working on this image and will show back the screen and will restore the previously drawn strokes.
- behind the zoom, a spot mode is also available where the screen is masked and a transparent area follows the cursor:
- ![image](https://user-images.githubusercontent.com/4083478/130369204-8e898181-c456-46f5-9291-ef0122cba2bd.png)
-note 1: if the option is activated, you can activate the spot depressing alt.
-note 2: the spot  remains active during pointer mode
-note 3: color, transparency, spot size, and activation with alt can be adjusted in the options / general tab
- 
 ### Clear Board:
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/fc7be3f4-e28d-44b9-bc7b-3a05ee60bafa">
 
@@ -476,3 +505,4 @@ https://github.com/geovens/gInk
 ppInk
 https://github.com/pubpub-zz/ppInk
 &copy; Pubpub-ZZ 2020-2024
+

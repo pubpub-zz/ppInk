@@ -1,3 +1,4 @@
+
 # Introduction
 
 ppInk is a user-friendly on-screen annotation software for Windows, derived from gInk. 
@@ -33,13 +34,16 @@ The pen setup (fading / width / line strokes) applies to the following  tools:
     
 ### Hand
   <IMG src="https://user-images.githubusercontent.com/4083478/130368095-bf41c299-5e27-4e6e-b94a-6959afea9258.png" width=200>
+  if you press ctrl or shift, you will engage momentarily line tool.
   
 ### Rectangle
   <IMG src="https://user-images.githubusercontent.com/4083478/130368108-db7a8dd2-e465-4ebe-923d-bf573cfa53c6.png" width=200>
+  when drawing, if you use right-click, the drawing will be centered on the click down.
 
 ### Ellipsis
   <IMG src="https://user-images.githubusercontent.com/4083478/130368123-469c7ee4-d28e-44b2-8467-2d70b437e321.png" width=200>
-
+  when drawing, if you use right-click, the drawing will be centered on the click down.
+  
 ---
 for these three drawing tools, clicks scroll through the following filling options:</BR>
 <i>no filling  &rarr; colored (filled) area &rarr; outer filling (interior remains empty) &rarr; white filling &rarr; black filling</i>
@@ -49,6 +53,7 @@ for these three drawing tools, clicks scroll through the following filling optio
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/ccaf3052-e027-4506-850f-8e1236b3901e"  width=25%>
 
 ---
+
         
 ### Line
 
@@ -322,6 +327,11 @@ APNG and animaged-GIF are supported. By default  these drawings are animated wit
      * ppInkClipart[-3.1].png -> animated for 3.1 sec and then disappear
      * ppInkClipart[-2x].png -> animated for 2 cycles and then disappear
 
+### Visibility
+<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/visible.png?raw=true"> <IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/visible_not.png?raw=true">
+
+this button make the drawing  visibles / invisibles.
+
 ### Snapshot
 <IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/snap.png?raw=true">
 
@@ -333,11 +343,27 @@ _note: the two behaviors can be inverted in the global options:
 ### Clear Board:
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/fc7be3f4-e28d-44b9-bc7b-3a05ee60bafa">
 
-short click : Delete all drawings and apply last selected background
-Long click : Delete all drawings and select background surface color (white/black/customed color(modifiable through Options))
-In options you will be able to select a default mode at opening , and customed color
-advice : the created rectangle can be deleted using the erasor next to the border of the screen.
+* left click : 
+	Delete all drawings and apply last selected background
+* Right / long click : 
+	Delete all drawings and select background surface color (white/black/customed color, configured in the global settings)
 
+_note: the  board is a drawn rectangle  can be deleted using the erasor next to the border of the screen_
+
+### Undo
+<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/undo.png?raw=true" width=60> 
+
+Any click undo the actions.
+
+this button make the drawing  visibles / invisibles.
+
+### page managment
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/d5d4f185-fc9e-410e-9026-1a2f434161af)
+
+Any click moves to previous or next page
+
+These pages allow to switch between pages of drawings.
+This feature can be activated in the global settings.
 
 ### Save / Load
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/92600144-1c1a-4a5d-9bb6-cc353ff17339">
@@ -352,19 +378,30 @@ An automatic save is performed when closing inking mode in autosave.strokes.txt 
 
 ## Other features / tricks
 
+### Calling Window
+by default ppink displays a floating window
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/42a8eab2-d8c1-4c44-87f8-da5ff9fae72c)
+* left clicking on it starts drawing.
+* right click and drag allows to move the window to another position:
+This position will be kept you quit ppInk.
+To save it open the options and click on the button.
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/33bce2c1-fdaf-472b-8f29-3d7d8c65ad88)
+
+If due to screen reconfiguration, the window dissapears, unset/set the "Show Floating Window" : the window will come back to coordinates 100,100.
+
 ### Alt+ shortcut for temporary commands
 
-When this option is activated (yes by default), when Alt is pressed and hold, the tool/pen/mode is temporary selected, left when alt is released
-eg : with Hand drawing selected, press Alt and keep it  down. Press and release R : rectangle is active, as long as Alt is depressed, and Hand will be reengaged when Alt is released
-This can be reset any combinaisons of Pens and Tools : eg : press Alt, you can engage Filled Blue rectangle, depressing R twice, and 3 (in any order), and return to previous tools/color releasing Alt
+When this option is activated (default), and alt pressed is pressed and hold, the next tool/pen/mode  is  selected momentarily : the previous tool/pen is restored when alt is released. This also affects the shortcuts
+_eg : Hand drawing is selected. Press and hold alt Alt and shortly press and release R : rectangle is active, as long as Alt is depressed. Release Alt then Hand is restored._
+This can be used witgh  combinaisons of Pens and Tools, and dashes, fading.
+_eg : press and hold Alt, you can engage Filled Blue rectangle, depressing R twice, and 3 (in any order). Release alt restores  previous tool and color_
 Alt also works with dash line selection or fading shortcut.
 This can be also used with Erasor
 when pressing down Alt, the cursor is also temporary change to the big arrow to ease finding it on screen.
 
-### Option Capture at toolbar opening
-
-Capture can be engaged as toolbar is opened. This option is set to false by default.
-
+### Option Capture at opening
+In the options you can set the option to engage capture when starting drawing.
+<IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/39d71bbf-3c76-42a6-9d41-3a1bb1748359">
 ### Pens Options
 
 through the options or long click on a pen button, or using the edit pen hotkey you can edit advance pen:
@@ -380,9 +417,6 @@ _Note2 : Hotkeys allows to set/unset the fading, linestyle, increase/decrease pe
 _Note3 : an option is now available in options/pen to allow to modify the linestyle when clicking on already selected pen button(or using hotkeys). also an option in hotkeys allow to select which linestyle will be accessible through click/hotkeys (not applicable to Pen Modify dialog box)_
 
 A global option exists also to set/unset smoothing. When off, strokes drawing will not be smoothed. General recommendation is to leave this option on.
-
-### cursor files
-You can configure you own cursor file, saving it as cursor.ico in your exe folder (click position and size are loaded from the file). In the same you can save an image as FloatingCall.png to define the calling form image(in this case the width and transparency are in the Window_POS parameter in config.ini
 
 ### mouse wheel
 
@@ -417,13 +451,6 @@ You can now select how the toolbar will be deployed : to left/ to right or verti
 
 When the option is set in the options, switching application (with alt+tab) will engage pointer mode. Also, 
 Note that you can still fold toolbar when drawing without engaging pointer mode with the dock button.
-
-### Measurement tool
-
-When enabled, in Move one/Copy one or erase tool, the length of the selected object is provided in a tooltip.
-![image](https://user-images.githubusercontent.com/4083478/120104195-8dc6e280-c153-11eb-958c-6816f73a5b00.png)
-The example shows also a very specific case where the object is a 3 point polyline, the angle is also computed.
-
 
 ### snapshots in pointer mode
 
@@ -508,8 +535,7 @@ Click the exit button or press ESC to exit drawing.
 -   Zoom (2 versions)
 
 ### Tips
-
--   **There is a known issue for multiple displays of unmatched DPI settings (100%, 125%, 150%, etc.). If you use ppInk on a computer with multiple displays of unmatched DPI settings, or you encounter problems such as incorrect snapshot position, unable to drag toolbar to locations etc., please do the following as a workaround (in Windows 10 version 1903 as an example): right-click ppInk.exe, Properties, Compatibility, Change high DPI settings, Enable override high DPI scaling behavior scaling performed by: Application.**
+**There is a known issue for multiple displays of unmatched DPI settings (100%, 125%, 150%, etc.). If you use ppInk on a computer with multiple displays of unmatched DPI settings, or you encounter problems such as incorrect snapshot position, unable to drag toolbar to locations etc., please do the following as a workaround (in Windows 10 version 1903 as an example): right-click ppInk.exe, Properties, Compatibility, Change high DPI settings, Enable override high DPI scaling behavior scaling performed by: Application.**
 
 -   There is a very few hidden options you can tweak in config.ini that are not shown in the options window.
 

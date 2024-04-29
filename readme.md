@@ -145,10 +145,14 @@ Any click Scroll through the different tools:
 ### Edit
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/33c7d6e6-5521-411d-b198-1c08a2c7b4ab" width=80>
 
-  - Left click : modify text/number tool (text and font / frame) 
+  - Left click : modify text/number tool (text and font / frame)
+
   ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/96ba128f-31fc-4b24-8d76-4df4b8a20b41)
-		  edit drawings' properties (color, pen width and types, or filling type)
+
+edit drawings' properties (color, pen width and types, or filling type)
+
   ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/abeb9935-5324-4d73-aa6c-7010bdd2f26d)  
+
   - Right/Long click : edit the text default font(for the duration of the session only, go the Options for a sustainable modification)
 
 You can apply the same parameters to a group of drawings, selecting them before clicking on the button.
@@ -200,6 +204,12 @@ to return to drawing mode:
 Window mode allows to run ppink in a window. when mouse is not hovering the window, scrollings are processed by application behind. If you click in the other application, Pointer mode is then activated. Resuming is performed in the same way as described in pointer mode above. 
 
 If you disable "Engage Pointer Mode and Auto-Fold with Alt+Tab", entering pointer mode/drawing mode will be done at first click.
+Example of window mode:
+
+
+https://user-images.githubusercontent.com/4083478/112311221-c656c580-8ca5-11eb-895b-2279366c0fc4.mp4
+  
+_note : the border color can be changed directly in config.ini_
 
 ### Magnetic
 <IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/Magnetic_act.png?raw=true">
@@ -260,37 +270,66 @@ color, transparency, spot size, and activation with alt can be adjusted in the o
 this functions allow to set the current pen color picking up a color on screen; in this mode mousewheel modifies transparency 
 
 ### Cliparts
-Open the dialog to select image and the background/frame. This list displayed of cliparts is initialized from the list defined in the options. you can overload adding images for the inking sessions from files or from the clipboard.
-You can then stamp the images. you just click, the image will be stamped with the images original size. if you use the right click the image will be centered on the cursor click
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/8797cdff-727d-4b0a-a4cb-7d24032c7874)
+Any click on the clipart button(<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/tool_clipart.png?raw=true" width=30>) opens the dialog box to select image and the background/frame:
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/dc4844ce-9e7d-4d31-8913-c6cc8eb6a57d)
+In this dialog box, you can :
+* Add or Remove images in the list (using 'From Clipboard', 'Load Image', 'Delete)
+* Select an image to stamp, with its background (the droplist in the bottom)</BR>
+<IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/574ceaad-2002-4d7b-bab6-ed87b58247fe" style="border: 2px solid grey;">
+
+When stamping the images:
+* with short left click, the image will be stamped with the images original size, and positioned at the top-left position.
+* with short right click the image will be centered on the cursor
+* with a drag right/left click, the image will be scaled (ignoring aspect ratio) to fit the drawn bounding box.
 
 if you just draw a vertical or horizontal line, the image will be drawn with the drawn width/height respecting 
 proportional size. else you can draw a box which will define the image size (non proportional). 
 If you draw from bottom/right to up/left, the image will be stamped reversed.
-    
-3 preset cliparts are also available: they can be configured in the option dialogbox, or for the time of the session through a right or long click on the selected button.
-    
-**Animated Cliparts are  supported**: 
-APNG and animaged-GIF are supported. By default animations are supported forever. you can specify duration or loops using square brackets: negative means the object will be destroyed at the end. x after the number means, the number indicated information in loop percent. eg:
-       ppInkClipart.png -> animated for ever
-       ppInkClipart[5.2].png -> animated for 5.2 sec and then animation stops
-       ppInkClipart[-3.1].png -> animated for 3.1 sec and then disappear
-       ppInkClipart[3.5x].png -> animated for 3 cycles and a half and then animation stops
-       ppInkClipart[-2x].png -> animated for 2 cycles and then disappear
 
-**Stroke of Patterns**:
-This tools provides capability to draw images along a hand stroke.
-The function is selected in the clipart dialog box throught the type of filling selection. Then you will be asked for the size of the image
-dfdsfsf
+The image list permanently through the global settings:
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/9636ef5b-53c4-449a-a693-b857bead8f29)
+
+#### stamping on curve
+The option in the  filling combo box will allow you to draw images along a curve. Once selected:
+* the cursor will become a target<IMG src="https://raw.githubusercontent.com/pubpub-zz/ppInk/master/src/cursortarget.ico" width=30> .
+* you will define the size of the image stamp (the bounding box will be displayed)
+* you will define the distance between the images (2 images will be displayed for rendering evaluation)
+* the cursor will become an arrow<IMG src="https://raw.githubusercontent.com/pubpub-zz/ppInk/master/src/cursorred.ico" width=30>
+* you will draw the curve along which the images will be drawn.
+  
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/4342d8ad-2c3c-4ce6-823c-9064a0186795)
+
+example of drawing:
+
 https://user-images.githubusercontent.com/4083478/130367766-ee6cbd89-34d1-43ac-9f3e-13184b6a0bca.mp4
 
-Note 1 : the checkbox "save Pattern setup" allows when you modify one of the predefined clipart to bypass the image size and interval in order to go directly to stroke drawing
+_note : when defining a preset clipart, the checkbox "save Pattern setup" allows when you modify one of the predefined clipart to bypass the image size and interval in order to go directly to stroke drawing_
+#### preset cliparts 
+3 buttons are available to get quick access to preset buttons. 
+* left click selects the image and filling to be used
+* right/long click opens the dialogbox to modify the options.
+
+It is also possible to modify these buttons in the global settings
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/602f63e4-5678-4d95-a7da-4cc3c0cc370d)
+#### Animated Cliparts:
+APNG and animaged-GIF are supported. By default  these drawings are animated without stopping. Duration or loops renaming the images:
+* at the end of the filename add in square brackets the time or how many times the animation will be played for:
+	* ppInkClipart.png -> animated for ever
+	* ppInkClipart[5.2].png -> animated for 5.2 sec and then animation stops
+     * ppInkClipart[3.5x].png -> animated for 3 cycles and a half and then animation stops
+*  if a negative number is used, indicates that the image will then be erased.
+     * ppInkClipart[-3.1].png -> animated for 3.1 sec and then disappear
+     * ppInkClipart[-2x].png -> animated for 2 cycles and then disappear
 
 ### Snapshot
-* Short click : Take a snapshot and exit after
-* Long click : Take a snapshot and return to inking mode (keeping data); use alt+Hokey to do that with keyboard 
-note that an option is available to invert behaviors between Long and short click
+<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/snap.png?raw=true">
 
+* left click : Take a snapshot and exit after
+* right/long click : Take a snapshot and then return to drawing mode (keeping data); use alt+Hokey to do that with keyboard 
 
+_note: the two behaviors can be inverted in the global options:
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/5f7a6737-344d-4cc3-8da3-d489b93e788b)
 ### Clear Board:
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/fc7be3f4-e28d-44b9-bc7b-3a05ee60bafa">
 
@@ -385,15 +424,6 @@ When enabled, in Move one/Copy one or erase tool, the length of the selected obj
 ![image](https://user-images.githubusercontent.com/4083478/120104195-8dc6e280-c153-11eb-958c-6816f73a5b00.png)
 The example shows also a very specific case where the object is a 3 point polyline, the angle is also computed.
 
-
-### Window mode
-
-You can now run ppink in window mode (engaged through Long/Right Click on pointer icon)
-In this mode ppInk is run in a window and you can access clicks or mousewheel applications out of the window:
-
-https://user-images.githubusercontent.com/4083478/112311221-c656c580-8ca5-11eb-895b-2279366c0fc4.mp4
-  
-<I>note : the border color can be changed directly in config.ini</I>
 
 ### snapshots in pointer mode
 
@@ -507,4 +537,5 @@ https://github.com/geovens/gInk
 ppInk
 https://github.com/pubpub-zz/ppInk
 &copy; Pubpub-ZZ 2020-2024
+
 

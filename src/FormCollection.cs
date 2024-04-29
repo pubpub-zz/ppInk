@@ -2817,9 +2817,9 @@ namespace gInk
 
                     }
                     MetricToolTip.Show(MeasureStroke(IC.Ink.Strokes[IC.Ink.Strokes.Count - 1]), this, Root.CursorX, Root.CursorY - 80);
-                    HideMetricCountDown = 3000 / tiSlide.Interval;
                 }
             }
+            HideMetricCountDown = 3000 / tiSlide.Interval; // in case we do not get through IC_stroke
 
             currentStroke = null;
             IC.Selection.Clear();
@@ -3385,7 +3385,7 @@ namespace gInk
                     lastHintDraw = DateTime.Now.Ticks;
                 }
             }
-
+            HideMetricCountDown = 3000 / tiSlide.Interval;
 
             LasteXY = currentxy;
         }

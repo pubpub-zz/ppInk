@@ -217,9 +217,8 @@ Any clicks toggle the magnetic effect. The magnetic effect allows you:
 Hotkeys are availables for all tools,pens (configurable throught right click on icon next to clock)
 
 ### Zoom
-<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/Zoom_act.png?raw=true" width=60>
-<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/ZoomWin_act.png?raw=true" width=60>
-<IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/flashLight.png?raw=true" width=60>
+
+. <IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/Zoom_act.png?raw=true" width=60><IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/ZoomWin_act.png?raw=true" width=60><IMG src="https://github.com/pubpub-zz/ppInk/blob/master/src/flashLight.png?raw=true" width=60>
 
 Any click on this button will scroll through the different zooms and spotlight:
 		<I>Dynamic Zoom  &rarr; Frozen Enlargement  &rarr; Spotlight</I>
@@ -227,8 +226,11 @@ Any click on this button will scroll through the different zooms and spotlight:
 #### Dynamic zoom
 
 this zoom that follows the cursor which Two zoom can be activated (multiple clicks on the zoom buttom). the first one offers a live zoom window following the cursor. The window size can be adjusted using Ctrl&nbsp;+&nbsp;mouse wheel.
+___
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/18e2d747-7eac-4f23-9e0d-a85fde41ed71)
+___
 The default size and zoom factors can be modified in the global setting:
+
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/5929626b-004b-4ae1-9c67-afa4d35e8ee6)
 
 #### Frozen enlargement

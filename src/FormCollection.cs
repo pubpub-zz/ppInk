@@ -2493,18 +2493,18 @@ namespace gInk
                     Point p = PointToScreen(new Point(Math.Min(Root.CursorX0, Root.CursorX), Math.Min(Root.CursorY0, Root.CursorY)));
                     Size sz = new Size(capt.Width, capt.Height);
                     g.CopyFromScreen(p, Point.Empty, sz);
-                    try { ClipartsDlg.Originals.Remove("_ZoomClip"); } catch { }
-                    ClipartsDlg.Originals.Add("_ZoomClip", capt);
+                    try { ClipartsDlg.Originals.Remove(Path.GetTempPath().Replace("\\","/")+"_ZoomClip"); } catch { }
+                    ClipartsDlg.Originals.Add(Path.GetTempPath().Replace("\\", "/") + "_ZoomClip", capt);
                     IC.Ink.Strokes.Clear();
                     Stroke st;
                     if (Root.WindowRect.Width > 0)
                     {
-                        st = AddImageStroke(0, 0, Width, Height, "_ZoomClip", Filling.NoFrame);
+                        st = AddImageStroke(0, 0, Width, Height, Path.GetTempPath().Replace("\\", "/") + "_ZoomClip", Filling.NoFrame);
                     }
                     else
                     {
                         Screen scr = Screen.FromPoint(MousePosition);
-                        st = AddImageStroke(scr.Bounds.Left, scr.Bounds.Top, scr.Bounds.Right, scr.Bounds.Bottom, "_ZoomClip", Filling.NoFrame);
+                        st = AddImageStroke(scr.Bounds.Left, scr.Bounds.Top, scr.Bounds.Right, scr.Bounds.Bottom, Path.GetTempPath().Replace("\\", "/") + "_ZoomClip", Filling.NoFrame);
                     }
                     try { st.ExtendedProperties.Remove(Root.FADING_PEN); } catch { };  // if the pen was fading we need to remove that 
                     //if (Root.CanvasCursor == 1)

@@ -1772,7 +1772,15 @@ namespace gInk
 
         private Stroke AddImageStroke(int CursorX0, int CursorY0, int CursorX, int CursorY, string fn, int Filling = -10)
         {
-            Point org_sz = ClipartsDlg.ImgSizes[ClipartsDlg.ImageListViewer.LargeImageList.Images.IndexOfKey(Root.ImageStamp.ImageStamp)];
+            Point org_sz;
+            try
+            {
+                org_sz = ClipartsDlg.ImgSizes[ClipartsDlg.ImageListViewer.LargeImageList.Images.IndexOfKey(Root.ImageStamp.ImageStamp)];
+            }
+            catch
+            {
+                org_sz = new Point(128, 128); // should not impact the system
+            }
             if (Filling == -10)
                 Filling = Root.ImageStamp.Filling;
             Stroke st = AddRectStroke(CursorX0, CursorY0, CursorX, CursorY, Filling);
@@ -3346,8 +3354,8 @@ namespace gInk
                 if ((DateTime.Now.Ticks - lastHintDraw) > (200 * 10000))
                 {
                     string str = "?????";
-                    Double dx = ConvertMeasureLength(Math.Abs(Root.PixelToHiMetric(Root.CursorX - Root.CursorX0)));
-                    Double dy = ConvertMeasureLength(Math.Abs(Root.PixelToHiMetric(Root.CursorY - Root.CursorY0)));
+                    Double dx = Root.CursorX0 == int.MinValue ? 0 : ConvertMeasureLength(Math.Abs(Root.PixelToHiMetric(Root.CursorX - Root.CursorX0)));
+                    Double dy = Root.CursorY0 == int.MinValue ? 0 : ConvertMeasureLength(Math.Abs(Root.PixelToHiMetric(Root.CursorY - Root.CursorY0)));
 
                     switch (Root.ToolSelected)
                     {

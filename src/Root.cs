@@ -2652,12 +2652,26 @@ namespace gInk
 
         public int HiMetricToPixel(double hi)
         {
-            return Convert.ToInt32(hi * 0.037795280352161);
-        }
+            try
+            {
+                return Convert.ToInt32(hi * 0.037795280352161);
+            }
+            catch
+            {
+                return hi< 0 ? int.MinValue : int.MaxValue;
+            }
+}
 
-        public int PixelToHiMetric(double pi)
+public int PixelToHiMetric(double pi)
         {
-            return Convert.ToInt32(pi / 0.037795280352161);
+            try
+            {
+                return Convert.ToInt32(pi / 0.037795280352161);
+            }
+            catch
+            {
+                return pi < 0 ? int.MinValue : int.MaxValue;
+            }
         }
 
         public static String MakeRelativePath(String fromPath, String toPath)

@@ -127,7 +127,7 @@ namespace gInk
         public string CheckBoxAutoCloseText;
         public string PatternStoreParamTxt;
         public string ListFillingsText;
-        public int LineOfPatternsListPos = 5; // provide Line Of Patterns Positions in list above
+        public int LineOfPatternsListPos = Filling.Modulo; // provide Line Of Patterns Positions in list above
 
 
         public string MenuEntryExit;

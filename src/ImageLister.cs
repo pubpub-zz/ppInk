@@ -266,11 +266,19 @@ namespace gInk
                 {
                     throw new Exception(fn + " not loaded; prefer to use full path filename");
                 }
-            if (fill == -2)
-                fill = Array.IndexOf(Root.Local.ListFillingsText.Split(';'), FillingCombo.Text) - 1;
             ImgX = ImgSizes[ImageListViewer.LargeImageList.Images.IndexOfKey(fn)].X;
             ImgY = ImgSizes[ImageListViewer.LargeImageList.Images.IndexOfKey(fn)].Y;
-            if (fill == Root.Local.LineOfPatternsListPos-1)
+            if (fill == -2)
+                switch(FillingCombo.SelectedIndex)
+                {
+                    case 0: fill = Filling.NoFrame; break;
+                    case 1: fill = Filling.Empty; break;
+                    case 2: fill = Filling.PenColorFilled; break;
+                    case 3: fill = Filling.WhiteFilled; break;
+                    case 4: fill = Filling.BlackFilled; break;
+                    case 5: fill = Root.Local.LineOfPatternsListPos; break;
+                }
+            if (fill == Root.Local.LineOfPatternsListPos)
             {
                 PL= true;
                 fill = Filling.NoFrame;

@@ -1,14 +1,12 @@
 
 # Introduction
 
-ppInk is a user-friendly on-screen annotation software for Windows, derived from gInk. 
-It offers numerous new features inspired by Epic Pen, another screen annotation software, making it even easier to use. 
-
+ppInk is a user-friendly on-screen annotation software for Windows, compatible with Mouse use, touchscreen or drawing tablet(also with pressure). 
 
 ![](Animation.gif)
 
-It offers numerous new features freely inspired from other application such as  Epic Pen, making it even easier to use. 
-ppInk/gInk is designed with simplicity in mind, ensuring it doesn't distract presenters or audiences during presentations. Instead of adjusting individual settings like color, transparency, and tip width, ppInk allows you to select different pens for drawing, each with configurable attributes.
+Derived form gInk It offers numerous new features freely inspired frm other application such as  Epic Pen, making it even easier to use and even more functionalities. 
+ppInk/gInk is designed with simplicity in mind, ensuring it doesn't distract presenters or audiences during presentations. Instead of adjusting individual settings like color, transparency, and tip width, stroke, ppInk allows you to select different pens for drawing, each with configurable attributes.
 
 because of that ppInk can be used to annotate and then capture the screens, but it can also be used to support demonstration:
 
@@ -170,12 +168,12 @@ Any click Scroll let you choose between the different tranformations:
 the selected stroke(s) (also applies to stroke under the cursor if no selection has been done first).
 
   Once select, to activate the transformation:
-  - _the cursor displays a target shape_ (<IMG src="https://raw.githubusercontent.com/pubpub-zz/ppInk/master/src/cursortarget.ico" />)
+  - _the cursor displays a target shape_ (<IMG src="https://raw.githubusercontent.com/pubpub-zz/ppInk/master/src/cursortarget.ico" width=40/>)
     select the center of the transformation. It can be :
     * a point which will be the center of the rotation or of the resize
     * a drawing (highlighted with a red box) to use the 'center' of the stroke/shape
-  - _the cursor becomes a red big arrow_(<IMG src="https://raw.githubusercontent.com/pubpub-zz/ppInk/master/ppInk/cursorarrow.ico" />)
-    click and drag to perform the scaling /rotation of the preselected (else the hovered) strokes.the selected (if applicable)
+  - _the cursor becomes a red big arrow_(<IMG src="https://raw.githubusercontent.com/pubpub-zz/ppInk/master/ppInk/cursorarrow.ico" width=60/>)
+    click and drag to perform the scaling /rotation of the preselected (else the hovered) strokes or text.the selected (if applicable)
     the tranformation can be done many times
  
 #### Demonstration of different tools:
@@ -238,7 +236,7 @@ Hotkeys are availables for all tools,pens (configurable throught right click on 
 Any click on this button will scroll through the different zooms and spotlight:
 		<I>Dynamic Zoom  &rarr; Frozen Enlargement  &rarr; Spotlight</I>
 
-#### Dynamic zoom
+#### Dynamic magnifier
 
 this zoom that follows the cursor which Two zoom can be activated (multiple clicks on the zoom buttom). the first one offers a live zoom window following the cursor. The window size can be adjusted using Ctrl&nbsp;+&nbsp;mouse wheel.
 ___
@@ -286,7 +284,7 @@ In this dialog box, you can :
 When stamping the images:
 * with short left click, the image will be stamped with the images original size, and positioned at the top-left position.
 * with short right click the image will be centered on the cursor
-* with a drag right/left click, the image will be scaled (ignoring aspect ratio) to fit the drawn bounding box.
+* with a drag right/left click, the image will be scaled (ignoring aspect ratio) to fit the drawn boun	ding box.
 
 if you just draw a vertical or horizontal line, the image will be drawn with the drawn width/height respecting 
 proportional size. else you can draw a box which will define the image size (non proportional). 
@@ -317,6 +315,11 @@ _note : when defining a preset clipart, the checkbox "save Pattern setup" allows
 
 It is also possible to modify these buttons in the global settings
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/602f63e4-5678-4d95-a7da-4cc3c0cc370d)
+
+#### Offset images:
+The default position with the left click the position is positioned on the top/left corner. In order to move this position, rename the file in order to add @x.y at the end of the base name to define the position of the cursor (see #269)
+eg: `mick@1.295.png` set the finger at the click position (part of ppink delivery)
+
 #### Animated Cliparts:
 APNG and animaged-GIF are supported. By default  these drawings are animated without stopping. Duration or loops renaming the images:
 * at the end of the filename add in square brackets the time or how many times the animation will be played for:
@@ -379,12 +382,13 @@ An automatic save is performed when closing inking mode in autosave.strokes.txt 
 ## Other features / tricks
 
 ### Calling Window
-by default ppink displays a floating window
+by default ppink displays a floating window</BR>
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/42a8eab2-d8c1-4c44-87f8-da5ff9fae72c)
+
 * left clicking on it starts drawing.
 * right click and drag allows to move the window to another position:
 This position will be kept you quit ppInk.
-To save it open the options and click on the button.
+To save it open the options and click on the button.</BR>
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/33bce2c1-fdaf-472b-8f29-3d7d8c65ad88)
 
 If due to screen reconfiguration, the window dissapears, unset/set the "Show Floating Window" : the window will come back to coordinates 100,100.
@@ -401,13 +405,18 @@ when pressing down Alt, the cursor is also temporary change to the big arrow to 
 
 ### Option Capture at opening
 In the options you can set the option to engage capture when starting drawing.
+
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/39d71bbf-3c76-42a6-9d41-3a1bb1748359">
+
 ### Pens Options
 
-through the options or long click on a pen button, or using the edit pen hotkey you can edit advance pen:
+through the options or long click on a pen button, or using the edit pen hotkey you can edit pen:
+
 ![image](https://github.com/pubpub-zz/ppInk/assets/4083478/2b12a417-8581-4f8b-823d-8e07124d5504) 
-- Fading : the stroke drawn will disappear after the defined time(adjustable in options dialogbox/pen tab)
-- Line Style (Stroke/Solid/Dash/Dot/DashDot/DashDotDot) : This will apply the define line style on all type of drawings. Stroke keeps the original drawing which uses the pen pressure to adjust the width. Solid,Dash,... ignore pen pressure. 
+
+- **Fading** : the stroke drawn will disappear after the defined time(adjustable in options dialogbox/pen tab)
+- **Line Style (Stroke/Solid/Dash/Dot/DashDot/DashDotDot)** : This will apply the define line style on all type of drawings. Stroke keeps the original drawing which uses the pen pressure to adjust the width. Solid,Dash,... ignore pen pressure. 
+
 ![image](https://user-images.githubusercontent.com/19545604/119908686-8cb26d00-bf29-11eb-9dd3-ec421d216b23.png)
 
 _Note1 :  When drawing with dashed lines,try to not draw too slowly : the number of vertex will increase and make the drawing not very nice_
@@ -415,6 +424,11 @@ _Note1 :  When drawing with dashed lines,try to not draw too slowly : the number
 _Note2 : Hotkeys allows to set/unset the fading, linestyle, increase/decrease penwidth and open the pen modify dialog of the current pen_
 
 _Note3 : an option is now available in options/pen to allow to modify the linestyle when clicking on already selected pen button(or using hotkeys). also an option in hotkeys allow to select which linestyle will be accessible through click/hotkeys (not applicable to Pen Modify dialog box)_
+
+_Note4: up to 10 pens can be accessible in the toolbar. a second page can be activated in the options:</BR>_
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/48b53d8c-27fe-4faa-aceb-bc6a377ca47f)
+
+_To access this second page, press ctrl and/or shift or click on the vertical separation bar on right of the group._
 
 A global option exists also to set/unset smoothing. When off, strokes drawing will not be smoothed. General recommendation is to leave this option on.
 
@@ -432,10 +446,15 @@ ppInk has now some capability to do some video recording. tuning is available in
    You need to first install ffmpeg. and select the option in the video tab. In this case the button will be proposed. you can start/stop recording. Names and destination folders are defined throught the command line.
    - advanced recording with OBS-studio:
    You need to first install and configure OBS-studio(https://obsproject.com/fr/download) with OBS-websocket(https://github.com/Palakis/obs-websocket). select the required option (recording or broadcasting). with this program you will be able to start/stop broadcasting or start/pause/resume/stop video recording. file names and folders are defined in OBS-studio.
-   Note : ppink is now compatible with release 4.8 of OBS-websocket. this should be fixed in very next release. for the moment,prefer to stop recording when stopping Ink mode
+   Note : ppink is compatible with release 4.8 of OBS-websocket, but not yet with version 5.0 part of OBS studio 28+. this should be fixed in a next release. for the moment,prefer to stop recording when stopping Ink mode
+
+when ffmpeg recording is selected, you can use ppInk to record your screen and stores events within an M3U file. This could be used during some application testing. 
+During the record you can set some marks manually and automatically when opening the toolbar (for example to highlight the odd observation).
+
+During your analysis, you can replay the M3U file and jump to the different markers.
 
 ### UI customisation
-You add arrow.ani/cur/ico and eraser.ani/cur/ico to put your own cursors. if you use ico file the cursor is down with the file sized ( you can then put a bigger or smaller image)
+You add use your own cursors replacing the files. if you use ico file the cursor is down with the file sized ( you can then put a bigger or smaller image)
 toolbar Background Color can be changed in the options. currently a draw hickup make the background color incorrect during opening. transparency is currenly ignored
 Button Images can be customized putting Png files in the ppink exe folder. the name to be used are the same as the one from the src folder.
 When checked in the options, a secondary toolbar will open when selected some tools to access all functions/filling immediately:
@@ -463,6 +482,24 @@ https://user-images.githubusercontent.com/61389799/111090958-1d3bfc80-853a-11eb-
 you can configure shortcuts with shift/ctrl/alt with a press and hold and tap twice keys to prevent menu to close
 multiple snapshots can be captured, they are pasted one over the other, in the reverse order to make a full sequence
 
+### Global options
+Many adjustment are possible through the different pages in the options:
+
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/1cc45d49-ec45-4815-aaa5-8ebce1c1944d)
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/b2bb1fa3-d10b-47b9-a414-930a3d3a92eb)
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/63f958ce-98d8-44b2-8ccc-5f8b9f5b8599)
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/15b4ac80-b3c0-4be2-a8ce-8f0415ca0635)
+
+All the parameters are saved  in config.ini / pens.ini / hotkeys.ini. There is no dedicated files and settings can be stored in any of them.
+
+Over these files, in order to ease upgrades between versions, defaults.ini / pensdef.ini stores some default parameters that are first loaded as default values and should not be changed.
+
+When upgrading from an previous ppInk version :
+* copy your previous config.ini/pens.ini/hotkeys.ini into the new folder
+* start ppInk
+* Open global settings
+* save the files : The new entries will be added.
+
 ### Rest API
 
 In order to allow customisation, ppInk provides now a REST API allowing control from an external program/device such as a streamdesk from Elgato or touchPortal:
@@ -475,13 +512,16 @@ example with touchportal:
 (thanks to @NOVAinc)
 
 Ensure you are working with http protocol
-All the API is described in the https://github.com/pubpub-zz/ppInk/raw/master/ppInk/httpRequests.md (provided next to ppink.exe in each release)
+All the API is described in the https://github.com/pubpub-zz/ppInk/blob/master/ppInk/httpRequests.md (in ppInk folder)
 
 Note that this API returns results in JSON format that can be used for further extension.
 
 ### Download
 
 <https://github.com/PubPub-zz/ppInk/releases/>
+
+You will find ppInk.zip and ppInkS.zip. this second package provides a ppInk version where network connections have been removed (may ease some security analysis)
+
 
 ### Change log
 
@@ -503,44 +543,12 @@ Inking is started :
 
 Click the exit button or press ESC to exit drawing.
 
-### Features
-
--   Compact and intuitive interface with customizable hotkeys.
-
--   Inks rendered on dynamic desktops.
-
--   Drawing tools: Hand Writing, Line, Rectangular, Ellipsis, Arrow, Numbering
-    Tag, Text Left/Right aligned
-
--   Stylus with eraser, touch screen and mouse compatible.
-
--   Click-through mode. (note : once inking is engaged, global shortcut enters and exits this mode)
-
--   Multiple displays support.
-
--   Pen pressure support.
-
--   Snapshot support.
-
--   Hotkey support. (includes hotkeys with Del, BackSpace; in options **use ctrl+shift+del or ctrl+shift+backspace to delete the current hotkey**)
-
--   Magnetic effect when drawing shapes
-
--   Filled shapes
-
--   Video recording
-
--   Load/Save stroke
-
--   Zoom (2 versions)
-
 ### Tips
 **There is a known issue for multiple displays of unmatched DPI settings (100%, 125%, 150%, etc.). If you use ppInk on a computer with multiple displays of unmatched DPI settings, or you encounter problems such as incorrect snapshot position, unable to drag toolbar to locations etc., please do the following as a workaround (in Windows 10 version 1903 as an example): right-click ppInk.exe, Properties, Compatibility, Change high DPI settings, Enable override high DPI scaling behavior scaling performed by: Application.**
 
 -   There is a very few hidden options you can tweak in config.ini that are not shown in the options window.
 
 ### Configurations
-
 -    ppInk can be largely configured. Some examples/proposals of simplified configuation are offered here:
   * [Simplified configuration from @earthjasonlin](extra_doc/simplified_from_earthjasonlin.md)
      ![](extra_doc/imgs/preview_modified_earthjasonlin.png)
@@ -548,12 +556,26 @@ Click the exit button or press ESC to exit drawing.
 _note about ini files_: when upgrading to a newer version, you can copy your config.ini / pens.ini / hotkeys.ini. All the new entries will be copied from the defaults part of the delivery,
 you can then change the new parameters and when you will use the `save to files` in the options dialog box, they will be appended to your files
 
-### How to contribute to translations
+### translations
 
-gInk/ppInk supports multiple languages now (ppInk introduces a few new sentences where internationalization has not be implemented.). Here is how you can contribute translation. Simply create a duplication of the file "en-us.txt" in "bin/lang" folder, rename it and then translate the strings in the file. Check in ppInk to make sure your translation shows correctly, and then you can make a pull request or use https://github.com/pubpub-zz/ppInk/issues/17 to propose your translation.
+ppInk supports multiple languages, you can contribute to translations. 
+A few points will help you to contribute:
+* all translations are in lang folder in your configuration directory.
+* en-us.txt is loaded before any other translation : if a translation is missing in your file the english version will be used.
+* translation files are loaded at start-up and when you change the langage in the options
+* you can build your own translation:
+    - if it not exist duplicate of the file "en-us.txt" in "ppink/lang" folder with your language entry and then translate the strings in the file.
+* to update an existing file:
+    - open the global options.
+    - Select first english translation
+    - Select your file langage. a pop-up will appear</BR>
+![image](https://github.com/pubpub-zz/ppInk/assets/4083478/72a28583-6d44-4cf7-ba25-e4971b339fc9)
+    - confirm to update it. the new entries will be appened at the end of your file
+    - edit the new entries (you can also reorder the entries as you wish)
+    - change back and forth the language in the ppInk's options to reload and test your modifications.
 
-When upgrading to a new version, to ease translation, all the missing entries in your translation can be copied from the english version into your translation : For this, go the option, (re-)select your current langage (or another one) in the langage list, you will be prompted for completing the langage definition file. if you say yes, all missing inputs (will be added with the english translation). You then just have to translation the new inputs.
-after translation you can(not required) also reorder the sentences as you wish. 
+do not hesitate to share your work in https://github.com/pubpub-zz/ppInk/issues/17 to propose your translation. It will be apreciated 😋.
+
 
 gInk  
 https://github.com/geovens/gInk  

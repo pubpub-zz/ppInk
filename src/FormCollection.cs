@@ -813,10 +813,19 @@ namespace gInk
 
             if (Root.PensExtraSet)
             {
-                btExtraPens.Height = dim1;
-                btExtraPens.Width = dim1 / 6;
                 btExtraPens.Visible = true;
-                btExtraPens.BackgroundImage = getImgFromDiskOrRes("ExtraPens");
+                if(Root.ToolbarOrientation == Orientation.toUp || Root.ToolbarOrientation == Orientation.toDown)
+                {
+                    btExtraPens.Height = dim1/6;
+                    btExtraPens.Width = dim1;
+                    btExtraPens.BackgroundImage = getImgFromDiskOrRes("ExtraPensV");
+                }
+                else
+                {
+                    btExtraPens.Height = dim1;
+                    btExtraPens.Width = dim1 / 6;
+                    btExtraPens.BackgroundImage = getImgFromDiskOrRes("ExtraPens");
+                }
                 SetButtonPosition(prev, btExtraPens, dim3);
                 prev = btExtraPens;
             }

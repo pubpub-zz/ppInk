@@ -4759,7 +4759,7 @@ namespace gInk
                 ToolbarMoved = false;
                 return;
             }
-
+            StopAllZooms();
             RetreatAndExit();
         }
 
@@ -7092,9 +7092,13 @@ namespace gInk
             }
             else if (ZoomCapturing || ZoomCaptured)
             {
+                bool z = ZoomCaptured;
                 StopAllZooms();
-                SpotLightMode = true;
-                btZoom.BackgroundImage = getImgFromDiskOrRes("flashLight");
+                if(!z)
+                {
+                    SpotLightMode = true;
+                    btZoom.BackgroundImage = getImgFromDiskOrRes("flashLight");
+                }
             }
             else if (SpotLightMode)
             {

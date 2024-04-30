@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ppInk from gInk")]
-[assembly: AssemblyCopyright("Copyright © 2019 Weizhi Nai - © 2020-2021 Pubpub-ZZ")]
+[assembly: AssemblyCopyright("Copyright © 2019 Weizhi Nai - © 2020-2024 Pubpub-ZZ")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.8.3.*")]
-[assembly: AssemblyFileVersion("1.8.3.*")]
+[assembly: AssemblyVersion("1.9.0.*")]
+[assembly: AssemblyFileVersion("1.9.0.*")]
 [assembly: NeutralResourcesLanguage("en-US")]
 

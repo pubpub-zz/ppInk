@@ -28,7 +28,7 @@ namespace gInk
 
             string about = "ppInk "+built+ " v" + version + "\r\n";
             about += "Forked from gInk   (c) 2016-2020 Weizhi Nai\r\n";
-            about += "changes (c) 2020-2022 Pubpub-ZZ\r\n";
+            about += "changes (c) 2020-2024 Pubpub-ZZ\r\n";
             about += "Licensed under MIT\r\n";
 			about += "https://github.com/pubpub-zz/ppInk\r\n";
 			about += "\r\n";

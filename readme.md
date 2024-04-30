@@ -61,6 +61,14 @@ for these three drawing tools, clicks scroll through the following filling optio
  
 <i> segment line &rarr; polyline &rarr; color filled polygon &rarr; outer filed polygon &rarr; white filled polygon &rarr; black filled polygon</i>
 
+#### scaled measurement
+when measurement is activated, the length of your in progress drawing is displayed. taking into account the  current scale.
+You can set the scale in the options, but you can also define it drawing.
+to do so:
+* draw a curve, a line, or an arrow with the right button.
+* when the drawing will be completed, enter the actual length of your drawing to defin the scale
+* draw all your next drawing normally with the left scale. The next drawings length will take into account the new scale
+
 ### Numbering
 
   <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/c2ebebae-1c52-4b15-8ea3-dd9ae1f0a8f7" width=200>
@@ -500,6 +508,14 @@ When upgrading from an previous ppInk version :
 * Open global settings
 * save the files : The new entries will be added.
 
+### running ppInk
+
+ppInk can be executed from any folder. If the folder has limited rights and can not write in the folder, images and config and translation files will be copied to
+%APPDATA%\ppInk. This allow ppInk to be run by many users with different setups.
+
+you can also indicate an other folder with your setup in the command line using ppink -c _config folder_ 
+
+
 ### Rest API
 
 In order to allow customisation, ppInk provides now a REST API allowing control from an external program/device such as a streamdesk from Elgato or touchPortal:
@@ -585,5 +601,3 @@ https://github.com/geovens/gInk
 ppInk
 https://github.com/pubpub-zz/ppInk
 &copy; Pubpub-ZZ 2020-2024
-
-

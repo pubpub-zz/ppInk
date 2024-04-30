@@ -1,5 +1,69 @@
-p1.8 (in progress)	
+p1.9
 =================
+---> RC1
+* fix : miscelanous (see commits)
+* enh : Add capability to edit filling of  drawings* enh : add Number sub tools
+* enh : add MEASURE_SAVE_SCALE option
+* enh : Add Measure during drawing and scale redefinition
+* enh : allow to define hotspot for  cliparts
+* enh : extend to 1000 images in clipart
+* enh : add defaults
+* enh : allow ppInk to be run from read only folder with various config folder
+* new : align stamps to the stroke path
+* new : Add Pages feature(#258)
+* doc : add lituanian translation (part)
+* doc : update zh-tw(thx to @cmhdream)
+* new : options to work with rescaled cursor/arrows/cliparts
+* fix : add wait cursor when opening slow panels in options
+* new : Add Scaling on cursor and images
+* enh : display Dimensions on rectangles and ellipses
+* enh : fading in dashed/straight line (#245)
+* enh : Complete introduction of #234
+* fix : comments line copied during ini upgrade
+* new : add secondary page pens
+* fix : wrong tooltip on scale/rot secondarytool
+* fix : Line of Pattern not correct with fast move
+* doc : fix/rename httpRequests
+* fix : disabling Magnet no more working
+* enh : add default config and translations
+* fix : incorrect hints for move/scale buttons
+* fix : issue with directional magnetic effect
+* fix : error because missing length
+* fix : magnetic angle fixed/enhanced
+* enh : apply in progress options when starting 
+* new : engage line when pressing shift or ctrl in handfree
+* fix : crash when pasting from clipboard to clipart
+* fix : error during arrow with very short press
+* fix : issues with regional formats using comma
+* enh : add option to keep toolbar unfolded in pointer mode
+* fix : correct config.ini in international context
+
+p1.8
+=================
+---> p1.8.3
+* fix : Cursor not correct when exiting pointer mode with keys(#183 bottom)
+* fix : exit pointer mode when clicking on other app (#183)
+
+---> p1.8.2
+* fix : rest api issue on width
+* new : add option to keep toolbar folded at open(#183)
+* doc : update id-in.txt (thx to @onyet)
+* enh : allow global shortcut without key modifiers
+* fix : edit restored text (#176)
+* mnt: centralize default language in en-us.txt
+* new : can define snapshot filename
+* fix : connection to OBS no more working
+* new : add M3U index files
+* doc : add persian language translation (thx to @smn7231)
+* fix : crash when cliparts disabled
+* fix : Crash due to incomplete translations
+* fix : Odd Behavior with alt+tab
+* new : Ease selection difficult in dense area
+* new : Add option in config.ini to erase when losing focus
+* new : create ppInkS (without REST API nor OBS connection)
+* fix : API to set line to stroke not working
+* new : allow to Rotate text 
+* new : updated set of icons (thanks to @rexelbartolome)
 
 ---> RC1
 * enh : UI improvement : icons refreshed / Magnetic angle configurable / Window Mode border color configurable

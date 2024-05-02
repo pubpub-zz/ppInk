@@ -4405,15 +4405,15 @@ namespace gInk
                 Root.ImageStamp3 = ((ClipArtData)btClip3.Tag).Clone();
             try
             {
-                string st = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath));
+                string st = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SaveStrokesPath));
                 if (!System.IO.Directory.Exists(st))
                     System.IO.Directory.CreateDirectory(st);
-                if (IC.Ink.Strokes.Count > 0)          // do not save it if there is no data to save
+                if (IC.Ink.Strokes.Count > 0 && Root.AutoSaveStrokesAtExit)          // do not save it if there is no data to save
                     SaveStrokes(st + "AutoSave.strokes.txt");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format(Root.Local.FileCanNotWrite, Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath + "AutoSave.strokes.txt")));
+                MessageBox.Show(string.Format(Root.Local.FileCanNotWrite, Environment.ExpandEnvironmentVariables(Root.SaveStrokesPath + "AutoSave.strokes.txt")));
                 string errorMsg = "Silent exception logged \r\n:" + ex.Message + "\r\n\r\nStack Trace:\r\n" + ex.StackTrace + "\r\n\r\n";
                 Program.WriteErrorLog(errorMsg);
             }
@@ -7735,10 +7735,10 @@ namespace gInk
             if (sender != null && (DateTime.Now - MouseTimeDown).TotalSeconds > Root.LongClickTime)
             {
                 if (SaveStrokeFile == "")
-                    SaveStrokeFile = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath));
+                    SaveStrokeFile = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SaveStrokesPath + "trunk.strokes.txt"));
                 using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    openFileDialog.InitialDirectory = Path.GetDirectoryName(SaveStrokeFile);
+                    openFileDialog.InitialDirectory = Path.GetDirectoryName(SaveStrokeFile); 
                     openFileDialog.Filter = "strokes files(*.strokes.txt)|*.strokes.txt|All files (*.*)|*.*";
                     openFileDialog.FilterIndex = 1;
                     AllowInteractions(true);
@@ -7755,7 +7755,7 @@ namespace gInk
                 }
             }
             if (SaveStrokeFile == "")
-                LoadStrokes(Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath + "AutoSave.strokes.txt")));
+                LoadStrokes(Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SaveStrokesPath + "AutoSave.strokes.txt")));
             else
                 LoadStrokes(SaveStrokeFile);
             SaveUndoStrokes();
@@ -7800,7 +7800,7 @@ namespace gInk
                 {
                     string sav = SaveStrokeFile;
                     if (SaveStrokeFile == "")
-                        SaveStrokeFile = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath));
+                        SaveStrokeFile = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SaveStrokesPath))+"Trunk.strokes.txt";
                     using (SaveFileDialog FileDialog = new SaveFileDialog())
                     {
                         FileDialog.InitialDirectory = Path.GetDirectoryName(SaveStrokeFile);
@@ -7830,7 +7830,7 @@ namespace gInk
             }
             catch(Exception ex)
             {
-                MessageBox.Show(SaveStrokeFile);
+                MessageBox.Show($"error saving into {SaveStrokeFile}");
                 string errorMsg = "Silent exception logged \r\n:"+ex.Message + "\r\n\r\nStack Trace:\r\n" + ex.StackTrace + "\r\n\r\n";
                 Program.WriteErrorLog(errorMsg);
             };
@@ -7988,7 +7988,7 @@ namespace gInk
 
         public void btPagePrev_Click(object sender, EventArgs e)
         {
-            string st = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath));
+            string st = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SaveStrokesPath));
 
             btPagePrev.RightToLeft = RightToLeft.No;
             longClickTimer.Stop(); // for an unkown reason the mouse arrives later
@@ -8029,7 +8029,7 @@ namespace gInk
 
         public void btPageNext_Click(object sender, EventArgs e)
         {
-            string st = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SnapshotBasePath));
+            string st = Path.GetFullPath(Environment.ExpandEnvironmentVariables(Root.SaveStrokesPath));
 
             btPageNext.RightToLeft = RightToLeft.No;
             longClickTimer.Stop(); // for an unkown reason the mouse arrives later

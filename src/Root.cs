@@ -214,6 +214,8 @@ namespace gInk
         public bool AutoScroll;
         public bool WhiteTrayIcon;
         public string SnapshotBasePath;
+        public string SaveStrokesPath;
+        public bool AutoSaveStrokesAtExit;
         public bool SwapSnapsBehaviors=false;
         public int CanvasCursor = 0;
         public bool AllowDraggingToolbar = true;
@@ -991,6 +993,9 @@ namespace gInk
 			AutoScroll = false;
 			WhiteTrayIcon = false;
 			SnapshotBasePath = "%USERPROFILE%/Pictures/gInk/";
+            Environment.SetEnvironmentVariable("PPINK_SNAP_DIR", SnapshotBasePath);
+            SaveStrokesPath = SnapshotBasePath;
+            AutoSaveStrokesAtExit = true;
 		}
 
 		public void SetTrayIconColor()
@@ -1325,6 +1330,18 @@ namespace gInk
                             SnapshotBasePath = sPara.Replace('\\','/');
                             if (!SnapshotBasePath.EndsWith("/"))
                                 SnapshotBasePath += "/";
+                            Environment.SetEnvironmentVariable("PPINK_SNAP_DIR", SnapshotBasePath);
+                            break;
+                        case "SAVEDSTROKE_PATH":   // only in config; no wri
+                            SaveStrokesPath = Environment.ExpandEnvironmentVariables(sPara).Replace('\\', '/');
+                            if (!SaveStrokesPath.EndsWith("/"))
+                                SaveStrokesPath += "/";
+                            break;
+                        case "AUTOSAVE_STROKES":
+                            if (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON")
+                                AutoSaveStrokesAtExit = true;
+                            else
+                                AutoSaveStrokesAtExit = false;
                             break;
                         case "SNAPSHOT_FILE":
                             SnapshotFileTemplate = sPara;

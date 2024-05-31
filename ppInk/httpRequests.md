@@ -217,7 +217,7 @@ JSON fields:
 
 "OK":true
 
-**http://localhost:7999/SnapShotScreen[?A=Out\|End\|Cont]**
+**http://localhost:7999/Snapshot[?A=Out\|End\|Cont]**
 
 *Clear all strokes*
 

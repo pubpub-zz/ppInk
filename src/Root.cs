@@ -193,6 +193,7 @@ namespace gInk
 
         public static int MIN_MAGNETIC = 25;
         // options
+        public bool ReinitForms = false;
         public int ToolbarOrientation = Orientation.toLeft;
         public bool[] PenEnabled = new bool[MaxPenCount];
         public bool PensOnTwoLines = true;
@@ -621,7 +622,7 @@ namespace gInk
 
 		public void StartInk()
 		{
-            /*
+            
             if (FormCollection == null)
                 FormCollection = new FormCollection(this);
             if (FormButtonHitter == null)
@@ -629,8 +630,7 @@ namespace gInk
             if (FormDisplay == null)
                 FormDisplay = new FormDisplay(this);  // FormDisplay is created at the end to ensure other objects are created.
             if (UndoStrokes == null)
-                UndoStrokes = new Ink[8];
-            */
+                UndoStrokes = new Ink[8];           
             if (FormDisplay.Visible|| FormCollection.Visible)
 				return;
             FormCollection.Initialize();
@@ -675,7 +675,10 @@ namespace gInk
 			try { FormButtonHitter.Hide(); FormButtonHitter.timer1.Enabled = false; } catch { }
 
 
-            //FormCollection = null;
+            if (ReinitForms)
+            {
+                FormCollection = null;
+            }
             //  The FormCollection is destroyed, therefore all following calls to the form and its controls will not hit
             try
             {                
@@ -1859,6 +1862,9 @@ namespace gInk
                         case "ERASE_ON_FOCUSLOST":
                             if (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON")
                                 EraseOnLoosingFocus = true;
+                            break;
+                        case "INIT_AT_EACH_UNFOLD":
+                            ReinitForms = (sPara.ToUpper() == "TRUE" || sPara == "1" || sPara.ToUpper() == "ON");
                             break;
                     }
                 }

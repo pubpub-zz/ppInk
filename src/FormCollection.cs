@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -3106,6 +3107,7 @@ namespace gInk
             if (Root.ToolSelected == Tools.Move || Root.ToolSelected == Tools.Copy || Root.ToolSelected == Tools.Scale || Root.ToolSelected == Tools.Rotate)  // Scale & Rotate here to init movedStroke
             {
                 float pos;
+                Guid[] arrows_guids = { Root.ARROWSTART_GUID, Root.ARROWEND_GUID };
                 if (StrokesSelection.Count > 0)
                 {
                     movedStroke = null;
@@ -3140,6 +3142,11 @@ namespace gInk
                                     StoredPatternPoints.Add(new ListPoint(StoredPatternPoints[(int)prop.Data]));
                                     lst[i].ExtendedProperties.Add(prop.Id, StoredPatternPoints.Count - 1);
                                 }
+                                else if (arrows_guids.Contains(prop.Id))
+                                {
+                                    StoredArrowImages.Add(new Bitmap(StoredArrowImages[(int)prop.Data]));
+                                    lst[i].ExtendedProperties.Add(prop.Id, StoredArrowImages.Count - 1);
+                                }
                                 else
                                     lst[i].ExtendedProperties.Add(prop.Id, prop.Data);
                             }
@@ -3170,6 +3177,11 @@ namespace gInk
                         {
                             StoredPatternPoints.Add(new ListPoint(StoredPatternPoints[(int)prop.Data]));
                             movedStroke.ExtendedProperties.Add(prop.Id, StoredPatternPoints.Count - 1);
+                        }
+                        else if (arrows_guids.Contains(prop.Id))
+                        {
+                            StoredArrowImages.Add(new Bitmap(StoredArrowImages[(int)prop.Data]));
+                            movedStroke.ExtendedProperties.Add(prop.Id, StoredArrowImages.Count - 1);
                         }
                         else
                             movedStroke.ExtendedProperties.Add(prop.Id, prop.Data);

@@ -1906,7 +1906,7 @@ namespace gInk
             return Root.ArrowLen * Math.Max(.5, Math.Pow(IC.DefaultDrawingAttributes.Width / Root.PenWidthNormal, .7));
         }
 
-        public Bitmap PrepareArrowBitmap(string fn, Color col, int transparency, int PenWidth_p, float angle_r, out int conn_len)
+        public Bitmap PrepareArrowBitmap(string fn, Color col, int transparency, double PenWidth_p, float angle_r, out int conn_len)
         {
             string[] fn_size = fn.Split('%');
             float scale = 1.0F;
@@ -1932,7 +1932,7 @@ namespace gInk
             ColorMatrix colorMatrix = new ColorMatrix(colorMatrixElements);
             imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
-            float f = scale * PenWidth_p / 18.0F;
+            float f = (float)(scale * PenWidth_p / 18.0F);
             float w = (float)(Math.Abs(Math.Cos(angle_r)) * f * bmpi.Width + Math.Abs(Math.Sin(angle_r)) * f * bmpi.Height);
             float h = (float)(Math.Abs(Math.Sin(angle_r)) * f * bmpi.Width + Math.Abs(Math.Cos(angle_r)) * f * bmpi.Height);
             conn_len = (int)Math.Round(conn_len * f, 0);
@@ -2391,10 +2391,11 @@ namespace gInk
                     int l;
                     StoredArrowImages[i].Dispose();
                     double kk = Math.Max(1, s.DrawingAttributes.Width * 0.037795280352161);// code copied from Root.HiMetricToPixel in order to not have rounding;
-                    StoredArrowImages[i] = PrepareArrowBitmap(fn, s.DrawingAttributes.Color, s.DrawingAttributes.Transparency, (int)Math.Ceiling(kk), (float)theta, out l);
+                    StoredArrowImages[i] = PrepareArrowBitmap(fn, s.DrawingAttributes.Color, s.DrawingAttributes.Transparency, kk, (float)theta, out l);
                     kk = kk / 18.0f;
                     IC.Renderer.InkSpaceToPixel(Root.FormDisplay.gOneStrokeCanvus, ref p);
-                    p.Offset((int)Math.Round(-kk * (300.0 / 2 - l) * Math.Cos(theta)), (int)Math.Round(-kk * (300.0 / 2 - l) * Math.Sin(theta)));
+
+                    p.Offset((int)Math.Round(-kk * l * Math.Cos(theta)), (int)Math.Round(-kk * l * Math.Sin(theta)));
                     s.ExtendedProperties.Add(Root.ARROWSTART_X_GUID, (int)p.X);
                     s.ExtendedProperties.Add(Root.ARROWSTART_Y_GUID, (int)p.Y);
                 }
@@ -2410,10 +2411,10 @@ namespace gInk
                     int l;
                     StoredArrowImages[i].Dispose();
                     double kk = Math.Max(1, s.DrawingAttributes.Width * 0.037795280352161);// code copied from Root.HiMetricToPixel in order to not have rounding;
-                    StoredArrowImages[i] = PrepareArrowBitmap(fn, s.DrawingAttributes.Color, s.DrawingAttributes.Transparency, (int)Math.Ceiling(kk), (float)theta, out l);
+                    StoredArrowImages[i] = PrepareArrowBitmap(fn, s.DrawingAttributes.Color, s.DrawingAttributes.Transparency, kk, (float)theta, out l);
                     kk = kk / 18.0f;
                     IC.Renderer.InkSpaceToPixel(Root.FormDisplay.gOneStrokeCanvus, ref p);
-                    p.Offset((int)Math.Round(-kk * (300.0 / 2 - l) * Math.Cos(theta)), (int)Math.Round(-kk * (300.0 / 2 - l) * Math.Sin(theta)));
+                    p.Offset((int)Math.Round(-kk * l * Math.Cos(theta)), (int)Math.Round(-kk * l * Math.Sin(theta)));
                     s.ExtendedProperties.Add(Root.ARROWEND_X_GUID, (int)p.X);
                     s.ExtendedProperties.Add(Root.ARROWEND_Y_GUID, (int)p.Y);
                 }

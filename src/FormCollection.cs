@@ -7679,7 +7679,7 @@ namespace gInk
                             else if (st.Contains("Single"))
                                 obj = float.Parse(st2, CultureInfo.InvariantCulture);
                             else if (st.Contains("Double"))
-                                obj = double.Parse(st2);
+                                obj = double.Parse(st2, CultureInfo.InvariantCulture);
                             else if (st.Contains("String"))
                                 obj = st2.Replace('\a', '\n');
                             if (guid == Root.IMAGE_GUID && !ClipartsDlg.Originals.ContainsKey(st2))

@@ -2021,6 +2021,7 @@ namespace gInk
             st.ExtendedProperties.Add(Root.TEXTFONT_GUID, TagFont);
             st.ExtendedProperties.Add(Root.TEXTFONTSIZE_GUID, (double)TagSize);
             st.ExtendedProperties.Add(Root.TEXTFONTSTYLE_GUID, (TagItalic ? FontStyle.Italic : FontStyle.Regular) | (TagBold ? FontStyle.Bold : FontStyle.Regular));
+            st.ExtendedProperties.Add(Root.ROTATION_GUID, 0.0);
             return st;
         }
 
@@ -2371,12 +2372,28 @@ namespace gInk
                 if (s.ExtendedProperties.Contains(Root.TEXTFONT_GUID))
                 {
                     Point p = s.GetPoint(0);
+                    if (s.ExtendedProperties.Contains(Root.ISTAG_GUID))
+                    {
+                        int minX = p.X, maxX=p.X, minY = p.Y, maxY=p.Y;
+                        foreach(Point pt in s.GetPoints())
+                        {
+                            if (pt.X < minX) minX = pt.X;
+                            if (pt.Y < minY) minY = pt.Y;
+                            if (pt.X > maxX) maxX = pt.X;
+                            if (pt.Y > maxY) maxY = pt.Y;
+                        }
+                        p.X = (int)(minX + .5 * (maxX - minX));
+                        p.Y = (int)(minY + .5 * (maxY - minY));
+                    }
                     //IC.Renderer.InkSpaceToPixel(Root.FormDisplay.gOneStrokeCanvus, ref p);
                     s.ExtendedProperties.Add(Root.TEXTX_GUID, (double)p.X);
                     s.ExtendedProperties.Add(Root.TEXTY_GUID, (double)p.Y);
                     s.ExtendedProperties.Add(Root.TEXTFONTSIZE_GUID, ((double)(s.ExtendedProperties[Root.TEXTFONTSIZE_GUID].Data) * k));
-                    s.ExtendedProperties.Add(Root.TEXTWIDTH_GUID, ((double)(s.ExtendedProperties[Root.TEXTWIDTH_GUID].Data) * k));
-                    s.ExtendedProperties.Add(Root.TEXTHEIGHT_GUID, ((double)(s.ExtendedProperties[Root.TEXTHEIGHT_GUID].Data) * k));
+                    if(s.ExtendedProperties.Contains(Root.TEXTWIDTH_GUID))
+                    {
+                        s.ExtendedProperties.Add(Root.TEXTWIDTH_GUID, ((double)(s.ExtendedProperties[Root.TEXTWIDTH_GUID].Data) * k));
+                        s.ExtendedProperties.Add(Root.TEXTHEIGHT_GUID, ((double)(s.ExtendedProperties[Root.TEXTHEIGHT_GUID].Data) * k));
+                    }
                     s.ExtendedProperties.Add(Root.ROTATION_GUID, (double)s.ExtendedProperties[Root.ROTATION_GUID].Data + deg);
                 }
                 if (s.ExtendedProperties.Contains(Root.ARROWSTART_GUID))

@@ -1270,7 +1270,7 @@ namespace gInk
 
         private void Measure2ScaleEd_Validated(object sender, EventArgs e)
         {
-            Root.Measure2Scale = Double.Parse(Measure2ScaleEd.Text);
+            Root.Measure2Scale = Double.Parse(Measure2ScaleEd.Text, CultureInfo.InvariantCulture);
         }
 
         private void Measure2DigEd_Validated(object sender, EventArgs e)

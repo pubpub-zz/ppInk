@@ -2026,7 +2026,7 @@ namespace gInk
         }
 
         double TextTheta = 0.0;
-        private Stroke AddTextStroke(int CursorX0, int CursorY0, int CursorX, int CursorY, string txt, StringAlignment Align)
+        private Stroke AddTextStroke(int CursorX0, int CursorY0, int CursorX, int CursorY, string txt, StringAlignment Align, int  fil_in = -1)
         // arrow at starting point
         {
             Point pt = new Point(CursorX0, CursorY0);
@@ -2047,7 +2047,25 @@ namespace gInk
             st.ExtendedProperties.Add(Root.TEXTFONTSIZE_GUID, (double)TextSize);
             st.ExtendedProperties.Add(Root.TEXTFONTSTYLE_GUID, (TextItalic ? FontStyle.Italic : FontStyle.Regular) | (TextBold ? FontStyle.Bold : FontStyle.Regular));
             st.ExtendedProperties.Add(Root.ROTATION_GUID, TextTheta);
-            setStrokeProperties(ref st, Filling.NoFrame);
+            int fil;
+            if (fil_in < 0)
+                fil_in = Root.TextBackground;
+            switch (fil_in / 2)
+            {
+                case 1:
+                    fil = Filling.WhiteFilled;
+                    break;
+                case 2:
+                    fil = Filling.BlackFilled;
+                    break;
+                default:
+                    fil = Filling.Empty;
+                    break;
+            };
+            setStrokeProperties(ref st, fil);
+            try { st.ExtendedProperties.Remove(Root.ISSTROKE_GUID); } catch { }
+            if ((fil_in % 2) == 1)
+                st.ExtendedProperties.Add(Root.ISSTROKE_GUID, true);
             Root.FormCollection.IC.Ink.Strokes.Add(st);
             if (st.ExtendedProperties.Contains(Root.FADING_PEN))
                 FadingList.Add(st);

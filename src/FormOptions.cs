@@ -171,6 +171,8 @@ namespace gInk
             AltTabActivateCb.Checked = Root.AltTabPointer;
             KeepUnfoldedPointerCb.Checked = Root.KeepUnDockedAtPointer;
 
+            TextBackgroundLst.SelectedIndex = Root.TextBackground;
+
             MeasureEnabledCb.Checked = Root.MeasureEnabled;
             Measure2ScaleEd.Text = Root.Measure2Scale.ToString();
             Measure2DigEd.Text = Root.Measure2Digits.ToString();
@@ -436,6 +438,11 @@ namespace gInk
                 int i = 0;
                 foreach(string st in Root.Local.OptionsZoomEnabled.Split('\n'))
                     this.ZoomEnabledCb.Items[i++]=st;
+            }
+            {
+                int i = 0;
+                foreach (string st in Root.Local.TextFramingText.Split(';'))
+                    this.TextBackgroundLst.Items[i++] = st;
             }
             this.ZoomBox.Text = Root.Local.ButtonNameZoom;
             this.ZoomDimLbl.Text = Root.Local.OptionsZoomDim;
@@ -1528,6 +1535,15 @@ namespace gInk
         private void MeasureWhileDrawing_CheckedChanged(object sender, EventArgs e)
         {
             Root.MeasureWhileDrawing = (sender as CheckBox).Checked;
+        }
+
+        private void TextBackgroundCb_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void TextBackgroundLst_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Root.TextBackground = TextBackgroundLst.SelectedIndex;
         }
     }
 }

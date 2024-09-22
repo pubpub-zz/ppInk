@@ -421,10 +421,20 @@ namespace gInk
                         {
                             if (i==-4 || i == -3 || i == -2 || i == -1)
                                 Root.SelectPen(i);
-                            if (!query.ContainsKey("F"))
+                            if ((Root.ToolSelected == Tools.txtLeftAligned || Root.ToolSelected == Tools.txtRightAligned) &&
+                                (query.TryGetValue("F", out s) && int.TryParse(s, out f) && -1 <= f))
+                            {
+                                if (f > 5)
+                                    resp.StatusCode = 400;
+                                else if (f >= 0)
+                                    Root.TextBackground = f;
+                            }
+                            else if (!query.ContainsKey("F"))
                                 f = Filling.NoFrame;
-                            else if (!(query.TryGetValue("F", out s) && int.TryParse(s, out f) && -1 <= f && f < Filling.Modulo))
-                                resp.StatusCode = 400;
+                            else if (!(query.TryGetValue("F", out s) && int.TryParse(s, out f) && -1 <= f && f< Filling.Modulo))
+                                {
+                                    resp.StatusCode = 400;
+                                }
                             if ((query.TryGetValue("A", out s) && int.TryParse(s, out a)))
                             {
                                 if (a >= 1 && a <= Root.ArrowHead.Count)
@@ -512,18 +522,27 @@ namespace gInk
                             else
                             {
                                 string st_i="";
+                                string f_str = "";
                                 if (Root.ToolSelected == Tools.ClipArt || Root.ToolSelected == Tools.PatternLine)
                                     st_i = string.Format(",\n \"Image\":\"{0}\" ", Root.ImageStamp.ImageStamp);
-                                f = (Root.ToolSelected == Tools.ClipArt || Root.ToolSelected == Tools.PatternLine )? Root.ImageStamp.Filling : Root.FilledSelected;
+                                if (Root.ToolSelected == Tools.txtLeftAligned || Root.ToolSelected == Tools.txtRightAligned)
+                                {
+                                    f = Root.TextBackground;
+                                    f_str = Root.Local.TextFramingText.Split(';')[f];
+                                }
+                                else
+                                {
+                                    f = (Root.ToolSelected == Tools.ClipArt || Root.ToolSelected == Tools.PatternLine )? Root.ImageStamp.Filling : Root.FilledSelected;
+                                    f_str = Filling.Names[f + 1];
+                                }
                                 ret = string.Format("{{\"Tool\":{0},\"ToolInText\":\"{2}\", \"Filling\":{1}, \"FillingInText\":\"{3}\"{4} }}",
-                                                        Root.ToolSelected, f , Tools.Names[Array.IndexOf(Tools.All,Root.ToolSelected)], Filling.Names[f+1],st_i);
+                                                        Root.ToolSelected, f , Tools.Names[Array.IndexOf(Tools.All,Root.ToolSelected)], f_str, st_i);
                             }
                             Console.WriteLine(Root.ImageStamp.X);
                         }
                         else if (resp.StatusCode == 400)
                             ret = string.Format("!!!! Error in Query ({0}) - {1} ", req.HttpMethod, req.Url.AbsoluteUri);
                     }
-
 
                     else if (req.Url.AbsolutePath == "/EnlargePen")
                     {

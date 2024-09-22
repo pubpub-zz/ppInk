@@ -392,6 +392,8 @@ namespace gInk
         public double ArrowLen = 0.0185 * System.Windows.SystemParameters.PrimaryScreenWidth; // == 1.85% of screen width
 
         public int TagNumbering = 1;
+        public string TagFormatting = "{0}";
+        public string[] TagFormattingList = "{0};{1};{2}".Split(';');
         public int TagSize = 25;
         public string TagFont = "";
         public bool TagItalic = false;
@@ -1417,6 +1419,12 @@ namespace gInk
                                     TagSize = (int)(tempf / 100.0 * System.Windows.SystemParameters.PrimaryScreenWidth);
                             }
                             break;
+                        case "NUMBER_CURRENT_FORMAT":
+                            TagFormatting = sPara;
+                            break;
+                        case "NUMBER_FORMATS":
+                            TagFormattingList = sPara.Split(';');
+                            break;
                         case "MAGNET":
                             if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
                                 MagneticRadius = -MIN_MAGNETIC;
@@ -2229,6 +2237,12 @@ namespace gInk
                             break;
                         case "NUMBERS":           // size of the tag in % of the screen
                             sPara = TagFont + "," + (TagItalic ? "True" : "False") + "," + (TagBold ? "True" : "False") + "," + (TagSize / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString(CultureInfo.InvariantCulture);
+                            break;
+                        case "NUMBER_CURRENT_FORMAT":
+                            sPara = TagFormatting;
+                            break;
+                        case "NUMBER_FORMATS":
+                            sPara = String.Join(";", TagFormattingList);
                             break;
                         case "MAGNET":
                             sPara = (MagneticRadius / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString(CultureInfo.InvariantCulture);

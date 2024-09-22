@@ -127,6 +127,17 @@ JSON fields:
 Tool, ToolInText, Filling, FillingInText,Image(only for clipart) (InText are to
 ease readability)
 
+**http://localhost:7999/SetTagNumber[?V=(|sss)]**
+
+*Set Tag Number*
+
+V = Next Value if empty ask the user to set it
+return current/new tag 
+
+JSON fields:
+
+Tag
+
 **http://localhost:7999/EnlargePen[?D=+nn]**
 
 *Increment/decrement current Pen Width*

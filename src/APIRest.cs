@@ -548,6 +548,25 @@ namespace gInk
                     }
 
 
+                    else if (req.Url.AbsolutePath == "/SetTagNumber")
+                    {
+                        string s;
+                        if (!(Root.FormDisplay.Visible || Root.FormCollection.Visible))
+                        {
+                            resp.StatusCode = 409;
+                            ret = "!!!!! Not in Inking mode";
+                        }
+                        else if (query.TryGetValue("V", out s))
+                        {
+                            Root.FormCollection.SetTagNumber(s);
+                        }
+                        if (resp.StatusCode == 200)
+                            ret = " { \"Tag\" : \"" + 
+                                String.Format(Root.TagFormatting, Root.TagNumbering, (Char)(64 + Root.TagNumbering), (Char)(96 + Root.TagNumbering))  + 
+                                "\" }";
+                    }
+
+
                     else if (req.Url.AbsolutePath == "/Magnet")
                     {
                         string s;

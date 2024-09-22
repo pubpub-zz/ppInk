@@ -2730,7 +2730,8 @@ namespace gInk
                 }
                 else if (Root.ToolSelected == Tools.NumberTag)
                 {
-                    Stroke st = AddNumberTagStroke(Root.CursorX, Root.CursorY, Root.CursorX, Root.CursorY, Root.TagNumbering.ToString());
+                    Stroke st = AddNumberTagStroke(Root.CursorX, Root.CursorY, Root.CursorX, Root.CursorY, 
+                                            String.Format(Root.TagFormatting, Root.TagNumbering, (Char)(65 + (Root.TagNumbering-1) % 26), (Char)(97 + (Root.TagNumbering - 1) % 26)));
                     Root.TagNumbering++;
                 }
                 else if (Root.ToolSelected == Tools.Edit) // Edit
@@ -6764,19 +6765,40 @@ namespace gInk
             Root.UponButtonsUpdate |= 0x2;
         }
 
-        public void SetTagNumber()
+        public void SetTagNumber(string init = "")
         {
             AllowInteractions(true);
             //ToThrough();
             int k = -1;
             FormInput inp = new FormInput(Root.Local.DlgTagCaption, Root.Local.DlgTagLabel, "", false, Root, null);
-
-            while (!Int32.TryParse(inp.TextOut(), out k))
+            string s = init;
+            if (init == "")
+                s = String.Format(Root.TagFormatting, Root.TagNumbering, (Char)(64 + Root.TagNumbering), (Char)(96 + Root.TagNumbering));
+            inp.TextIn(s);
+            while (inp.TextOut().Length > 0)
             {
-                inp.TextIn(Root.TagNumbering.ToString());
-                if (inp.ShowDialog() == DialogResult.Cancel)
+                if (init == "")
+                    if (inp.ShowDialog() == DialogResult.Cancel)
+                    {
+                        inp.TextIn("");
+                        break;
+                    }
+                init = "";
+                if (Int32.TryParse(inp.TextOut(), out k))
                 {
-                    inp.TextIn("");
+                    Root.TagFormatting = Root.TagFormattingList[0];
+                    break;
+                }
+                if ('A' <= inp.TextOut()[0] && inp.TextOut()[0] <= 'Z')
+                {
+                    k = inp.TextOut()[0] - 'A' + 1;
+                    Root.TagFormatting = Root.TagFormattingList[1];
+                    break;
+                }
+                if ('a' <= inp.TextOut()[0] && inp.TextOut()[0] <= 'z')
+                {
+                    k = inp.TextOut()[0] - 'a' + 1;
+                    Root.TagFormatting = Root.TagFormattingList[2];
                     break;
                 }
             }

@@ -403,6 +403,8 @@ namespace gInk
         public bool TextItalic = false;
         public bool TextBold = false;
 
+        public int TextBackground = 0;
+
         public VideoRecordMode VideoRecordMode = VideoRecordMode.NoVideo;
         public string ObsUrl = "ws://localhost:4444";
         public string ObsPwd = "obs";
@@ -1400,6 +1402,11 @@ namespace gInk
                                     TextSize = (int)(tempf / 100.0 * System.Windows.SystemParameters.PrimaryScreenWidth);
                             }
                             break;
+                        case "TEXT_BACKGROUND":
+                            int.TryParse(sPara, out TextBackground);
+                            if (TextBackground < 0 || TextBackground > 5)
+                                TextBackground = 0;
+                            break;
                         case "NUMBERS":           // Font(string),italique(boolean),Bold(boolean),size(float) of the text in % of the screen, also defines the size of the
                             {
                                 tab = sPara.Split(',');
@@ -2234,6 +2241,9 @@ namespace gInk
                             break;
                         case "TEXT":           // size of the tag in % of the screen
                             sPara = TextFont+","+(TextItalic?"True":"False")+","+ (TextBold ? "True" : "False")+","+(TextSize / System.Windows.SystemParameters.PrimaryScreenWidth *100.0).ToString(CultureInfo.InvariantCulture);
+                            break;
+                        case "TEXT_BACKGROUND":
+                            sPara = TextBackground.ToString();
                             break;
                         case "NUMBERS":           // size of the tag in % of the screen
                             sPara = TagFont + "," + (TagItalic ? "True" : "False") + "," + (TagBold ? "True" : "False") + "," + (TagSize / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString(CultureInfo.InvariantCulture);

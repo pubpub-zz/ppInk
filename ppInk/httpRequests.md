@@ -105,6 +105,11 @@ F= (-1="NoFrame", 0="Empty", 1="Pen Colored", 2="White Colored", 3="Black
 Colored") ; note -1 applies only to ClipArt, for the other it means "next
 filling"; F is optional(-1 if omitted)
 
+if Text Left Aligned or Text Right Aligned is selected, the filling are different:
+F =(-1="Current"(default), 0="Transparent/No Frame", 1="Transparent Framed", 
+    2="White background/No Frame",3="White Background/Framed",4="Black background/No Frame"
+    5="Black background/Framed")
+
 A=index of the Arrow Definition(Starting at 1)
 
 I= Image Name(without extension) or Full Pathed Filename; optional if omitted
@@ -230,7 +235,7 @@ JSON fields:
 
 **http://localhost:7999/Snapshot[?A=Out\|End\|Cont]**
 
-*Clear all strokes*
+*Engage snapshot capture mode*
 
 Out = get out SnapShot
 

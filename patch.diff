@@ -1,0 +1,67 @@
+--- a/src/FormCollection.Designer.cs
++++ b/src/FormCollection.Designer.cs
+@@ -26,6 +26,8 @@ namespace gInk
+             this.btOval = new System.Windows.Forms.Button();
+             this.btArrow = new System.Windows.Forms.Button();
+             this.btNumb = new System.Windows.Forms.Button();
++            this.btNumbStartW = new System.Windows.Forms.Button();
++            this.btNumbStartB = new System.Windows.Forms.Button();
+             this.btText = new System.Windows.Forms.Button();
+             this.btEdit = new System.Windows.Forms.Button();
+             this.btEraser = new System.Windows.Forms.Button();
+@@ -73,6 +75,8 @@ namespace gInk
+             this.gpButtons.Controls.Add(this.btOval);
+             this.gpButtons.Controls.Add(this.btArrow);
+             this.gpButtons.Controls.Add(this.btNumb);
++            this.gpButtons.Controls.Add(this.btNumbStartW);
++            this.gpButtons.Controls.Add(this.btNumbStartB);
+             this.gpButtons.Controls.Add(this.btText);
+             this.gpButtons.Controls.Add(this.btEdit);
+             this.gpButtons.Controls.Add(this.btEraser);
+@@ -571,6 +575,38 @@ namespace gInk
+             this.btNumb.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gpButtons_MouseMove);
+             this.btNumb.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gpButtons_MouseUp);
+             // 
++            // btNumbStartW
++            // 
++            this.btNumbStartW.BackColor = System.Drawing.Color.Transparent;
++            this.btNumbStartW.BackgroundImage = global::gInk.Properties.Resources.tool_numb_fillW;
++            this.btNumbStartW.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
++            this.btNumbStartW.FlatAppearance.BorderSize = 0;
++            this.btNumbStartW.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
++            this.btNumbStartW.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
++            this.btNumbStartW.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
++            this.btNumbStartW.Location = new System.Drawing.Point(585, 3);
++            this.btNumbStartW.Name = "btNumbStartW";
++            this.btNumbStartW.Size = new System.Drawing.Size(22, 22);
++            this.btNumbStartW.TabIndex = 22;
++            this.toolTip.SetToolTip(this.btNumbStartW, "Start White");
++            this.btNumbStartW.Click += new System.EventHandler(this.btNumbStartW_Click);
++            // 
++            // btNumbStartB
++            // 
++            this.btNumbStartB.BackColor = System.Drawing.Color.Transparent;
++            this.btNumbStartB.BackgroundImage = global::gInk.Properties.Resources.tool_numb_fillB;
++            this.btNumbStartB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
++            this.btNumbStartB.FlatAppearance.BorderSize = 0;
++            this.btNumbStartB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
++            this.btNumbStartB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
++            this.btNumbStartB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
++            this.btNumbStartB.Location = new System.Drawing.Point(600, 3);
++            this.btNumbStartB.Name = "btNumbStartB";
++            this.btNumbStartB.Size = new System.Drawing.Size(22, 22);
++            this.btNumbStartB.TabIndex = 23;
++            this.toolTip.SetToolTip(this.btNumbStartB, "Start Black");
++            this.btNumbStartB.Click += new System.EventHandler(this.btNumbStartB_Click);
++            // 
+             // btText
+             // 
+             this.btText.BackColor = System.Drawing.Color.Transparent;
+@@ -1429,6 +1461,8 @@ namespace gInk
+         public System.Windows.Forms.Button btExtraPens;
+         public System.Windows.Forms.Button btPagePrev;
+         public System.Windows.Forms.Button btPageNext;
++        public System.Windows.Forms.Button btNumbStartW;
++        public System.Windows.Forms.Button btNumbStartB;
+     }
+ }

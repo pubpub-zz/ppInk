@@ -1003,7 +1003,13 @@ namespace gInk
             Environment.SetEnvironmentVariable("PPINK_SNAP_DIR", SnapshotBasePath);
             SaveStrokesPath = SnapshotBasePath;
             AutoSaveStrokesAtExit = true;
-		}
+
+            ///
+            // Forcer l'état initial des tags numérotés à fond blanc (ou utiliser BlackFilled si tu préfères)
+            //TagNumbering = 3; // numéro de départ (optionnel ; choisis la valeur voulue)
+            //FilledSelected = Filling.WhiteFilled; // ← important : définit l'état de remplissage initial
+
+        }
 
 		public void SetTrayIconColor()
 		{
@@ -1426,12 +1432,49 @@ namespace gInk
                                     TagSize = (int)(tempf / 100.0 * System.Windows.SystemParameters.PrimaryScreenWidth);
                             }
                             break;
+
+
+
                         case "NUMBER_CURRENT_FORMAT":
                             TagFormatting = sPara;
                             break;
+
                         case "NUMBER_FORMATS":
                             TagFormattingList = sPara.Split(';');
                             break;
+
+                        // Ajout: numéro de départ (ne pas redéclarer tempi)
+                        case "NUMBER_START":
+                            if (Int32.TryParse(sPara, out tempi))
+                                TagNumbering = tempi;
+                            break;
+
+                        case "TAGNUMBERING":
+                            if (Int32.TryParse(sPara, out tempi))
+                                TagNumbering = tempi;
+                            break;
+
+                        // Ajout (optionnel): remplissage par défaut
+                        case "NUMBER_DEFAULT_FILL":
+                            {
+                                string up = sPara.Trim().ToUpperInvariant();
+                                if (up == "WHITE" || up == "3")
+                                    FilledSelected = Filling.WhiteFilled;
+                                else if (up == "BLACK" || up == "4")
+                                    FilledSelected = Filling.BlackFilled;
+                                else if (up == "EMPTY" || up == "0")
+                                    FilledSelected = Filling.Empty;
+                            }
+                            break;
+
+
+
+
+
+
+
+
+
                         case "MAGNET":
                             if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
                                 MagneticRadius = -MIN_MAGNETIC;

@@ -1,0 +1,135 @@
+08 / 27 / 2025 09:48UIThreadException
+
+version 1.9.0.0 built on 27/08/2025  9:47
+Oops, ppInk crashed! Please include the following information if you plan to contact the developers (a copy of the following information is stored in crash.txt in the application folder):
+
+La référence d'objet n'est pas définie à une instance d'un objet.
+
+Stack Trace:
+   à gInk.FormDisplay.DrawStrokes(Graphics g) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\FormDisplay.cs:ligne 425
+   à gInk.FormDisplay.DrawStrokes() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\FormDisplay.cs:ligne 418
+   à gInk.Root.SetInkVisible(Boolean visible) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 805
+   à gInk.Root.StartInk() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 660
+   à gInk.Root.callshortcut() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 574
+   à gInk.CallForm.CallForm_MouseUp(Object sender, MouseEventArgs e) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\CallForm.cs:ligne 60
+   à System.Windows.Forms.Control.OnMouseUp(MouseEventArgs e)
+   à System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   à System.Windows.Forms.Control.WndProc(Message& m)
+   à System.Windows.Forms.Form.WndProc(Message& m)
+   à System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+
+08 / 27 / 2025 09:48UIThreadException
+
+version 1.9.0.0 built on 27/08/2025  9:47
+Oops, ppInk crashed! Please include the following information if you plan to contact the developers (a copy of the following information is stored in crash.txt in the application folder):
+
+La référence d'objet n'est pas définie à une instance d'un objet.
+
+Stack Trace:
+   à gInk.FormDisplay.DrawStrokes(Graphics g) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\FormDisplay.cs:ligne 425
+   à gInk.FormDisplay.DrawStrokes() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\FormDisplay.cs:ligne 418
+   à gInk.Root.SetInkVisible(Boolean visible) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 805
+   à gInk.Root.StartInk() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 660
+   à gInk.Root.callshortcut() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 574
+   à gInk.CallForm.CallForm_MouseUp(Object sender, MouseEventArgs e) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\CallForm.cs:ligne 60
+   à System.Windows.Forms.Control.OnMouseUp(MouseEventArgs e)
+   à System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   à System.Windows.Forms.Control.WndProc(Message& m)
+   à System.Windows.Forms.Form.WndProc(Message& m)
+   à System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+
+08 / 27 / 2025 09:49UIThreadException
+
+version 1.9.0.0 built on 27/08/2025  9:49
+Oops, ppInk crashed! Please include the following information if you plan to contact the developers (a copy of the following information is stored in crash.txt in the application folder):
+
+La référence d'objet n'est pas définie à une instance d'un objet.
+
+Stack Trace:
+   à gInk.FormDisplay.DrawStrokes(Graphics g) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\FormDisplay.cs:ligne 425
+   à gInk.FormDisplay.DrawStrokes() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\FormDisplay.cs:ligne 418
+   à gInk.Root.SetInkVisible(Boolean visible) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 805
+   à gInk.Root.StartInk() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 660
+   à gInk.Root.callshortcut() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 574
+   à gInk.CallForm.CallForm_MouseUp(Object sender, MouseEventArgs e) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\CallForm.cs:ligne 60
+   à System.Windows.Forms.Control.OnMouseUp(MouseEventArgs e)
+   à System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   à System.Windows.Forms.Control.WndProc(Message& m)
+   à System.Windows.Forms.Form.WndProc(Message& m)
+   à System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+
+08 / 27 / 2025 09:55UIThreadException
+
+version 1.9.0.0 built on 27/08/2025  9:55
+Oops, ppInk crashed! Please include the following information if you plan to contact the developers (a copy of the following information is stored in crash.txt in the application folder):
+
+La référence d'objet n'est pas définie à une instance d'un objet.
+
+Stack Trace:
+   à gInk.FormDisplay.DrawStrokes(Graphics g) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\FormDisplay.cs:ligne 425
+   à gInk.FormDisplay.DrawStrokes() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\FormDisplay.cs:ligne 418
+   à gInk.Root.SetInkVisible(Boolean visible) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 805
+   à gInk.Root.StartInk() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 660
+   à gInk.Root.callshortcut() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 574
+   à gInk.CallForm.CallForm_MouseUp(Object sender, MouseEventArgs e) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\CallForm.cs:ligne 60
+   à System.Windows.Forms.Control.OnMouseUp(MouseEventArgs e)
+   à System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   à System.Windows.Forms.Control.WndProc(Message& m)
+   à System.Windows.Forms.Form.WndProc(Message& m)
+   à System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+
+08 / 27 / 2025 10:04UIThreadException
+
+version 1.9.0.0 built on 27/08/2025 10:03
+Oops, ppInk crashed! Please include the following information if you plan to contact the developers (a copy of the following information is stored in crash.txt in the application folder):
+
+targetBounds
+
+Stack Trace:
+   à System.Windows.Forms.Control.DrawToBitmap(Bitmap bitmap, Rectangle targetBounds)
+   à gInk.FormDisplay.DrawButtons(Graphics g, Boolean redrawbuttons, Boolean exiting) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\FormDisplay.cs:ligne 303
+   à gInk.FormDisplay.DrawButtons(Boolean redrawbuttons, Boolean exiting) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\FormDisplay.cs:ligne 279
+   à gInk.Root.SetInkVisible(Boolean visible) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 806
+   à gInk.Root.StartInk() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 660
+   à gInk.Root.callshortcut() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 574
+   à gInk.CallForm.CallForm_MouseUp(Object sender, MouseEventArgs e) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\CallForm.cs:ligne 60
+   à System.Windows.Forms.Control.OnMouseUp(MouseEventArgs e)
+   à System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   à System.Windows.Forms.Control.WndProc(Message& m)
+   à System.Windows.Forms.Form.WndProc(Message& m)
+   à System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+
+08 / 27 / 2025 11:36UIThreadException
+
+version 1.9.0.0 built on 27/08/2025 11:36
+Oops, ppInk crashed! Please include the following information if you plan to contact the developers (a copy of the following information is stored in crash.txt in the application folder):
+
+La référence d'objet n'est pas définie à une instance d'un objet.
+
+Stack Trace:
+   à gInk.Root.StartInk() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 668
+   à gInk.Root.callshortcut() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 574
+   à gInk.CallForm.CallForm_MouseUp(Object sender, MouseEventArgs e) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\CallForm.cs:ligne 60
+   à System.Windows.Forms.Control.OnMouseUp(MouseEventArgs e)
+   à System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   à System.Windows.Forms.Control.WndProc(Message& m)
+   à System.Windows.Forms.Form.WndProc(Message& m)
+   à System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+
+08 / 27 / 2025 11:37UIThreadException
+
+version 1.9.0.0 built on 27/08/2025 11:36
+Oops, ppInk crashed! Please include the following information if you plan to contact the developers (a copy of the following information is stored in crash.txt in the application folder):
+
+La référence d'objet n'est pas définie à une instance d'un objet.
+
+Stack Trace:
+   à gInk.Root.StartInk() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 668
+   à gInk.Root.callshortcut() dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\Root.cs:ligne 574
+   à gInk.CallForm.CallForm_MouseUp(Object sender, MouseEventArgs e) dans C:\Users\fabie\source\repos\fakirsu\ppInk\src\CallForm.cs:ligne 60
+   à System.Windows.Forms.Control.OnMouseUp(MouseEventArgs e)
+   à System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   à System.Windows.Forms.Control.WndProc(Message& m)
+   à System.Windows.Forms.Form.WndProc(Message& m)
+   à System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+

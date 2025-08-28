@@ -3866,7 +3866,27 @@ namespace gInk
             if (filled >= Filling.Empty)
                 Root.FilledSelected = filled;
             else if ((Array.IndexOf(applicableTool, tool) >= 0) && (tool == Root.ToolSelected))
+            ////
+            ///Root.FilledSelected = (Root.FilledSelected + 1) % Filling.Modulo;
+            ///
+
+            if (tool == Tools.NumberTag)
+            {
+                // Cycle limité à 2 états: Blanc <-> Noir
+                if (Root.FilledSelected != Filling.WhiteFilled && Root.FilledSelected != Filling.BlackFilled)
+                    Root.FilledSelected = Filling.WhiteFilled;
+                else
+                    Root.FilledSelected = (Root.FilledSelected == Filling.WhiteFilled)
+                                            ? Filling.BlackFilled
+                                            : Filling.WhiteFilled;
+            }
+            else
+            {
                 Root.FilledSelected = (Root.FilledSelected + 1) % Filling.Modulo;
+            }
+
+
+
             else
                 Root.FilledSelected = Filling.Empty;
             Root.UponButtonsUpdate |= 0x2;
@@ -3989,19 +4009,12 @@ namespace gInk
             {
                 if (Root.FilledSelected == Filling.Outside)
                     Root.FilledSelected = Filling.WhiteFilled;
-                if (Root.FilledSelected == Filling.Empty)
-                    btNumb.BackgroundImage = getImgFromDiskOrRes("tool_numb_act", ImageExts);
-                else if (Root.FilledSelected == Filling.PenColorFilled)
-                { // we use the state FilledColor to do the modification of the tag number
-                    //Console.WriteLine("avt setTag");
-                    SetTagNumber();
-                    //Console.WriteLine("ap setTag");
-                    btNumb.BackgroundImage = getImgFromDiskOrRes("tool_numb_act", ImageExts);
-                }
-                else if (Root.FilledSelected == Filling.WhiteFilled)
+
+                if (Root.FilledSelected == Filling.WhiteFilled)
                     btNumb.BackgroundImage = getImgFromDiskOrRes("tool_numb_fillW", ImageExts);
-                else if (Root.FilledSelected == Filling.BlackFilled)
+                else // BlackFilled
                     btNumb.BackgroundImage = getImgFromDiskOrRes("tool_numb_fillB", ImageExts);
+
                 try
                 {
                     IC.Cursor = cursorred;
@@ -6939,10 +6952,8 @@ namespace gInk
             }
             else if (((Button)sender).Name.Contains("Numb"))
             {
-                CustomizeAndOpenSubTools(-1, "SubToolsNumb", new string[] { "tool_numb_act", "tool_numb", "tool_numb_fillW", "tool_numb_fillB" }, Root.Local.OvalSubToolsHints,
-                     new Func<int, bool>[] { ii => { SelectTool(Tools.NumberTag,Filling.Empty); return true; },
-                                                             ii => { SelectTool(Tools.NumberTag,Filling.PenColorFilled); return true; },  // the setNumber is done in the Case PenColorFilled
-                                                             //ii => { SelectTool(Tools.Oval,Filling.Outside ); return true; },
+                CustomizeAndOpenSubTools(-1, "SubToolsNumb", new string[] { "tool_numb_fillW", "tool_numb_fillB" }, Root.Local.OvalSubToolsHints,
+                     new Func<int, bool>[] { 
                                                              ii => { SelectTool(Tools.NumberTag,Filling.WhiteFilled); return true; },
                                                              ii => { SelectTool(Tools.NumberTag,Filling.BlackFilled ); return true; } });
 
@@ -7048,6 +7059,25 @@ namespace gInk
             }
             if (i >= Tools.Hand)
                 SelectPen(LastPenSelected);
+
+            ////////
+            ///
+            // Forcer le remplissage par défaut au premier clic sur NumberTag (éviter l'état Empty)
+            // Forcer le remplissage UNIQUEMENT lors de la première activation de NumberTag
+            if (i == Tools.NumberTag && f < Filling.Empty && Root.ToolSelected != Tools.NumberTag)
+            {
+                int df = (Root.FilledSelected == Filling.WhiteFilled || Root.FilledSelected == Filling.BlackFilled)
+                ? Root.FilledSelected
+                : Filling.WhiteFilled; // ou Filling.BlackFilled si tu préfères démarrer en noir
+                f = df;
+            }
+            //////
+            ///
+
+
+
+
+
             SelectTool(i,f);
         }
 

@@ -1,1 +1,3 @@
-namespace gInk { public static class Build { public static string Timestamp = "27/08/2025  6:44:42,13".Substring(0,16);}} 
+
+namespace gInk { public static class Build { public static string Timestamp = "28/08/2025 19:10:06,48".Substring(0,16);}} 
+

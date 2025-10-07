@@ -43,6 +43,40 @@ namespace gInk
         [STAThread]
 		static void Main(string [] args)
 		{
+            // force loading of local DLL 
+            AppDomain customDomain = AppDomain.CreateDomain("IsolatedDomain", null, new AppDomainSetup
+            {
+                ApplicationBase = AppDomain.CurrentDomain.BaseDirectory,
+                PrivateBinPath = AppDomain.CurrentDomain.BaseDirectory,
+                DisallowBindingRedirects = true,
+                DisallowCodeDownload = true,
+                DisallowPublisherPolicy = true
+            });
+            customDomain.AssemblyResolve += (sender, _args) =>
+            {
+                Console.WriteLine("!!!!!!!"+_args.Name);
+                if (_args.Name.StartsWith("Microsoft.Ink,"))
+                {
+                    string localPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "microsoft.ink.dll");
+                    Console.WriteLine("try to force local loading of microsoft.ink");
+                    return Assembly.LoadFrom(localPath);
+                }
+                return null;
+            };
+            // Charge et ex�cute votre code dans le domaine personnalis�
+            string pth = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "microsoft.ink.dll");
+            Console.WriteLine(pth);
+            Assembly _aa = Assembly.LoadFile(pth);// "Microsoft.Ink");
+            //Assembly _aaa = Assembly.LoadFrom(pth);// "Microsoft.Ink");
+            customDomain.DoCallBack(() =>
+            {
+                // Votre code ici, par exemple :
+                string pth2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "microsoft.ink.dll");
+                Assembly _aa2 = Assembly.LoadFile(pth2);// "Microsoft.Ink");
+
+                Console.WriteLine($"Assembly charg�e : {pth2} = {_aa2.Location}");
+            });
+
             if (!EnsureSingleInstance()) return;
 
             ProgramFolder = AppDomain.CurrentDomain.BaseDirectory;

@@ -1,3 +1,6 @@
+### *Important Notice*: regression introduced in windows 24H2 update(August 2025)
+A Windows update has introduced a regression when using microsoft.ink.dll (see [Exception analysis](https://developercommunity.visualstudio.com/t/SecurityException-in-MicrosoftInkInkOv/10958778#T-N10971297) and [issue #346](https://github.com/pubpub-zz/ppInk/issues/346) ).
+Until Microsoft fixes the issue I've attached a script _install_microsoft_ink_dll.bat_ that will revert to the latest operational dll. **this script has to be executed with admin rights**.
 
 # Introduction
 

@@ -2368,11 +2368,8 @@ namespace gInk
                             sPara = ColorPickerEnabled.ToString();
                             break;
                         case "INKVISIBLE_ICON":
-							if (PanEnabled)
-								sPara = "True";
-							else
-								sPara = "False";
-							break;
+				sPara = InkVisibleEnabled?"True":"False";
+  				break;
 						case "ALLOW_DRAGGING_TOOLBAR":
 							if (AllowDraggingToolbar)
 								sPara = "True";

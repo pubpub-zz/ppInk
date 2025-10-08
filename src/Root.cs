@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using System.Drawing.Drawing2D;
 using gInk.Apng;
+using System.ComponentModel;
 
 namespace gInk
 {

@@ -402,6 +402,8 @@ namespace gInk
         public string TextFont = "Arial";
         public bool TextItalic = false;
         public bool TextBold = false;
+        public double TextDlgHiddenOpacity = .1;
+        public bool TextDlgHiddenModify = false;
 
         public int TextBackground = 0;
 
@@ -1401,6 +1403,14 @@ namespace gInk
                                 if (float.TryParse(tab[3], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempf))
                                     TextSize = (int)(tempf / 100.0 * System.Windows.SystemParameters.PrimaryScreenWidth);
                             }
+                            break;
+                        case "TEXTDIALOG_OPACITY":
+                            TextDlgHiddenOpacity = -1.0;
+                            if (double.TryParse(sPara, out TextDlgHiddenOpacity) || TextDlgHiddenOpacity < 0 || TextDlgHiddenOpacity > 1.0)
+                                TextDlgHiddenOpacity = 1.0;
+                            break;
+                        case "TEXTDIALOG_MODIFY_VISIBLE":
+                            TextDlgHiddenModify = (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF");
                             break;
                         case "TEXT_BACKGROUND":
                             int.TryParse(sPara, out TextBackground);

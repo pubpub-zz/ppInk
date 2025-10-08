@@ -22,7 +22,7 @@ namespace gInk
         bool Saved_Black;
 
 
-        public FormInput(string caption,string label, string txt, bool ML, gInk.Root rt = null, Microsoft.Ink.Stroke stk = null)
+        public FormInput(string caption, string label, string txt, bool ML, gInk.Root rt = null, Microsoft.Ink.Stroke stk = null, bool invisible = false)
         {
             InitializeComponent();
             
@@ -50,6 +50,15 @@ namespace gInk
             }
             Root = rt;
             stroke = stk;
+
+            if (invisible)
+            {
+                if (rt.TextDlgHiddenOpacity < 1.0)
+                    this.VisibleCb.Checked = true;
+            }
+            else
+                this.VisibleCb.Visible = false;
+
             if (stroke == null)
             {
                 FontBtn.Visible = false;
@@ -216,6 +225,15 @@ namespace gInk
                 this.DialogResult = DialogResult.OK;
                 this.Close();                
             }
+        }
+
+        private void VisibleCb_CheckedChanged(object sender, EventArgs e)
+        {
+            this.Opacity=VisibleCb.Checked?Root.TextDlgHiddenOpacity:1;
+            if (this.InputML.Visible)
+                this.InputML.Select();
+            else
+                this.InputML.Select();
         }
     }
 }

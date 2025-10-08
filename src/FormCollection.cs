@@ -2073,13 +2073,13 @@ namespace gInk
         }
 
         bool TextEdited = false;    // used to prevent random toolbar closing when using esc in a dialog box
-        private DialogResult ModifyTextInStroke(Stroke stk, string txt)
+        private DialogResult ModifyTextInStroke(Stroke stk, string txt,bool  invisibleDlg = false)
         {
             // required to access the dialog box
             AllowInteractions(true);
             //ToThrough();
 
-            FormInput inp = new FormInput(Root.Local.DlgTextCaption, Root.Local.DlgTextLabel, txt, true, Root, stk);
+            FormInput inp = new FormInput(Root.Local.DlgTextCaption, Root.Local.DlgTextLabel, txt, true, Root, stk, invisibleDlg);
 
             Point pt = stk.GetPoint(0);
             IC.Renderer.InkSpaceToPixel(Root.FormDisplay.gOneStrokeCanvus, ref pt);
@@ -2760,7 +2760,7 @@ namespace gInk
                     {
                         if (minStroke.ExtendedProperties.Contains(Root.TEXT_GUID))
                         {
-                            ModifyTextInStroke(minStroke, (string)(minStroke.ExtendedProperties[Root.TEXT_GUID].Data));
+                            ModifyTextInStroke(minStroke, (string)(minStroke.ExtendedProperties[Root.TEXT_GUID].Data), Root.TextDlgHiddenOpacity <= 1.0 && Root.TextDlgHiddenModify);
                             SelectTool(Tools.Hand, Filling.Empty); // Good Idea ????
                             ComputeTextBoxSize(ref minStroke);
 
@@ -2791,7 +2791,7 @@ namespace gInk
                                               (Root.ToolSelected == Tools.txtLeftAligned) ? StringAlignment.Near : StringAlignment.Far);
                     Root.FormDisplay.DrawStrokes();
                     Root.FormDisplay.UpdateFormDisplay(true);
-                    if (ModifyTextInStroke(st, (string)(st.ExtendedProperties[Root.TEXT_GUID].Data)) == DialogResult.Cancel)
+                    if (ModifyTextInStroke(st, (string)(st.ExtendedProperties[Root.TEXT_GUID].Data),Root.TextDlgHiddenOpacity<=1.0) == DialogResult.Cancel)
                         IC.Ink.DeleteStroke(st);
                     else
                     {
@@ -6788,7 +6788,7 @@ namespace gInk
             AllowInteractions(true);
             //ToThrough();
             int k = -1;
-            FormInput inp = new FormInput(Root.Local.DlgTagCaption, Root.Local.DlgTagLabel, "", false, Root, null);
+            FormInput inp = new FormInput(Root.Local.DlgTagCaption, Root.Local.DlgTagLabel, "", false, Root, null, false);
             string s = init;
             if (init == "")
                 s = String.Format(Root.TagFormatting, Root.TagNumbering, (Char)(64 + Root.TagNumbering), (Char)(96 + Root.TagNumbering));
@@ -7995,7 +7995,7 @@ namespace gInk
                         bool interact = Root.FormCollection.Visible && Root.PointerMode;
                         if (interact) AllowInteractions(false);
                         Screen scr = Screen.FromPoint(MousePosition);
-                        FormInput inp = new FormInput(Root.Local.M3UTextCaption, Root.Local.M3UTextLabel, Root.ExpandVarCmd(Root.IndexDefaultText, 0, 0, 0, 0), false, Root, null);
+                        FormInput inp = new FormInput(Root.Local.M3UTextCaption, Root.Local.M3UTextLabel, Root.ExpandVarCmd(Root.IndexDefaultText, 0, 0, 0, 0), false, Root, null, false);
                         inp.Top = ((int)(scr.Bounds.Top + scr.Bounds.Bottom - inp.Height) / 2);//System.Windows.SystemParameters.PrimaryScreenHeight)-inp.Height) / 2;
                         inp.Left = ((int)(scr.Bounds.Left + scr.Bounds.Right - inp.Width) / 2);// System.Windows.SystemParameters.PrimaryScreenWidth) - inp.Width) / 2;
                         DialogResult ret = inp.ShowDialog();  // cancellation process is within the cancel button

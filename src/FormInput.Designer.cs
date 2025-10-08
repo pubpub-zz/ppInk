@@ -37,6 +37,7 @@ namespace gInk
             this.FontDlg = new System.Windows.Forms.FontDialog();
             this.ColorBtn = new System.Windows.Forms.Button();
             this.boxingCb = new System.Windows.Forms.ComboBox();
+            this.VisibleCb = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btOK
@@ -136,6 +137,17 @@ namespace gInk
             this.boxingCb.Visible = false;
             this.boxingCb.TextChanged += new System.EventHandler(this.boxingCb_TextChanged);
             // 
+            // VisibleCb
+            // 
+            this.VisibleCb.AutoSize = true;
+            this.VisibleCb.Location = new System.Drawing.Point(476, 3);
+            this.VisibleCb.Name = "VisibleCb";
+            this.VisibleCb.Size = new System.Drawing.Size(64, 17);
+            this.VisibleCb.TabIndex = 8;
+            this.VisibleCb.Text = "In&visible";
+            this.VisibleCb.UseVisualStyleBackColor = true;
+            this.VisibleCb.CheckedChanged += new System.EventHandler(this.VisibleCb_CheckedChanged);
+            // 
             // FormInput
             // 
             this.AcceptButton = this.btOK;
@@ -143,6 +155,7 @@ namespace gInk
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btCancel;
             this.ClientSize = new System.Drawing.Size(563, 179);
+            this.Controls.Add(this.VisibleCb);
             this.Controls.Add(this.boxingCb);
             this.Controls.Add(this.ColorBtn);
             this.Controls.Add(this.FontBtn);
@@ -173,5 +186,6 @@ namespace gInk
         public System.Windows.Forms.FontDialog FontDlg;
         public System.Windows.Forms.Button ColorBtn;
         private System.Windows.Forms.ComboBox boxingCb;
+        private System.Windows.Forms.CheckBox VisibleCb;
     }
 }

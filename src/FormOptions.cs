@@ -610,7 +610,7 @@ namespace gInk
 				if ((ComboBox)sender == comboPensWidth[p])
 				{
 					float o;
-					if (float.TryParse(comboPensWidth[p].Text, out o) && o > 0 && o <= 3000)
+                    			if (float.TryParse(comboPensWidth[p].Text.Replace(',', '.'), NumberStyles.AllowDecimalPoint , CultureInfo.InvariantCulture, out o) && o > 0 && o <= 3000)
 					{
 						Root.PenAttr[p].Width = o;
 						comboPensWidth[p].BackColor = Color.White;
@@ -1082,7 +1082,7 @@ namespace gInk
         {
             float f = -1;
             TextBox tb = (TextBox)sender;
-            if (float.TryParse(tb.Text, out f) && f >= 0)
+            if (float.TryParse(tb.Text.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out f) && f >= 0)
             {
                 Root.TimeBeforeFading = f;
                 tb.BackColor = SystemColors.Window;
@@ -1118,7 +1118,7 @@ namespace gInk
 
         private void ZoomScaleEd_Validating(object sender, CancelEventArgs e)
         {
-            if (float.TryParse(ZoomScaleEd.Text, out Root.ZoomScale))
+            if (float.TryParse(ZoomScaleEd.Text.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out Root.ZoomScale))
                 ZoomScaleEd.BackColor = SystemColors.Window;
             else
                 ZoomScaleEd.BackColor = Color.Orange;

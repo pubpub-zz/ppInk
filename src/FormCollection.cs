@@ -2855,7 +2855,7 @@ namespace gInk
                         AllowInteractions(false);
                         if (st == "")
                             break;
-                        if (Double.TryParse(st, out g))
+                        if (Double.TryParse(st.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out g))
                         {
                             Measure2Scale *= g / f;
                             Root.Measure2Scale = Measure2Scale;

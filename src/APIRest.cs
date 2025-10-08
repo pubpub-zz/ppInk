@@ -444,7 +444,7 @@ namespace gInk
                                 w = -1;
                             if (!(query.TryGetValue("H", out s) && int.TryParse(s, out h)))
                                 h = -1;
-                            if (!(query.TryGetValue("D", out s) && double.TryParse(s, out dist)))
+                            if (!(query.TryGetValue("D", out s) && double.TryParse(s.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out dist)))
                                 dist = -1;
                             if (i == Tools.ClipArt || i==Tools.PatternLine)
                                 if (query.TryGetValue("I", out s))
@@ -781,7 +781,7 @@ namespace gInk
                             resp.StatusCode = 409;
                             ret = "!!!!! Not in Inking mode";
                         }
-                        else if (query.TryGetValue("K", out s) && double.TryParse(s,out d))
+                        else if (query.TryGetValue("K", out s) && double.TryParse(s.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out d))
                         {
                             Root.FormCollection.ModifyStrokesSelection(); // true, ref Root.FormCollection.InprogressSelection, Root.FormCollection.StrokesSelection);
                             if (Root.FormCollection.StrokesSelection.Count == 0 && Root.StrokeHovered == null)
@@ -831,7 +831,7 @@ namespace gInk
                             resp.StatusCode = 409;
                             ret = "!!!!! Not in Inking mode";
                         }
-                        else if (query.TryGetValue("A", out s) && double.TryParse(s, out d))
+                        else if (query.TryGetValue("A", out s) && double.TryParse(s.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out d))
                         {
                             Root.FormCollection.ModifyStrokesSelection(); // true, ref Root.FormCollection.InprogressSelection, Root.FormCollection.StrokesSelection);
                             if (Root.FormCollection.StrokesSelection.Count == 0 && Root.StrokeHovered == null)

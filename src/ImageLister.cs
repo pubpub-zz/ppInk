@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -175,7 +176,7 @@ namespace gInk
             string fn2 = fn.Replace('\\','/').ToLower();
             bool fnd = false;
             float scale = 1.0f;
-            if (fns.Length == 2 && float.TryParse(fns[1], out scale)) { ; };
+            if (fns.Length == 2 && float.TryParse(fns[1].Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out scale)) { ; };
             foreach(ListViewItem it in ImageListViewer.Items)
             {
                 fnd = it.ImageKey.Equals(fn2);

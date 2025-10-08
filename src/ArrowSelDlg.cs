@@ -195,7 +195,7 @@ namespace gInk
         {
             float f;
             TextBox tb = sender as TextBox;
-            if (float.TryParse(tb.Text, out f))
+            if (float.TryParse(tb.Text.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out f))
             {
                 tb.BackColor = Color.White;
                 if(e != null)e.Cancel = false;
@@ -217,14 +217,14 @@ namespace gInk
         private void TailScaleEd_Leave(object sender, EventArgs e)
         {
             float f;
-            if(float.TryParse(TailScaleEd.Text,out f) && f != 1.0)
+            if(float.TryParse(TailScaleEd.Text.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out f) && f != 1.0)
                 ArrowTail = ArrowTail.Split('%')[0] + "%" + TailScaleEd.Text;
         }
 
         private void HeadScaleEd_Leave(object sender, EventArgs e)
         {
             float f;
-            if (float.TryParse(HeadScaleEd.Text, out f) && f != 1.0)
+            if (float.TryParse(HeadScaleEd.Text.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out f) && f != 1.0)
                 ArrowHead = ArrowHead.Split('%')[0] + "%" + HeadScaleEd.Text;
         }
     }

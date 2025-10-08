@@ -1126,7 +1126,7 @@ namespace gInk
                                     k = TimeBeforeFading;
                                 if (sPara.ToUpper() == "N")
                                     k = -1;
-                                else if (!float.TryParse(sPara, out k))
+                                else if (!float.TryParse(sPara.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out k))
                                     k = TimeBeforeFading;
                                 if (k >= 0)
                                     PenAttr[penid].ExtendedProperties.Add(FADING_PEN, k);
@@ -1451,12 +1451,14 @@ namespace gInk
                                 MagneticRadius = (int)(tempf / 100.0 * System.Windows.SystemParameters.PrimaryScreenWidth);
                             break;
                         case "MAGNETIC_ANGLE_TOLERANCE": 
-                            float.TryParse(sPara, out MagneticAngleTolRatio);
-                            MagneticAngleTolRatio = MagneticAngleTolRatio / 100.0F;
-                            MagneticAngleTolerance = MagneticAngle * MagneticAngleTolRatio;
+                            if(float.TryParse(sPara, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out MagneticAngleTolRatio))
+                            {
+                            	MagneticAngleTolRatio = MagneticAngleTolRatio / 100.0F;
+                            	MagneticAngleTolerance = MagneticAngle * MagneticAngleTolRatio;
+                            }
                             break;                            
                         case "MAGNETIC_ANGLE":
-                            float.TryParse(sPara, out MagneticAngle);
+                            if(float.TryParse(sPara, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out MagneticAngle))
                             MagneticAngleTolerance = MagneticAngle * MagneticAngleTolRatio ;
                             break;
                         case "ERASER_ICON":
@@ -1785,11 +1787,11 @@ namespace gInk
                                 ToolbarOrientation = Orientation.toDown;
                             break;
                         case "FADING_TIME":
-                            if (float.TryParse(sPara, out tempf))
+                            if (float.TryParse(sPara.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempf))
                                 TimeBeforeFading = (tempf>=0.0?tempf:0.0f);
                             break;
                         case "FADING_DECREASE":
-                            if (Int32.TryParse(sPara, out tempi) && tempi>0 && tempi<255)
+                            if (Int32.TryParse(sPara.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempi) && tempi>0 && tempi<255)
                                 DecreaseFading = (byte)tempi;                       
                             break;
                         case "ZOOM":     // Width;Height;scale(f);Continuous(Y/N)
@@ -1860,15 +1862,15 @@ namespace gInk
                             break;                            
                         // Those parameters are for init only : there is no write to file
                         case "PENWIDTH_THIN_DEFAULT":
-                            if (float.TryParse(sPara, out tempf))
+                            if (float.TryParse(sPara.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempf))
                                 PenWidthThin = tempf;
                             break;
                         case "PENWIDTH_NORMAL_DEFAULT":
-                            if (float.TryParse(sPara, out tempf))
+                            if (float.TryParse(sPara.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempf))
                                 PenWidthNormal = tempf;
                             break;
                         case "PENWIDTH_THICK_DEFAULT":
-                            if (float.TryParse(sPara, out tempf))
+                            if (float.TryParse(sPara.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out tempf))
                                 PenWidthThick = tempf;
                             break;
                         case "DIRECTX":

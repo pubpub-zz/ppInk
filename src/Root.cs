@@ -920,10 +920,18 @@ namespace gInk
 		public void SetDefaultPens()
 		{
 			PenEnabled[0] = false;
-			PenAttr[0] = new DrawingAttributes();
-			PenAttr[0].Color = Color.FromArgb(80, 80, 80);
-			PenAttr[0].Width = 80;
-			PenAttr[0].Transparency = 0;
+            try
+            {
+                PenAttr[0] = new DrawingAttributes();
+                PenAttr[0].Color = Color.FromArgb(80, 80, 80);
+                PenAttr[0].Width = 80;
+                PenAttr[0].Transparency = 0;            
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"Original Exception : {e.ToString()}");
+                throw new Exception("You seem to face the regression produced by Windows 24H2 Update.\nTry to revert microsoft.ink.dll running **as an admin** `install_microsoft_ink_dll.bat`");
+            }
 
 			PenEnabled[1] = true;
 			PenAttr[1] = new DrawingAttributes();

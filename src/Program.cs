@@ -44,6 +44,8 @@ namespace gInk
 		static void Main(string [] args)
 		{
             // force loading of local DLL 
+            Console.WriteLine("version " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " built on " + Build.Timestamp);
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");  // This ensure proper String processing whatever Operating Language
             AppDomain customDomain = AppDomain.CreateDomain("IsolatedDomain", null, new AppDomainSetup
             {
                 ApplicationBase = AppDomain.CurrentDomain.BaseDirectory,

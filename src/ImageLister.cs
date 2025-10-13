@@ -46,6 +46,7 @@ namespace gInk
             LoadImageBtn.Text = Root.Local.ButtonLoadImageText;
             DelBtn.Text = Root.Local.ButtonDeleteText;
             FillingCombo.Items.Clear();
+            Console.WriteLine($"ListFillingsText {Root.Local.ListFillingsText}");
             FillingCombo.Items.AddRange(Root.Local.ListFillingsText.Split(';'));
             FillingCombo.Text = (string)FillingCombo.Items[Root.ImageStampFilling + 1];
 

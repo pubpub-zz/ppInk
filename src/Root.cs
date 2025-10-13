@@ -1046,19 +1046,20 @@ namespace gInk
 
         public void ReadOptions(string file)
 		{
-            string file2 = file;
+            string file2 = Path.GetFileName(file);
 			if (!File.Exists(file))
 				file = Program.RunningFolder + file2;
             if (!File.Exists(file))
                 file = Program.ProgramFolder + file2;
             if (!File.Exists(file))
 				return;
-
-
+            Console.WriteLine($"Culture: {Thread.CurrentThread.CurrentCulture.ToString()}");
 			FileStream fini = new FileStream(file, FileMode.Open);
-			StreamReader srini = new StreamReader(fini);
+            Console.WriteLine($"loading {file} ({fini.Length} Bytes)");
+            StreamReader srini = new StreamReader(fini);
 			string sLine = "";
 			string sName = "", sPara = "";
+            Boolean FirstLineToBePrinted = true;
 			while (sLine != null)
 			{
 				sLine = srini.ReadLine();
@@ -1077,6 +1078,11 @@ namespace gInk
 					// && !sLine.Substring(sLine.IndexOf("=") + 1).Contains("=")
 				)
 				{
+                    if (FirstLineToBePrinted)
+                    {
+                        Console.WriteLine($"1st Line: {sLine} => {sLine.ToUpper()}");
+                        FirstLineToBePrinted=false;
+                    }
 					sName = sLine.Substring(0, sLine.IndexOf("="));
 					sName = sName.Trim();
 					sName = sName.ToUpper();

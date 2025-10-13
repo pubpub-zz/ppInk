@@ -286,7 +286,8 @@ namespace gInk
                 d = new DirectoryInfo(Program.ProgramFolder + "lang");
             if (!d.Exists)
 				return;
-
+	
+            Console.WriteLine($"Language folder {d.FullName}");
 			FileInfo[] Files = d.GetFiles("*.txt");
 			foreach (FileInfo file in Files)
 			{
@@ -359,9 +360,9 @@ namespace gInk
                 filename = Program.ProgramFolder + "lang/" + loname + ".txt";
             if (!File.Exists(filename))
                 return;
-
             FileStream fini = new FileStream(filename, FileMode.Open);
-            StreamReader srini = new StreamReader(fini);
+            Console.WriteLine($"Loading Language from {filename} ({fini.Length} Bytes)");
+            StreamReader srini = new StreamReader(fini);            
             LoadLocalStream(srini);
             fini.Close();
             CurrentLanguageFile = loname;
@@ -371,7 +372,8 @@ namespace gInk
         {
 			string sLine = "";
 			string sName = "", sPara = "";
-			while (sLine != null)
+            Boolean FirstLineToBePrinted = true;       
+            while (sLine != null)
 			{
 				sLine = srini.ReadLine();
 				if
@@ -390,6 +392,11 @@ namespace gInk
                     //!sLine.Substring(sLine.IndexOf("=") + 1).Contains("=")
                 )
 				{
+                    if (FirstLineToBePrinted)
+                    {
+                        Console.WriteLine($"1st lang Line: {sLine}");
+                        FirstLineToBePrinted = false;
+                    }
                     sName = sLine.Substring(0, sLine.IndexOf("="));
 					sName = sName.Trim();
 					sPara = sLine.Substring(sLine.IndexOf("=") + 1).Replace("\\n","\n");

@@ -24,7 +24,7 @@ https://user-images.githubusercontent.com/4083478/119278023-16f58b00-bc23-11eb-9
 (extract from @NOVAinc on Twitch)</BR>
 other demo : https://www.twitch.tv/novaaoe/clip/PlacidConcernedBulgogiOptimizePrime-mONUtlMLGvu2uUu1
 
-This tool is intended to be usable through mouse,tablet pen(taking into pressure) but also throug touchscreen or graphic tablet, and keyboard can be used to activate functions.
+This tool is intended to be usable through mouse,tablet pen(taking into pressure) but also through touchscreen or graphic tablet, and keyboard can be used to activate functions.
 
 It provides a variety of drawing tools, including hand writing, lines (2 points and polyline), rectangles, ellipses, arrows, numbering tags, left/right aligned text, cliparts, stroke patterns, and move/copy/resize/rotate functions.
 ![image](screenshot2.png)
@@ -41,18 +41,18 @@ The pen setup (fading / width / line strokes) applies to the following  tools:
     
 ### Hand
   <IMG src="https://user-images.githubusercontent.com/4083478/130368095-bf41c299-5e27-4e6e-b94a-6959afea9258.png" width=200>
-  if you press ctrl or shift, you will engage momentarily line tool.
+  If you press ctrl or shift, you will engage momentarily line tool.
   
 ### Rectangle
   <IMG src="https://user-images.githubusercontent.com/4083478/130368108-db7a8dd2-e465-4ebe-923d-bf573cfa53c6.png" width=200>
-  when drawing, if you use right-click, the drawing will be centered on the click down.
+  When drawing, if you use right-click, the drawing will be centered on the click down.
 
 ### Ellipsis
   <IMG src="https://user-images.githubusercontent.com/4083478/130368123-469c7ee4-d28e-44b2-8467-2d70b437e321.png" width=200>
-  when drawing, if you use right-click, the drawing will be centered on the click down.
+  When drawing, if you use right-click, the drawing will be centered on the click down.
   
 ---
-for these three drawing tools, clicks scroll through the following filling options:</BR>
+For these three drawing tools, clicks scroll through the following filling options:</BR>
 <i>no filling  &rarr; colored (filled) area &rarr; outer filling (interior remains empty) &rarr; white filling &rarr; black filling</i>
 
 <IMG src="https://github.com/pubpub-zz/ppInk/assets/4083478/0717a5ba-c7f5-4a0f-b82b-6efd236673ec"  width=25%>
@@ -70,10 +70,11 @@ for these three drawing tools, clicks scroll through the following filling optio
  
 <i> segment line &rarr; polyline &rarr; color filled polygon &rarr; outer filed polygon &rarr; white filled polygon &rarr; black filled polygon</i>
 
-#### scaled measurement
-when measurement is activated, the length of your in progress drawing is displayed. taking into account the  current scale.
+#### Scaled measurement
+
+When measurement is activated, the length of your in progress drawing is displayed, taking into account the current scale.
 You can set the scale in the options, but you can also define it drawing.
-to do so:
+To do so:
 * draw a curve, a line, or an arrow with the right button.
 * when the drawing will be completed, enter the actual length of your drawing to defin the scale
 * draw all your next drawing normally with the left scale. The next drawings length will take into account the new scale

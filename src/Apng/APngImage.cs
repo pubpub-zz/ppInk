@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -195,7 +195,20 @@ namespace gInk.Apng
                     }
                 } while (chunk.ChunkType != "IEND");
 
-                DefaultImage.GetImage(); // to force Default._image generation
+                try
+                {
+                    DefaultImage.GetImage(); // to force Default._image generation
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine($"Error loading Png as Apng? : {e.Message}");
+                    IsSimplePng = true;
+                    DefaultImage._image = img;
+                    DefaultImage._delay = 0;
+                    NumFrames = 0;
+                    _frames.Insert(0, DefaultImage);
+                    return;
+                }
 
                 // Now we should apply every chunk in otherChunks to every frame.
                 //_frames.ForEach(f => otherChunks.ForEach(f.AddOtherChunk));

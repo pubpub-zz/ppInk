@@ -7,6 +7,11 @@ I've updated the exception to be as clear as possible
 
 <img src="https://github.com/user-attachments/assets/41a678ac-bcdd-45f3-bd58-01bbdf756ee5" />
 
+### *Important Notice 2*: beta versions
+I'm producing some interim beta release to fix issues as quickly as possible one after the other. However, I'm trying to keep aligned the released versions and documentation. 
+In order to ease finding them among the issues, I'm tagging the latest threads.
+You can find them inhere: 
+[latest beta available here](https://github.com/pubpub-zz/ppInk/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22!!Latest%20beta%20here!!!%22)
 
 # Introduction
 

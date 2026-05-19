@@ -460,6 +460,7 @@ namespace gInk
         public Color SpotLightColor = Color.FromArgb(128, Color.Orange);
         public int SpotLightRadius = 200;
         public bool SpotOnAlt = true;
+        public bool DisableArrowOnAltPress = false;
 
         public Rectangle WindowRect = new Rectangle(Int32.MinValue, Int32.MinValue, -1, -1);
         public bool EraseOnLoosingFocus = false;
@@ -1698,7 +1699,9 @@ namespace gInk
                             if (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF")
                                 SpotOnAlt  = false;
                             break;
-
+                        case "ARROW_ON_ALT": // only in ini file
+                            DisableArrowOnAltPress = (sPara.ToUpper() == "FALSE" || sPara == "0" || sPara.ToUpper() == "OFF");
+                            break;                        
                         case "SELECTION_COLOR":
                             tab = sPara.Split(',');
                             if (tab.Length == 4)

@@ -5572,15 +5572,18 @@ namespace gInk
                 if (Root.SpotOnAlt)
                     SpotLightTemp = true;
                 tempArrowCursor = IC.Cursor;
-                try
+                if (!Root.DisableArrowOnAltPress)
                 {
-                    IC.Cursor = cursorred;
-                }
-                catch
-                {
-                    IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
-                }
-                System.Windows.Forms.Cursor.Position = new Point(System.Windows.Forms.Cursor.Position.X, System.Windows.Forms.Cursor.Position.Y);
+                    try
+                    {
+                        IC.Cursor = cursorred;
+                    }
+                    catch
+                    {
+                        IC.Cursor = getCursFromDiskOrRes(Root.cursorarrowFileName, System.Windows.Forms.Cursors.NoMove2D);
+                    }
+                    System.Windows.Forms.Cursor.Position = new Point(System.Windows.Forms.Cursor.Position.X, System.Windows.Forms.Cursor.Position.Y);
+                };
             }
             else if (!(tempArrowCursor is null) && !(AltKeyPressed() || Root.APIRestAltPressed))
             {

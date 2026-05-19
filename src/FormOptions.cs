@@ -24,6 +24,8 @@ namespace gInk
 		ComboBox[] comboPensWidth = new ComboBox[Root.MaxPenCount];
         Panel [] comboPensLineStyle = new Panel[Root.MaxPenCount];
         CheckBox[] comboPensFading = new CheckBox[Root.MaxPenCount];
+        PictureBox pboxDefaultFontColor = new PictureBox();
+        PictureBox pboxDefaultTagColor = new PictureBox();
         //Label lbcbPens, lbpboxPens, lbcomboPensAlpha, lbcomboPensWidth, lbcomboPensFading;
 
 		Label[] lbHotkeyPens = new Label[Root.MaxPenCount];
@@ -86,6 +88,23 @@ namespace gInk
                 tabPage3.Controls.Add(lbHotkeyPens[p]);
                 tabPage3.Controls.Add(hiPens[p]);
             }
+            tabPage1.Controls.Add(pboxDefaultFontColor);
+            pboxDefaultFontColor.Name = "FontColor";
+            pboxDefaultFontColor.Width = 15;
+            pboxDefaultFontColor.Height = 15;
+            pboxDefaultFontColor.BorderStyle = BorderStyle.FixedSingle;
+            pboxDefaultFontColor.Left = DefaultFontColorCb.Right + 3;
+            pboxDefaultFontColor.Top = DefaultFontColorCb.Top;
+            pboxDefaultFontColor.Click += pboxFont_Click;
+
+            tabPage1.Controls.Add(pboxDefaultTagColor);
+            pboxDefaultTagColor.Name = "TagColor";
+            pboxDefaultTagColor.Width = 15;
+            pboxDefaultTagColor.Height = 15;
+            pboxDefaultTagColor.BorderStyle = BorderStyle.FixedSingle;
+            pboxDefaultTagColor.Left = DefaultTagColorCb.Right + 3;
+            pboxDefaultTagColor.Top = DefaultTagColorCb.Top;
+            pboxDefaultTagColor.Click += pboxFont_Click;
         }
 
         private void FormOptions_Load(object sender, EventArgs e)
@@ -167,6 +186,16 @@ namespace gInk
             cbLoadSaveEnabled.Checked = Root.LoadSaveEnabled;
             ColorPickerEnaCb.Checked = Root.ColorPickerEnabled;
             SwapSnapsBehviorsCb.Checked = !Root.SwapSnapsBehaviors;
+
+            pboxDefaultFontColor.BackColor = Color.FromArgb(255, Root.DefaultFontColor);
+            pboxDefaultFontColor.AccessibleName = Root.DefaultFontColor.A.ToString();
+            DefaultFontColorCb.Checked = Root.DefaultFontColor.A != 0;
+            pboxDefaultFontColor.Visible = DefaultFontColorCb.Checked;
+
+            pboxDefaultTagColor.BackColor = Color.FromArgb(255, Root.DefaultTagColor);
+            pboxDefaultTagColor.AccessibleName = Root.DefaultTagColor.A.ToString();
+            DefaultTagColorCb.Checked = Root.DefaultTagColor.A != 0;
+            pboxDefaultTagColor.Visible = DefaultTagColorCb.Checked;
 
             AltTabActivateCb.Checked = Root.AltTabPointer;
             KeepUnfoldedPointerCb.Checked = Root.KeepUnDockedAtPointer;
@@ -638,6 +667,23 @@ namespace gInk
                 }
         }
 
+        private void pboxFont_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = ((PictureBox)sender);
+            PenModifyDlg dlg = new PenModifyDlg(Root);
+            Microsoft.Ink.DrawingAttributes da = new Microsoft.Ink.DrawingAttributes();
+            da.Color = pb.BackColor;
+            da.Transparency = (byte)(255 - byte.Parse(pb.AccessibleName));
+            if (dlg.ModifyPen(ref da))
+            {
+                pb.BackColor = da.Color;
+                pb.AccessibleName = (255 - da.Transparency).ToString();
+                if (pb.Name.Contains("Font"))
+                    Root.DefaultFontColor = Color.FromArgb(255 - da.Transparency, da.Color);
+                else
+                    Root.DefaultTagColor = Color.FromArgb(255 - da.Transparency, da.Color);
+            }
+        }
 
         private void pboxPens_Click(object sender, EventArgs e)
 		{
@@ -1544,6 +1590,22 @@ namespace gInk
         private void TextBackgroundLst_SelectedIndexChanged(object sender, EventArgs e)
         {
             Root.TextBackground = TextBackgroundLst.SelectedIndex;
+        }
+
+        private void DefaultFontColorCb_Click(object sender, EventArgs e)
+        {
+            bool b = ((CheckBox)sender).Checked;
+            pboxDefaultFontColor.Visible = b;
+            pboxDefaultFontColor.AccessibleName = b ? "255" : "0";
+            Root.DefaultFontColor = Color.FromArgb(b ? 255 : 0, pboxDefaultFontColor.BackColor);
+        }
+
+        private void DefaultTagColorCb_Click(object sender, EventArgs e)
+        {
+            bool b = ((CheckBox)sender).Checked;
+            pboxDefaultTagColor.Visible = b;
+            pboxDefaultTagColor.AccessibleName = b ? "255" : "0";
+            Root.DefaultTagColor = Color.FromArgb(b ? 255 : 0, pboxDefaultTagColor.BackColor);           
         }
     }
 }

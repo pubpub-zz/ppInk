@@ -405,6 +405,10 @@ namespace gInk
         public bool TextBold = false;
         public double TextDlgHiddenOpacity = .1;
         public bool TextDlgHiddenModify = false;
+        public Color DefaultFontColor = Color.Transparent;
+        public Color OriginalDefFontColor = Color.Transparent;
+        public Color DefaultTagColor = Color.Transparent;
+        public Color OriginalDefTagColor = Color.Transparent;
 
         public int TextBackground = 0;
 
@@ -1044,6 +1048,13 @@ namespace gInk
             return penid;
         }
 
+        private static Color StringToColor(string colorStr)
+        {
+            TypeConverter cc = TypeDescriptor.GetConverter(typeof(Color));
+            var result = (Color)cc.ConvertFromString(colorStr);
+            return result;
+        }
+
         public void ReadOptions(string file)
 		{
             string file2 = Path.GetFileName(file);
@@ -1431,6 +1442,28 @@ namespace gInk
                             int.TryParse(sPara, out TextBackground);
                             if (TextBackground < 0 || TextBackground > 5)
                                 TextBackground = 0;
+                            break;
+                        case "TEXT_DEFAULT_COLOR":
+                            try
+                            {
+                                DefaultFontColor = StringToColor(sPara);
+                                OriginalDefFontColor = DefaultFontColor;
+                            }
+                            catch (Exception e)
+                            {
+                                ;
+                            }
+                            break;
+                        case "NUMBER_DEFAULT_COLOR":
+                            try
+                            {
+                                DefaultFontColor = StringToColor(sPara);
+                                OriginalDefTagColor = DefaultFontColor;
+                            }
+                            catch (Exception e)
+                            {
+                                ;
+                            }
                             break;
                         case "NUMBERS":           // Font(string),italique(boolean),Bold(boolean),size(float) of the text in % of the screen, also defines the size of the
                             {
@@ -2271,6 +2304,18 @@ namespace gInk
                             break;
                         case "TEXT_BACKGROUND":
                             sPara = TextBackground.ToString();
+                            break;
+                        case "TEXT_DEFAULT_COLOR":
+                            if (DefaultFontColor == OriginalDefFontColor)  // to Prevent to Overwrite
+                                sPara = "";
+                            else
+                                sPara = DefaultFontColor.ToString();
+                            break;
+                        case "NUMBER_DEFAULT_COLOR":
+                            if (DefaultTagColor == OriginalDefTagColor)
+                                sPara = "";
+                            else
+                                sPara = DefaultTagColor.ToString();
                             break;
                         case "NUMBERS":           // size of the tag in % of the screen
                             sPara = TagFont + "," + (TagItalic ? "True" : "False") + "," + (TagBold ? "True" : "False") + "," + (TagSize / System.Windows.SystemParameters.PrimaryScreenWidth * 100.0).ToString(CultureInfo.InvariantCulture);

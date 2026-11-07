@@ -330,6 +330,7 @@ namespace gInk
 		public int Snapping = 0;  // <=0: not snapping, 1: waiting finger, 2:dragging
 		public int SnappingX = -1, SnappingY = -1;
 		public Rectangle SnappingRect;
+        public DateTime SnappingTime = DateTime.MaxValue;
 		public int UponButtonsUpdate = 0;
 		public bool UponTakingSnap = false;
 		public bool UponBalloonSnap = false;

@@ -1515,8 +1515,100 @@ namespace gInk
 
             }
         }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public int X;
+            public int Y;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+
+        public static string GetExecutableName(IntPtr hWnd)
+        {
+            if (hWnd == IntPtr.Zero) return string.Empty;
+
+            // Récupérer le PID
+            GetWindowThreadProcessId(hWnd, out uint processId);
+
+            if (processId == 0) return string.Empty;
+
+            try
+            {
+                // Ouvrir le processus via .NET
+                using (Process proc = Process.GetProcessById((int)processId))
+                {
+                    return proc.ProcessName; // Retourne le nom sans l'extension .exe
+                }
+            }
+            catch (Exception)
+            {
+                // Gère les cas où le processus s'est fermé ou si les permissions sont insuffisantes
+                return string.Empty;
+            }
+        }
+
+
+        private static IntPtr getWindowBelowAtPos(IntPtr curr_hwnd, int left0, int top0)
+        {
+            Console.WriteLine($"???? {curr_hwnd} = {left0}, {top0}");
+            POINT targetPoint = new POINT { X = left0, Y = top0 };
+            int matchCount = 0;
+            RECT rect;
+            GetWindowThreadProcessId(curr_hwnd, out uint myProcessId);
+            IntPtr foundHwnd = IntPtr.Zero;
+            EnumWindows((hWnd, lParam) =>
+            {
+                // On ne traite que les fenêtres visibles
+                if (IsWindowVisible(hWnd))
+                {
+                    GetWindowThreadProcessId(hWnd, out uint processId);
+                    if (processId == myProcessId) return true; // next loop we are still in ppInk
+                    if (GetWindowRect(hWnd, out rect))
+                    {
+                        // Vérifie si le point est à l'intérieur du rectangle de la fenêtre
+                        if (PtInRect(ref rect, targetPoint))
+                        {
+                            // Récupération du titre de la fenêtre
+                            foundHwnd = hWnd;
+                            StringBuilder titleBuilder = new StringBuilder(256);
+                            GetWindowText(hWnd, titleBuilder, titleBuilder.Capacity);
+                            string title = titleBuilder.ToString();
+
+                            // Si la fenêtre n'a pas de titre, on affiche une mention générique
+                            if (string.IsNullOrWhiteSpace(title))
+                            {
+                                title = "[Fenêtre sans nom / Arrière-plan]";
+                            }
+
+                            matchCount++;
+                            Console.WriteLine($"{matchCount}. Nom({hWnd} - {GetExecutableName(hWnd)}): {title}");
+                            Console.WriteLine($"   Coordonnées -> Left: {rect.Left}, Top: {rect.Top}, Right: {rect.Right}, Bottom: {rect.Bottom}");
+                            Console.WriteLine(new string('-', 40));
+                            return false;
+                        }
+                    }
+                }
+                return (matchCount<=2); // Continue le parcours de l'énumération ; normalement toujours true ; sortie par le return au dessus
+            }, IntPtr.Zero);
+
+            return foundHwnd;
+        }
+
         protected override void WndProc(ref Message msg)
         {
+
             if (msg.Msg == 0x001C) //WM_ACTIVATEAPP : generated through alt+tab
             {
                 if (Initializing || AddM3UEntryInProgress)        // This is normally because we have not yet finish initialisation, we ignore the action...
@@ -3112,6 +3204,7 @@ namespace gInk
                 Root.SnappingY = e.Y;
                 Root.SnappingRect = new Rectangle(e.X, e.Y, 0, 0);
                 Root.Snapping = 2;
+                Root.SnappingTime = DateTime.UtcNow;
             }
 
             /*if (!Root.InkVisible && Root.Snapping <= 0)
@@ -3243,7 +3336,13 @@ namespace gInk
         {
             float pos;
             //Console.WriteLine("MouseMove");
-            if (!Focused && Root.WindowRect.Width > 0 && !Root.AltTabPointer)
+            if ((Math.Abs(Root.SnappingX - e.X) < 5 && Math.Abs(Root.SnappingY - e.Y) < 5 
+                && (DateTime.UtcNow - Root.SnappingTime).TotalSeconds >= Root.LongClickTime))
+            {
+                IC_MouseUp(null, e);
+            }
+
+                if (!Focused && Root.WindowRect.Width > 0 && !Root.AltTabPointer)
             {
                 Focus();
                 AltTabActivate();
@@ -3460,10 +3559,33 @@ namespace gInk
                 StartStopPickUpColor(2);
             if (Root.Snapping == 2)
             {
-                int left = Math.Min(Root.SnappingX, e.X);
-                int top = Math.Min(Root.SnappingY, e.Y);
-                int width = Math.Abs(Root.SnappingX - e.X);
-                int height = Math.Abs(Root.SnappingY - e.Y);
+                int left, top, width, height;
+                
+                width = Math.Abs(Root.SnappingX - e.X);
+                height = Math.Abs(Root.SnappingY - e.Y);
+                if ((e.Button == MouseButtons.Right || (int)e.Button == 2) ||
+                    (width < 5 && height < 5 && (DateTime.UtcNow - Root.SnappingTime).TotalSeconds >= Root.LongClickTime)) // equiv click droit
+                {
+                    Console.WriteLine("Snap sub window");               
+                    GetCursorPos(out POINT absPos);
+                    IntPtr hwndBelow = getWindowBelowAtPos(this.Handle,absPos.X, absPos.Y); // ??? Probl
+                    //GetWindowRect(hwndBelow, out RECT rectBelow);
+                    DwmGetWindowAttribute(hwndBelow, 9, out RECT rectBelow, Marshal.SizeOf(typeof(RECT)));
+                    Point relPos = this.PointToClient(new Point(rectBelow.Left,rectBelow.Top));
+                    left = relPos.X;
+                    top = relPos.Y;
+                    width = rectBelow.Right - rectBelow.Left;
+                    height = rectBelow.Bottom - rectBelow.Top;
+                }
+                else
+                {
+                    Console.WriteLine("Standard Snap");
+                    left = Math.Min(Root.SnappingX, e.X);
+                    top = Math.Min(Root.SnappingY, e.Y);
+                    width = Math.Abs(Root.SnappingX - e.X);
+                    height = Math.Abs(Root.SnappingY - e.Y);
+                }
+                Console.WriteLine($"capt: {left},{top} - {width},{height}");
                 if (width < 5 || height < 5)
                 {
                     if (Root.ResizeDrawingWindow)
@@ -8180,10 +8302,36 @@ namespace gInk
         static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern int GetWindowTextLength(IntPtr hWnd);
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmGetWindowAttribute(IntPtr hwnd, int attr, out RECT attrValue, int attrSize);
         [DllImport("user32.dll")]
         public static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint ProcessId);
         [DllImport("Kernel32.dll")]
         private static extern bool QueryFullProcessImageName([In] IntPtr hProcess, [In] uint dwFlags, [Out] StringBuilder lpExeName, [In, Out] ref uint lpdwSize);
+
+        // Parcours des fentres
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
+
+        // Récupérer la position globale de la souris
+        [DllImport("user32.dll")]
+        public static extern bool GetCursorPos(out POINT lpPoint);
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsWindowVisible(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool PtInRect(ref RECT lprc, POINT pt);
+
+        //[DllImport("user32.dll")]
+        //private static extern IntPtr GetWindow(IntPtr hWnd, uint uCmd);
+
+        //[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        //private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
     }
 }

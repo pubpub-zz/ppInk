@@ -1501,6 +1501,10 @@ namespace gInk
             {
                 //Console.WriteLine("process ");
                 SelectPen(LastPenSelected);
+                if (SavedTool == Tools.Invalid)
+                    SavedTool = Tools.Hand;
+                if (SavedFilled < 0)
+                    SavedFilled = Filling.NoFrame;
                 SelectTool(SavedTool, SavedFilled);
                 SavedTool = -1;
                 SavedFilled = -1;
@@ -4588,6 +4592,8 @@ namespace gInk
                 SelectPen(LastPenSelected);
                 if (SavedTool == Tools.Invalid)
                     SavedTool = Tools.Hand;
+                if (SavedFilled < 0)
+                    SavedFilled = Filling.NoFrame;
                 SelectTool(SavedTool, SavedFilled);
                 SavedTool = Tools.Invalid;
                 SavedFilled = Filling.NoFrame;

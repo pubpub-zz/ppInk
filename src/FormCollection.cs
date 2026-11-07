@@ -4349,7 +4349,15 @@ namespace gInk
                 StrokesSelection.Clear();
                 InprogressSelection = null;
                 Root.UponAllDrawingUpdate = true;
-                ActivateStrokesInput(true);
+                try
+                {
+                    ActivateStrokesInput(true);
+                }
+                catch
+                {
+                    // as a backup we assert the flag to do it later... 
+                    SetWindowInputRectFlag = true;
+                }
                 try
                 {
                     if (IC.Cursor?.Tag != null && (int)IC.Cursor?.Tag == 2)
@@ -4387,7 +4395,14 @@ namespace gInk
                 Root.PanMode = true;
                 ModifyStrokesSelection(AppendToSelection, ref InprogressSelection, StrokesSelection); // not used inhere but just because button is in the part of the subtools
                 Root.LassoMode = false;
-                ActivateStrokesInput(false);
+                try  // see  https://github.com/pubpub-zz/ppInk/issues/381
+                {
+                    ActivateStrokesInput(false);
+                }
+                catch
+                {
+                    // No way to postpone a new attempt and considered as of no use.
+                }
             }
             else if (pen == -2)
             {
@@ -4467,7 +4482,15 @@ namespace gInk
                     break;
                 }
 
-                ActivateStrokesInput(true);
+                try // see  https://github.com/pubpub-zz/ppInk/issues/381
+                {
+                    ActivateStrokesInput(true);
+                }
+                catch
+                {
+                    // as a backup we assert the flag to do it later...
+                    SetWindowInputRectFlag = true;
+                }
             }
             else if (pen >= 0)
             {
@@ -4657,7 +4680,15 @@ namespace gInk
 
             PolyLineLastX = Int32.MinValue; PolyLineLastY = Int32.MinValue; PolyLineInProgress = null;
             Root.gpPenWidthVisible = false;
-            ActivateStrokesInput(false);
+            try
+            {
+                ActivateStrokesInput(false);
+            }
+            catch
+            {
+                // as a backup we assert the flag to do it later... 
+                // SetWindowInputRectFlag = true;
+            }
             if (ZoomForm.Visible)
                 btZoom_click(btZoom, null);
             try
@@ -4750,7 +4781,15 @@ namespace gInk
             {
                 if (AltKeyPressed() && Root.PenAttr[Root.SavedPenDA] == null)
                     Root.PenAttr[Root.SavedPenDA] = Root.PenAttr[Root.CurrentPen].Clone();
-                ActivateStrokesInput(false);
+                try
+                {
+                    ActivateStrokesInput(false);
+                }
+                catch
+                {
+                    // as a backup we assert the flag to do it later... 
+                    // SetWindowInputRectFlag = true;
+                }
                 Root.ColorPickerMode = true;
                 Root.PickupTransparency = Root.PenAttr[Root.CurrentPen].Transparency;
 
@@ -4772,7 +4811,15 @@ namespace gInk
             }
             if (Active == 0)
             {
-                ActivateStrokesInput(true);
+                try
+                {
+                    ActivateStrokesInput(true);
+                }
+                catch
+                {
+                    // as a backup we assert the flag to do it later... 
+                    SetWindowInputRectFlag = true;
+                }
                 //if (Root.CanvasCursor == 1)
                 SetPenTipCursor();
                 /*else
@@ -4837,7 +4884,15 @@ namespace gInk
 
             if (Root.Snapping > 0)
                 return;
-            ActivateStrokesInput(false);
+            try
+            {
+                ActivateStrokesInput(false);
+            }
+            catch
+            {
+                // as a backup we assert the flag to do it later... 
+                // SetWindowInputRectFlag = true;
+            }
             PolyLineLastX = Int32.MinValue; PolyLineLastY = Int32.MinValue; PolyLineInProgress = null;
             /*try
             {
@@ -4908,7 +4963,15 @@ namespace gInk
 
         public void ExitSnapping(bool cancel)
         {
-            ActivateStrokesInput(true);
+            try
+            {
+                ActivateStrokesInput(true);
+            }
+            catch
+            {
+                // as a backup we assert the flag to do it later... 
+                SetWindowInputRectFlag = true;
+            }
 
             Root.SnappingX = -1;
             Root.SnappingY = -1;
@@ -5290,7 +5353,15 @@ namespace gInk
             try
             {
                 if (SetWindowInputRectFlag) // alternative to prevent some error when trying to call this function from WM_ACTIVATE event handler
-                    ActivateStrokesInput(true);
+                    try
+                    {
+                        ActivateStrokesInput(true);
+                    }
+                    catch
+                    {
+                        // as a backup we assert the flag to do it later... 
+                        ;// overwriten just below SetWindowInputRectFlag = true;
+                    }
                 SetWindowInputRectFlag = false;
             }
             catch { }
@@ -7103,8 +7174,10 @@ namespace gInk
                     i = Tools.Edit;
             else if (((Button)sender).Name.Contains("ClipArt"))
             {
-                AllowInteractions(true);
-                TextEdited = true;
+                try
+                {
+                    AllowInteractions(true);
+                    TextEdited = true;
                 setClipArtDlgPosition();
                 if (ClipartsDlg.Visible)
                 {
@@ -7122,10 +7195,21 @@ namespace gInk
                         i = Tools.ClipArt;
                     
                     LineForPatterns = null;
-                    PatternLastPtIndex = -1;
-                    PatternLastPtRemain = 0;
+                        PatternLastPtIndex = -1;
+                        PatternLastPtRemain = 0;
+                    }
                 }
-                AllowInteractions(false);
+                catch
+                {
+                    i = -1;
+                }
+                try
+                {
+                    AllowInteractions(false);
+                }
+                catch
+                {
+                }
                 if (i < 0) return;
             }
             else if (((Button)sender).Name.Contains("Clip"))    // i.e.Clip1/Clip2/Clip3

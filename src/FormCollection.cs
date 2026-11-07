@@ -5926,15 +5926,23 @@ namespace gInk
                 LastRedoStatus = pressed;
 
                 pressed = (GetKeyState(Root.Hotkey_Pointer.Key) & 0x8000) == 0x8000;
-                if (pressed && !LastPointerStatus && Root.Hotkey_Pointer.ModifierMatch(control, alt, shift, win))
+                if (pressed && !LastPointerStatus)
                 {
-                    //SelectPen(-2);
-                    if (AltKeyPressed())
+                    /*if (AltKeyPressed())
                         MouseTimeDown = DateTime.FromBinary(0);
                     else
+                        MouseTimeDown = DateTime.Now;*/
+                    LongHkPress = DateTime.Now.AddSeconds(Root.LongHKPressDelay);
+                }
+                if (LastPointerStatus && (!pressed || (DateTime.Now.CompareTo(LongHkPress) > 0)))
+                {
+                    if (DateTime.Now.CompareTo(LongHkPress) < 0)
                         MouseTimeDown = DateTime.Now;
+                    else
+                        MouseTimeDown = DateTime.FromBinary(0);
+                    LongHkPress = DateTime.Now.AddYears(1);
+                    LastPointerStatus = pressed; // bt could be long... to prevent to restart process...
                     btPointer_Click(btPointer, null);
-                    FromHandToLineOnShift = false;
                 }
                 LastPointerStatus = pressed;
 
@@ -5958,14 +5966,23 @@ namespace gInk
                 LastScaleRotStatus = pressed;
 
                 pressed = (GetKeyState(Root.Hotkey_Clear.Key) & 0x8000) == 0x8000;
-                if (pressed && !LastClearStatus && Root.Hotkey_Clear.ModifierMatch(control, alt, shift, win))
+                if (pressed && !LastClearStatus)
                 {
-                    if (AltKeyPressed())
+                    /*if (AltKeyPressed())
                         MouseTimeDown = DateTime.FromBinary(0);
                     else
+                        MouseTimeDown = DateTime.Now;*/
+                    LongHkPress = DateTime.Now.AddSeconds(Root.LongHKPressDelay);
+                }
+                if (LastClearStatus && (!pressed || (DateTime.Now.CompareTo(LongHkPress) > 0)))
+                {
+                    if (DateTime.Now.CompareTo(LongHkPress) < 0)
                         MouseTimeDown = DateTime.Now;
+                    else
+                        MouseTimeDown = DateTime.FromBinary(0);
+                    LastClearStatus = pressed; // bt could be long... to prevent to restart process...
+                    LongHkPress = DateTime.Now.AddYears(1);
                     btClear_Click(btClear, null);
-                    FromHandToLineOnShift = false;
                 }
                 LastClearStatus = pressed;
 
@@ -5988,7 +6005,7 @@ namespace gInk
                 pressed = (GetKeyState(Root.Hotkey_Snap.Key) & 0x8000) == 0x8000;
                 if (pressed && !LastSnapStatus && Root.Hotkey_Snap.ModifierMatch(control, alt, shift, win))
                 {
-                    if (AltKeyPressed())
+                    if (AltKeyPressed() && !Root.Hotkey_Clear.Alt)
                         MouseTimeDown = DateTime.FromBinary(0);
                     else
                         MouseTimeDown = DateTime.Now;
@@ -6382,6 +6399,15 @@ namespace gInk
 				return;
 			}
             PolyLineLastX = Int32.MinValue; PolyLineLastY = Int32.MinValue; PolyLineInProgress = null;
+            if (KeyCodeState(SnapInPointerKeys.Alt))
+            {
+                if (Root.FormCollection.IC.Ink.Strokes[0].ExtendedProperties.Contains(Root.ISHIDDEN_GUID))
+                    Root.FormCollection.IC.Ink.Strokes[0].ExtendedProperties.Remove(Root.ISHIDDEN_GUID);
+                else
+                    Root.FormCollection.IC.Ink.Strokes[0].ExtendedProperties.Add(Root.ISHIDDEN_GUID, true);
+                Root.UponAllDrawingUpdate = true;
+            }
+            else
             Root.SetInkVisible(!Root.InkVisible);
 		}
 
@@ -7178,23 +7204,23 @@ namespace gInk
                 {
                     AllowInteractions(true);
                     TextEdited = true;
-                setClipArtDlgPosition();
-                if (ClipartsDlg.Visible)
-                {
-                    ClipartsDlg.Hide();
-                    ClipartsDlg.Visible = false;
-                }
-                i = -1;
-                if (ClipartsDlg.ShowDialog() == DialogResult.OK)
-                {
-                    //Root.ImageStamp = new ClipArtData { ImageStamp = ClipartsDlg.ImageStamp, X = ClipartsDlg.ImgSizeX, Y = ClipartsDlg.ImgSizeY, Filling = ClipartsDlg.ImageStampFilling,PatternLine = ClipartsDlg.PutClipartOnLine };
-                    Root.ImageStamp = ClipartsDlg.getClipArtData();
-                    if (ClipartsDlg.PutClipartOnLine)
-                        i = Tools.PatternLine;
-                    else
-                        i = Tools.ClipArt;
-                    
-                    LineForPatterns = null;
+                    setClipArtDlgPosition();
+                    if (ClipartsDlg.Visible)
+                    {
+                        ClipartsDlg.Hide();
+                        ClipartsDlg.Visible = false;
+                    }
+                    i = -1;
+                    if (ClipartsDlg.ShowDialog() == DialogResult.OK)
+                    {
+                        //Root.ImageStamp = new ClipArtData { ImageStamp = ClipartsDlg.ImageStamp, X = ClipartsDlg.ImgSizeX, Y = ClipartsDlg.ImgSizeY, Filling = ClipartsDlg.ImageStampFilling,PatternLine = ClipartsDlg.PutClipartOnLine };
+                        Root.ImageStamp = ClipartsDlg.getClipArtData();
+                        if (ClipartsDlg.PutClipartOnLine)
+                            i = Tools.PatternLine;
+                        else
+                            i = Tools.ClipArt;
+
+                        LineForPatterns = null;
                         PatternLastPtIndex = -1;
                         PatternLastPtRemain = 0;
                     }
